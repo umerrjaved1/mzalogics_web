@@ -1,0 +1,22 @@
+---
+title: Why vibe-coded apps stall at go-live
+description: The audit checklist we use when a prototype needs to become a system someone can operate.
+date: "2026-07-22"
+category: Rescue
+author: MZA Logics
+minutes: 4
+---
+
+Speed is not the enemy. Undocumented auth, leaked secrets, and no tests are. We start every rescue with an audit because changing unknown code is how both sides lose.
+
+## What we always check
+
+- Authentication and session handling
+- Secrets and environment leakage
+- Input validation and injection
+- Error handling that actually tells you what failed
+- The absence of a runbook
+
+## Then we quote execution
+
+You get a written plan first. Implementation is a separate, scoped phase. That is slower than a “quick fix” and much cheaper than an incident.

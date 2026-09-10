@@ -1,0 +1,43 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Container, Eyebrow, Section } from "@/components/ui/Container";
+import { getInsights } from "@/lib/insights";
+
+export const metadata: Metadata = {
+  title: "Insights",
+  description: "Practical notes on enterprise delivery, production AI, and software that has to survive operations.",
+};
+
+export default function InsightsPage() {
+  const posts = getInsights();
+
+  return (
+    <Section className="dot-grid">
+      <Container>
+        <Eyebrow>Insights</Eyebrow>
+        <h1 className="mt-3 text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
+          Software that has to survive Monday
+        </h1>
+        <p className="mt-4 max-w-2xl text-muted">
+          Practical notes from delivery — not listicles. Replace with your own writing when you have it.
+        </p>
+        <div className="mt-12 space-y-4">
+          {posts.map((post) => (
+            <Link
+              key={post.slug}
+              href={`/insights/${post.slug}`}
+              className="block rounded-3xl border border-line bg-white p-6 hover:border-navy"
+            >
+              <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+                {post.category} · {post.date} · {post.minutes} min
+              </p>
+              <h2 className="mt-2 text-xl font-semibold text-navy">{post.title}</h2>
+              <p className="mt-2 text-sm text-muted">{post.description}</p>
+              <p className="mt-3 text-xs text-muted">By {post.author}</p>
+            </Link>
+          ))}
+        </div>
+      </Container>
+    </Section>
+  );
+}
