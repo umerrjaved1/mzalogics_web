@@ -192,8 +192,9 @@ export function LeadForm({
                       <button
                         key={btn.id}
                         type="button"
+                        aria-pressed={projectType === btn.id}
                         onClick={() => setProjectType(btn.id)}
-                        className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition ${
+                        className={`rounded-xl px-3.5 py-2 text-sm font-semibold transition ${
                           projectType === btn.id
                             ? "bg-navy text-white shadow-sm"
                             : "border border-black/8 bg-white text-navy hover:bg-black/5"
@@ -210,6 +211,7 @@ export function LeadForm({
                   <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
                     <button
                       type="button"
+                      aria-pressed={selectedTrack === "ai"}
                       onClick={() => handleTrackSelect("ai")}
                       className={`rounded-xl p-3 text-left transition ${
                         selectedTrack === "ai"
@@ -228,6 +230,7 @@ export function LeadForm({
 
                     <button
                       type="button"
+                      aria-pressed={selectedTrack === "manual"}
                       onClick={() => handleTrackSelect("manual")}
                       className={`rounded-xl p-3 text-left transition ${
                         selectedTrack === "manual"
@@ -246,6 +249,7 @@ export function LeadForm({
 
                     <button
                       type="button"
+                      aria-pressed={selectedTrack === "undecided"}
                       onClick={() => handleTrackSelect("undecided")}
                       className={`col-span-2 sm:col-span-1 rounded-xl p-3 text-left transition ${
                         selectedTrack === "undecided"
@@ -269,7 +273,7 @@ export function LeadForm({
                 <input type="hidden" name="projectType" value={projectType} />
 
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="text-xs font-semibold text-navy">
+                  <label className="text-sm font-semibold text-navy">
                     Full Name *
                     <input
                       name="name"
@@ -279,7 +283,7 @@ export function LeadForm({
                     />
                   </label>
 
-                  <label className="text-xs font-semibold text-navy">
+                  <label className="text-sm font-semibold text-navy">
                     Work Email *
                     <input
                       name="email"
@@ -290,7 +294,7 @@ export function LeadForm({
                     />
                   </label>
 
-                  <label className="text-xs font-semibold text-navy sm:col-span-2">
+                  <label className="text-sm font-semibold text-navy sm:col-span-2">
                     Company / Organization
                     <input
                       name="company"
@@ -354,7 +358,7 @@ export function LeadForm({
                     </label>
                   ) : null}
 
-                  <label className="text-xs font-semibold text-navy sm:col-span-2">
+                  <label className="text-sm font-semibold text-navy sm:col-span-2">
                     {extraFields === "rescue" ? "What issues is the project facing?" : "Project Overview & Goals *"}
                     <textarea
                       name="message"

@@ -1,227 +1,143 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  FileCode,
-  Users2,
-  CheckCircle,
-  Rocket,
-  ShieldCheck,
-  ArrowRight,
-  GitBranch,
-  Search,
-  Sparkles,
-} from "lucide-react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
-interface StepDetails {
-  number: string;
-  title: string;
-  subtitle: string;
-  duration: string;
-  deliverables: string[];
-  team: string;
-  icon: React.ReactNode;
-}
-
-const steps: StepDetails[] = [
+const frames = [
   {
     number: "01",
-    title: "Discovery & Blueprint",
-    subtitle: "We translate business goals into technical specifications, API schemas, and clickable prototypes.",
-    duration: "Day 1 – 3",
-    deliverables: ["Product Requirement Doc (PRD)", "System Architecture Diagram", "Figma Clickable Prototype"],
-    team: "Lead Architect + Product Designer",
-    icon: <Search size={20} />,
+    title: "Blueprint",
+    caption: "Goals become a clickable prototype.",
+    art: "sketch",
   },
   {
     number: "02",
-    title: "Pod Assembly & CI/CD",
-    subtitle: "A dedicated pod of engineers is provisioned with automated testing pipelines and repo templates.",
-    duration: "Day 4 – 5",
-    deliverables: ["Private Monorepo Setup", "Automated CI/CD Pipeline", "Staging Environment Provisioned"],
-    team: "DevOps Engineer + Senior Dev",
-    icon: <GitBranch size={20} />,
+    title: "Pod live",
+    caption: "Repo, CI, and staging in two days.",
+    art: "repo",
   },
   {
     number: "03",
-    title: "Dual-Track Sprint Execution",
-    subtitle: "Rapid 14-day agile sprints with daily standups, live demo builds, and transparent velocity tracking.",
-    duration: "Sprint 1 – N",
-    deliverables: ["Bi-Weekly Deployable Builds", "Interactive Preview Links", "Clean Git Commits"],
-    team: "2x Full-Stack + Mobile Engineer",
-    icon: <FileCode size={20} />,
+    title: "Sprint",
+    caption: "You see a build every two weeks.",
+    art: "board",
   },
   {
     number: "04",
-    title: "Automated QA & Security Gate",
-    subtitle: "Every line of code undergoes automated vulnerability scanning, load testing, and manual senior review.",
-    duration: "Continuous",
-    deliverables: ["OWASP Security Scan", "99%+ Test Coverage Report", "SOC-2 Ready Audit Trail"],
-    team: "QA Automation + Security Lead",
-    icon: <ShieldCheck size={20} />,
+    title: "Gate",
+    caption: "Tests and a senior review before merge.",
+    art: "shield",
   },
   {
     number: "05",
-    title: "Global Launch & SLA",
-    subtitle: "Seamless App Store, Play Store, and cloud deployment with zero downtime and guaranteed uptime SLA.",
-    duration: "Launch Day",
-    deliverables: ["App Store & Play Store Approval", "Production Domain DNS & SSL", "24/7 SLA Monitoring"],
-    team: "Full Pod + Operations Lead",
-    icon: <Rocket size={20} />,
+    title: "Launch",
+    caption: "Stores and cloud, with an SLA.",
+    art: "rocket",
   },
-];
+] as const;
+
+function FrameArt({ art }: { art: (typeof frames)[number]["art"] }) {
+  return (
+    <svg viewBox="0 0 160 100" className="h-24 w-full" aria-hidden>
+      {art === "sketch" && (
+        <g fill="none" stroke="#09061a" strokeWidth="2">
+          <rect x="20" y="18" width="70" height="64" rx="8" />
+          <path d="M100 28h36M100 44h28M100 60h32" stroke="#3d3d54" />
+        </g>
+      )}
+      {art === "repo" && (
+        <g fill="none" stroke="#09061a" strokeWidth="2">
+          <circle cx="40" cy="50" r="10" />
+          <circle cx="80" cy="30" r="8" />
+          <circle cx="80" cy="70" r="8" />
+          <circle cx="120" cy="50" r="10" />
+          <path d="M50 50h20M80 38v24M88 30h22M88 70h22" />
+        </g>
+      )}
+      {art === "board" && (
+        <g fill="#09061a">
+          <rect x="18" y="22" width="36" height="56" rx="6" opacity="0.15" />
+          <rect x="62" y="22" width="36" height="40" rx="6" opacity="0.35" />
+          <rect x="106" y="22" width="36" height="28" rx="6" />
+        </g>
+      )}
+      {art === "shield" && (
+        <g fill="none" stroke="#09061a" strokeWidth="2.2">
+          <path d="M80 16l40 16v24c0 22-18 36-40 42-22-6-40-20-40-42V32z" />
+          <path d="M64 52l14 14 24-26" />
+        </g>
+      )}
+      {art === "rocket" && (
+        <g fill="none" stroke="#09061a" strokeWidth="2">
+          <path d="M80 16c18 20 22 40 18 58H62c-4-18 0-38 18-58z" />
+          <circle cx="80" cy="48" r="6" />
+          <path d="M62 74l-10 12M98 74l10 12" />
+        </g>
+      )}
+    </svg>
+  );
+}
 
 export function Process() {
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const activeStep = steps[activeStepIndex];
+  const [active, setActive] = useState(0);
 
   return (
-    <Section id="process" className="relative">
+    <Section id="process">
       <Container>
-        <div className="max-w-2xl">
-          <Eyebrow>How We Ship</Eyebrow>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-5xl">
-            From Day 1 to Production in 5 Proven Stages
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
-            No endless back-and-forth. No black-box development. Transparent sprints, verifiable milestones, and senior engineer accountability.
-          </p>
-        </div>
+        <Eyebrow>How we ship</Eyebrow>
+        <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-5xl">
+          Five frames, then production
+        </h2>
+        <p className="mt-3 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+          Follow the story. Tap a frame to see that stage.
+        </p>
 
-        {/* Step Navigation Bar */}
         <div
-          tabIndex={0}
-          role="region"
-          aria-label="Delivery process stages"
-          className="mt-12 flex gap-3 overflow-x-auto pb-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+          role="tablist"
+          aria-label="Delivery stages"
+          className="mt-10 flex gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-5 sm:overflow-visible"
         >
-          {steps.map((step, idx) => (
-            <button
-              key={step.number}
-              type="button"
-              onClick={() => setActiveStepIndex(idx)}
-              className={`flex min-w-[200px] flex-1 items-center gap-3 rounded-2xl border p-4 text-left transition-all ${activeStepIndex === idx
-                  ? "border-navy bg-navy text-white shadow-lg"
-                  : "border-black/8 bg-white text-navy hover:border-black/20 hover:bg-paper"
+          {frames.map((frame, idx) => {
+            const selected = active === idx;
+            return (
+              <button
+                key={frame.number}
+                type="button"
+                role="tab"
+                id={`process-tab-${idx}`}
+                aria-selected={selected}
+                aria-controls={`process-panel-${idx}`}
+                tabIndex={selected ? 0 : -1}
+                onClick={() => setActive(idx)}
+                onKeyDown={(e) => {
+                  if (e.key === "ArrowRight") setActive((i) => (i + 1) % frames.length);
+                  if (e.key === "ArrowLeft") setActive((i) => (i - 1 + frames.length) % frames.length);
+                }}
+                className={`min-w-[148px] shrink-0 rounded-3xl border p-4 text-left transition sm:min-w-0 ${
+                  selected
+                    ? "border-navy bg-navy text-white shadow-lg"
+                    : "border-black/8 bg-white text-navy hover:border-black/20"
                 }`}
-            >
-              <span
-                className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl text-xs font-bold ${activeStepIndex === idx ? "bg-accent-2 text-navy" : "bg-black/5 text-navy/60"
-                  }`}
               >
-                {step.number}
-              </span>
-              <div className="overflow-hidden">
-                <div className="text-xs font-semibold truncate">{step.title}</div>
-                <div className={`text-[11px] ${activeStepIndex === idx ? "text-accent-2" : "text-muted"}`}>
-                  {step.duration}
+                <FrameArt art={frame.art} />
+                <div className={`mt-2 text-sm font-bold ${selected ? "text-emerald-300" : "text-muted"}`}>
+                  {frame.number}
                 </div>
-              </div>
-            </button>
-          ))}
+                <div className="text-base font-bold">{frame.title}</div>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Interactive Active Step Stage Showcase */}
-        <SpotlightCard className="mt-6 p-7 sm:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <div>
-              <div className="flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-navy text-accent-2 shadow-sm">
-                  {activeStep.icon}
-                </span>
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted">
-                    Stage {activeStep.number} of 05 &middot; {activeStep.duration}
-                  </span>
-                  <h3 className="text-2xl font-bold text-navy sm:text-3xl">{activeStep.title}</h3>
-                </div>
-              </div>
-
-              <p className="mt-4 text-base leading-relaxed text-muted">{activeStep.subtitle}</p>
-
-              <div className="mt-6">
-                <div className="text-xs font-bold uppercase tracking-wider text-navy">Key Deliverables</div>
-                <ul className="mt-3 space-y-2 text-sm text-navy/80">
-                  {activeStep.deliverables.map((item) => (
-                    <li key={item} className="flex items-center gap-2.5">
-                      <CheckCircle size={16} className="text-emerald-500 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-6 flex items-center gap-2 rounded-xl bg-paper px-4 py-2.5 text-xs text-navy">
-                <Users2 size={16} className="text-muted" />
-                <span className="font-semibold">Pod Assignment:</span>
-                <span className="text-muted">{activeStep.team}</span>
-              </div>
-            </div>
-
-            {/* Visual Stage Console */}
-            <div className="rounded-2xl border border-black/8 bg-paper p-6 text-xs">
-              <div className="flex items-center justify-between border-b border-black/5 pb-3">
-                <span className="font-mono text-navy font-semibold">Stage_{activeStep.number}_Verification.json</span>
-                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
-                  Validated
-                </span>
-              </div>
-
-              <div className="mt-4 space-y-3 font-mono">
-                <div className="rounded-xl bg-white p-3 border border-black/5">
-                  <div className="text-muted text-[10px]">CURRENT PHASE</div>
-                  <div className="text-sm font-bold text-navy mt-0.5">{activeStep.title}</div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="rounded-xl bg-white p-3 border border-black/5">
-                    <div className="text-muted text-[10px]">ESTIMATED TIME</div>
-                    <div className="text-xs font-bold text-navy mt-0.5">{activeStep.duration}</div>
-                  </div>
-                  <div className="rounded-xl bg-white p-3 border border-black/5">
-                    <div className="text-muted text-[10px]">CODE REVIEW</div>
-                    <div className="text-xs font-bold text-emerald-700 mt-0.5">Senior Architect</div>
-                  </div>
-                </div>
-
-                <div className="rounded-xl bg-navy p-3 text-white">
-                  <div className="flex items-center justify-between text-[11px]">
-                    <span className="text-white/60">Quality Assurance</span>
-                    <span className="text-accent-2 font-bold">100% Pass Rate</span>
-                  </div>
-                  <div className="mt-2 h-1.5 w-full rounded-full bg-white/20">
-                    <div
-                      className="h-full rounded-full bg-accent-2 transition-all duration-500"
-                      style={{ width: `${((activeStepIndex + 1) / steps.length) * 100}%` }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Navigation arrows */}
-              <div className="mt-5 flex items-center justify-between pt-3 border-t border-black/5">
-                <button
-                  type="button"
-                  disabled={activeStepIndex === 0}
-                  onClick={() => setActiveStepIndex((i) => Math.max(0, i - 1))}
-                  className="rounded-lg px-3 py-1 text-xs font-semibold text-navy/70 hover:text-navy disabled:opacity-30"
-                >
-                  &larr; Previous Stage
-                </button>
-                <button
-                  type="button"
-                  disabled={activeStepIndex === steps.length - 1}
-                  onClick={() => setActiveStepIndex((i) => Math.min(steps.length - 1, i + 1))}
-                  className="rounded-lg bg-navy px-3 py-1 text-xs font-semibold text-white hover:bg-navy-light disabled:opacity-30"
-                >
-                  Next Stage &rarr;
-                </button>
-              </div>
-            </div>
-          </div>
-        </SpotlightCard>
+        <div
+          role="tabpanel"
+          id={`process-panel-${active}`}
+          aria-labelledby={`process-tab-${active}`}
+          className="mt-5 rounded-[28px] border border-black/8 bg-white px-6 py-8 sm:px-10"
+        >
+          <p className="text-2xl font-bold text-navy">{frames[active].title}</p>
+          <p className="mt-2 max-w-2xl text-lg leading-relaxed text-muted">{frames[active].caption}</p>
+        </div>
       </Container>
     </Section>
   );

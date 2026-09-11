@@ -34,8 +34,8 @@ export function AiDelivery() {
               Two Ways to Ship. <br />
               Zero Compromise on Quality.
             </h2>
-            <p className="mt-4 max-w-xl text-base text-white/70 sm:text-lg">
-              Every client has unique compliance and speed requirements. Choose between our AI-accelerated track for unmatched speed, or hand-crafted engineering for zero-LLM policy requirements.
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+              Pick speed with senior review, or a fully hand-written track when policy forbids LLMs.
             </p>
           </div>
 
@@ -43,11 +43,12 @@ export function AiDelivery() {
           <div className="flex rounded-full border border-white/15 bg-white/5 p-1.5 backdrop-blur-xl">
             <button
               type="button"
+              aria-pressed={selectedTrack === "ai"}
               onClick={() => setSelectedTrack("ai")}
-              className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold transition-all sm:text-sm ${
+              className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
                 selectedTrack === "ai"
                   ? "bg-accent-2 text-navy shadow-lg shadow-accent-2/20"
-                  : "text-white/70 hover:text-white"
+                  : "text-white/85 hover:text-white"
               }`}
             >
               <Zap size={15} />
@@ -55,11 +56,12 @@ export function AiDelivery() {
             </button>
             <button
               type="button"
+              aria-pressed={selectedTrack === "handcrafted"}
               onClick={() => setSelectedTrack("handcrafted")}
-              className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold transition-all sm:text-sm ${
+              className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
                 selectedTrack === "handcrafted"
                   ? "bg-white text-navy shadow-lg"
-                  : "text-white/70 hover:text-white"
+                  : "text-white/85 hover:text-white"
               }`}
             >
               <ShieldCheck size={15} />
@@ -79,11 +81,11 @@ export function AiDelivery() {
                 <h3 className="mt-4 text-2xl font-bold text-white sm:text-3xl">
                   AI-Driven Development Pod
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/75 sm:text-base">
-                  We harness curated AI coding copilots and automated test generators under the strict oversight of senior human architects. You get enterprise-grade software in half the time and at significantly lower cost.
+                <p className="mt-3 text-base leading-relaxed text-white/85">
+                  AI drafts. Senior architects review every line. You ship faster without giving up ownership.
                 </p>
 
-                <div className="mt-6 grid grid-cols-2 gap-4 text-xs">
+                <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 size={16} className="text-accent-2 shrink-0 mt-0.5" />
                     <span>2x to 3x Sprint Velocity</span>
@@ -122,7 +124,7 @@ export function AiDelivery() {
                     className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm"
                   >
                     <div className="text-3xl font-extrabold text-accent-2">{stat.value}</div>
-                    <div className="mt-2 text-xs font-medium text-white/70 leading-snug">{stat.label}</div>
+                    <div className="mt-2 text-sm font-medium leading-snug text-white/80">{stat.label}</div>
                   </div>
                 ))}
               </div>
@@ -136,11 +138,11 @@ export function AiDelivery() {
                 <h3 className="mt-4 text-2xl font-bold text-white sm:text-3xl">
                   Hand-Crafted Engineering Pod
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/75 sm:text-base">
-                  Zero AI generation. Zero telemetry. Every single line of code is manually written by our vetted senior software engineers. Ideal for regulated healthcare, fintech banking systems, and strict IP protection contracts.
+                <p className="mt-3 text-base leading-relaxed text-white/85">
+                  No generated code. Written by named engineers. Built for regulated healthcare and finance.
                 </p>
 
-                <div className="mt-6 grid grid-cols-2 gap-4 text-xs">
+                <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 size={16} className="text-white shrink-0 mt-0.5" />
                     <span>Zero AI LLM Assistance</span>
@@ -212,7 +214,7 @@ export function AiDelivery() {
                   </span>
                 </div>
                 <h5 className="mt-4 text-lg font-bold text-white">{step.title}</h5>
-                <p className="mt-2 text-xs leading-relaxed text-white/65">{step.body}</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">{step.body}</p>
               </div>
             ))}
           </div>

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
 import { LogoMarquee } from "@/components/home/LogoMarquee";
+import { WorkProof } from "@/components/home/WorkProof";
 import { Process } from "@/components/home/Process";
 import { Solutions } from "@/components/home/Solutions";
 import { AiDelivery } from "@/components/home/AiDelivery";
-import { Comparison } from "@/components/home/Comparison";
 import { PricingTables } from "@/components/PricingTables";
 import { Industries } from "@/components/home/Industries";
 import { TeamSection } from "@/components/home/TeamSection";
@@ -53,10 +53,10 @@ export default function Home() {
       <JsonLd data={faqJsonLd()} />
       <Hero />
       <LogoMarquee />
+      <WorkProof />
       <Process />
       <Solutions />
       <AiDelivery />
-      <Comparison />
       <PricingTables compact />
       <Industries />
       <TeamSection />
@@ -64,7 +64,7 @@ export default function Home() {
       <LeadForm
         kind="contact"
         title="Get a free quote"
-        intro="Tell us about the product and whether you want the AI-driven or hand-crafted track. WhatsApp 0300 3600188 or email Mzalogics@gmail.com — we reply within one business day."
+        intro="Tell us about the product and the track you want. WhatsApp 0300 3600188 — we reply within one business day."
         submitLabel="Contact us"
       />
       <Faq items={homeFaqs} />

@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
-import type { FaqItem } from "@/content/faqs";
+import { homeFaqs, type FaqItem } from "@/content/faqs";
 import { cn } from "@/lib/cn";
 
-export function Faq({ items }: { items: FaqItem[] }) {
+export function Faq({ items = homeFaqs }: { items?: FaqItem[] }) {
   const [open, setOpen] = useState(0);
 
   return (

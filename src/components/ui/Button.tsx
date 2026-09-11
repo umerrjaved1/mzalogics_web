@@ -9,6 +9,7 @@ type ButtonProps = {
   type?: "button" | "submit";
   onClick?: () => void;
   disabled?: boolean;
+  "aria-label"?: string;
 };
 
 export function Button({
@@ -19,6 +20,7 @@ export function Button({
   type = "button",
   onClick,
   disabled,
+  "aria-label": ariaLabel,
 }: ButtonProps) {
   const styles = cn(
     "inline-flex items-center justify-center gap-2 rounded-full text-[15px] font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy",
@@ -32,14 +34,14 @@ export function Button({
 
   if (href) {
     return (
-      <Link href={href} className={styles}>
+      <Link href={href} className={styles} aria-label={ariaLabel}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className={styles}>
+    <button type={type} onClick={onClick} disabled={disabled} className={styles} aria-label={ariaLabel}>
       {children}
     </button>
   );

@@ -98,6 +98,7 @@ export function Header() {
                   href={item.href}
                   className={cn(
                     "relative rounded-full px-3.5 py-1.5 text-[13.5px] font-semibold transition-all duration-200 xl:px-4 xl:text-[14px]",
+                    (item.href === "/talent" || item.href === "/insights") && "hidden xl:inline-flex",
                     dark
                       ? active
                         ? "bg-white text-navy shadow-sm"

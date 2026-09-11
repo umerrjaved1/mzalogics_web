@@ -52,8 +52,9 @@ export function TeamSection() {
             </span>
             <button
               type="button"
+              aria-pressed={selectedSeniority === "all"}
               onClick={() => setSelectedSeniority("all")}
-              className={`rounded-full px-4 py-2 text-xs font-bold transition ${
+              className={`rounded-full px-4 py-2 text-sm font-bold transition ${
                 selectedSeniority === "all"
                   ? "bg-navy text-white shadow-sm"
                   : "bg-paper text-navy/70 hover:text-navy"
@@ -64,9 +65,10 @@ export function TeamSection() {
             <button
               type="button"
               onClick={() => setSelectedSeniority("Senior / Lead")}
-              className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition ${
+              aria-pressed={selectedSeniority === "Senior / Lead"}
+              className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold transition ${
                 selectedSeniority === "Senior / Lead"
-                  ? "bg-navy text-accent-2 shadow-sm"
+                  ? "bg-navy text-emerald-300 shadow-sm"
                   : "bg-paper text-navy/70 hover:text-navy"
               }`}
             >
@@ -76,7 +78,8 @@ export function TeamSection() {
             <button
               type="button"
               onClick={() => setSelectedSeniority("Mid-Level")}
-              className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition ${
+              aria-pressed={selectedSeniority === "Mid-Level"}
+              className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold transition ${
                 selectedSeniority === "Mid-Level"
                   ? "bg-navy text-white shadow-sm"
                   : "bg-paper text-navy/70 hover:text-navy"
@@ -88,7 +91,8 @@ export function TeamSection() {
             <button
               type="button"
               onClick={() => setSelectedSeniority("Junior / Associate")}
-              className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition ${
+              aria-pressed={selectedSeniority === "Junior / Associate"}
+              className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold transition ${
                 selectedSeniority === "Junior / Associate"
                   ? "bg-navy text-white shadow-sm"
                   : "bg-paper text-navy/70 hover:text-navy"

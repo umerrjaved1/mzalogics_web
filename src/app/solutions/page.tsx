@@ -10,6 +10,16 @@ import { servicesJsonLd } from "@/lib/jsonld";
 
 import { site } from "@/lib/site";
 
+const serviceCovers: Record<string, string> = {
+  "ai-development": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=900&h=560&fit=crop",
+  "app-development": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=900&h=560&fit=crop",
+  "web-platforms": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&h=560&fit=crop",
+  "product-design": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=900&h=560&fit=crop",
+  "mvp-prototyping": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=900&h=560&fit=crop",
+  cloud: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&h=560&fit=crop",
+  cms: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=900&h=560&fit=crop",
+};
+
 export const metadata: Metadata = {
   title: "Software Engineering Solutions & Practices | Mobile, Web & AI",
   description:
@@ -35,8 +45,8 @@ export default function SolutionsPage() {
           <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
             End-to-end software development services
           </h1>
-          <p className="mt-4 max-w-2xl text-muted">
-            Launch faster. Scale smarter. Grow continuously. Explore what we build — or pick a plan that fits this stage.
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+            Pick a practice — mobile, web, AI, design, MVP, cloud, or CMS.
           </p>
         </Container>
       </Section>
@@ -46,8 +56,8 @@ export default function SolutionsPage() {
             {engagementModels.map((model) => (
               <article key={model.title} className="rounded-3xl border border-line p-6">
                 <h2 className="text-lg font-semibold text-navy">{model.title}</h2>
-                <p className="mt-2 text-sm leading-6 text-muted">{model.body}</p>
-                <ul className="mt-4 space-y-1 text-sm text-navy">
+                <p className="mt-2 text-base leading-relaxed text-muted">{model.body}</p>
+                <ul className="mt-4 space-y-1 text-base text-navy">
                   {model.points.map((point) => (
                     <li key={point}>• {point}</li>
                   ))}
@@ -66,11 +76,19 @@ export default function SolutionsPage() {
               <Link
                 key={service.slug}
                 href={`/solutions/${service.slug}`}
-                className="rounded-3xl border border-line p-6 hover:border-navy"
+                className="overflow-hidden rounded-3xl border border-line bg-white hover:border-navy"
               >
-                <p className="text-xs text-accent">{service.number}</p>
-                <h2 className="mt-2 text-xl font-semibold text-navy">{service.title}</h2>
-                <p className="mt-2 text-sm leading-6 text-muted">{service.summary}</p>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={serviceCovers[service.slug] ?? serviceCovers["web-platforms"]}
+                  alt=""
+                  className="h-40 w-full object-cover"
+                />
+                <div className="p-6">
+                  <p className="text-sm font-semibold text-navy">{service.number}</p>
+                  <h2 className="mt-2 text-xl font-semibold text-navy">{service.title}</h2>
+                  <p className="mt-2 text-base leading-relaxed text-muted">{service.summary}</p>
+                </div>
               </Link>
             ))}
           </div>

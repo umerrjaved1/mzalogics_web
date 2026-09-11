@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/Container";
 
 export function CtaBand({
   title = "Let's build software that fits your business",
-  body = "Software built around you — not the other way around. Enterprise experience, startup agility, and personal focus. Reach out to kick off your discovery call.",
+  body = "Tell us what you need to ship. We reply within one business day.",
 }: {
   title?: string;
   body?: string;
