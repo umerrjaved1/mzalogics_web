@@ -1,21 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ShieldCheck, Zap, Sparkles, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
 import { TeamGrid } from "@/components/TeamGrid";
-import { team, teamByDepartment, teamPortfolio } from "@/content/team";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { team, teamPortfolio } from "@/content/team";
 import { breadcrumbJsonLd, personJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Team",
+  title: "Hire Vetted Developers & Engineers | Transparent Rates in Lahore",
   description:
-    "Meet the engineers, designers, QA, and delivery leads at MZA Logics — with the projects each of them shipped and the outcomes those projects produced.",
+    "Choose your engineers from MZA Logics in Lahore. Filter by seniority: Senior/Lead ($48-$70/hr), Mid-Level ($32-$38/hr), or Junior ($20-$24/hr). Vetted, trusted, and ready in 48 hours.",
+  alternates: {
+    canonical: "/team",
+  },
+  openGraph: {
+    title: "Hire Vetted Developers & Engineers | MZA Logics",
+    description:
+      "Pick your developers directly: transparent hourly and monthly rates, verified portfolio builds, and 100% IP ownership.",
+    url: `${site.url}/team`,
+  },
 };
 
 export default function TeamPage() {
-  const groups = teamByDepartment();
   const portfolio = teamPortfolio();
 
   return (
@@ -28,101 +38,158 @@ export default function TeamPage() {
         ])}
       />
 
+      {/* Hero Section */}
       <Section className="pb-10">
         <Container>
-          <Eyebrow>Our team</Eyebrow>
-          <h1 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight text-navy sm:text-5xl">
-            The people on your project, named up front
+          <Eyebrow>People-Powered Delivery</Eyebrow>
+          <h1 className="mt-3 max-w-4xl text-4xl font-extrabold tracking-tight text-navy sm:text-6xl">
+            Pick Your Team. Set Your Scope. <br />
+            <span className="bg-gradient-to-r from-navy via-navy-light to-accent-cyan bg-clip-text text-transparent">
+              Software Built Around You.
+            </span>
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted">
-            {site.teamSize} specialists across engineering, AI, design, quality, and delivery. You meet the pod
-            in discovery and keep the same pod through launch.
+          <p className="mt-4 max-w-2xl text-base text-muted sm:text-lg">
+            Every business operates differently. Scale your pod with senior architects, mid-level problem solvers, or high-energy junior developers — all vetted, transparently priced, and ready to deploy in 48 hours.
           </p>
-          <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            <Stat value={String(team.length)} label="Profiles listed" />
-            <Stat value={String(portfolio.length)} label="Projects in the portfolio" />
-            <Stat value={String(groups.length)} label="Disciplines" />
-            <Stat value={site.founded} label="Studio founded" />
-          </dl>
-        </Container>
-      </Section>
 
-      <Section className="pt-0">
-        <Container className="space-y-14">
-          {groups.map((group) => (
-            <div key={group.department}>
-              <div className="flex items-baseline justify-between gap-4">
-                <h2 className="text-2xl font-bold text-navy">{group.department}</h2>
-                <span className="text-sm text-muted">
-                  {group.members.length} {group.members.length === 1 ? "person" : "people"}
+          {/* Rate Tier Summary Cards */}
+          <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            <div className="rounded-2xl border border-black/8 bg-white p-5 shadow-sm">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-accent-cyan bg-navy px-2 py-0.5 rounded-md">
+                  Senior &amp; Leads
                 </span>
+                <span className="text-xs font-mono font-bold text-navy">$48–$70/hr</span>
               </div>
-              <div className="mt-6">
-                <TeamGrid members={group.members} />
-              </div>
+              <p className="mt-3 text-xs text-muted leading-relaxed">
+                Veteran architects with 7–14 years experience. Best for technical discovery, high-scale system design, and security audits.
+              </p>
             </div>
-          ))}
+
+            <div className="rounded-2xl border border-black/8 bg-white p-5 shadow-sm">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-navy bg-paper px-2 py-0.5 rounded-md border border-black/10">
+                  Mid-Level Developers
+                </span>
+                <span className="text-xs font-mono font-bold text-navy">$30–$38/hr</span>
+              </div>
+              <p className="mt-3 text-xs text-muted leading-relaxed">
+                Independent engineers with 4–6 years experience. Best for core feature velocity, API integrations, and mobile screens.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-black/8 bg-white p-5 shadow-sm">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+                  Junior / Associates
+                </span>
+                <span className="text-xs font-mono font-bold text-navy">$20–$24/hr</span>
+              </div>
+              <p className="mt-3 text-xs text-muted leading-relaxed">
+                Fast, cost-effective developers with 2+ years experience. Best for responsive layouts, test automation, and rapid UI builds.
+              </p>
+            </div>
+          </div>
         </Container>
       </Section>
 
+      {/* Main Team Talent Directory with Interactive Filters */}
       <Section className="pt-0">
         <Container>
-          <Eyebrow>Team portfolio</Eyebrow>
-          <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-            Everything this team has shipped
-          </h2>
-          <p className="mt-4 max-w-2xl text-muted">
-            Client names are withheld under NDA; the work, the stack, and the numbers are not.
-          </p>
-          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mb-6 flex items-baseline justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-bold text-navy sm:text-3xl">Available Engineers</h2>
+              <p className="text-xs text-muted mt-1">
+                Filter by seniority tier or department. Click on any profile for complete portfolio and code history.
+              </p>
+            </div>
+          </div>
+
+          <TeamGrid members={team} />
+        </Container>
+      </Section>
+
+      {/* Shipped Team Portfolio Grid */}
+      <Section className="pt-0">
+        <Container>
+          <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
+            <div>
+              <Eyebrow>Verified Track Record</Eyebrow>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight text-navy sm:text-3xl">
+                Recent Projects Shipped by This Team
+              </h2>
+            </div>
+            <span className="text-xs text-muted font-medium">
+              NDA protected client names; public code outcomes
+            </span>
+          </div>
+
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {portfolio.map((project) => (
-              <article
+              <SpotlightCard
                 key={`${project.member.slug}-${project.title}`}
-                className="flex flex-col rounded-[28px] border border-black/8 bg-white p-6"
+                className="p-6 sm:p-7 flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.14em] text-navy/40">
-                  <span>{project.year}</span>
-                  <span>{project.role}</span>
-                </div>
-                <h3 className="mt-4 text-lg font-bold leading-7 text-navy">{project.title}</h3>
-                <p className="mt-2 flex-1 text-sm leading-7 text-muted">{project.summary}</p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {project.stack.map((item) => (
-                    <span key={item} className="rounded-full bg-paper px-2.5 py-1 text-[11px] text-muted">
-                      {item}
+                <div>
+                  <div className="flex items-center justify-between text-xs font-semibold text-muted">
+                    <span className="font-mono">{project.year}</span>
+                    <span className="rounded-full bg-paper px-2.5 py-0.5 text-[10px] text-navy">
+                      {project.role}
                     </span>
-                  ))}
+                  </div>
+
+                  <h3 className="mt-4 text-base font-bold leading-snug text-navy">{project.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-muted">{project.summary}</p>
+
+                  <div className="mt-4 rounded-xl bg-paper p-3 border border-black/5">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-muted block">
+                      Outcome:
+                    </span>
+                    <span className="text-xs font-extrabold text-emerald-700 font-mono mt-0.5 block">
+                      {project.metric}
+                    </span>
+                  </div>
+
+                  <div className="mt-4 flex flex-wrap gap-1">
+                    {project.stack.map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-md bg-white border border-black/5 px-2 py-0.5 text-[10px] text-muted"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <p className="mt-5 text-sm font-semibold text-navy">{project.metric}</p>
-                <div className="mt-4 flex flex-wrap gap-4 border-t border-line pt-4 text-sm">
-                  <Link href={`/team/${project.member.slug}`} className="font-medium text-navy hover:underline">
-                    {project.member.name}
+
+                <div className="mt-6 pt-4 border-t border-black/5 flex items-center justify-between text-xs">
+                  <Link
+                    href={`/team/${project.member.slug}`}
+                    className="font-bold text-navy hover:text-navy-light flex items-center gap-1"
+                  >
+                    <span>{project.member.name}</span>
+                    <span className="text-muted font-normal">({project.member.seniority.split(" ")[0]})</span>
                   </Link>
-                  {project.caseStudy ? (
-                    <Link href={`/work/${project.caseStudy}`} className="text-muted hover:text-navy">
-                      Read the case study →
+
+                  {project.caseStudy && (
+                    <Link
+                      href={`/work/${project.caseStudy}`}
+                      className="text-accent-2 bg-navy px-2.5 py-1 rounded-md text-[11px] font-semibold hover:bg-navy-light"
+                    >
+                      Case Study →
                     </Link>
-                  ) : null}
+                  )}
                 </div>
-              </article>
+              </SpotlightCard>
             ))}
           </div>
         </Container>
       </Section>
 
       <CtaBand
-        title="Want this team on your product?"
-        body="Hire a full pod, embed one of our engineers in your team, or start with a fixed-scope project. Tell us the goal and we will propose the shape."
+        title="Ready to assemble your custom pod?"
+        body="Tell us what you want to build and your target velocity. We will match the exact blend of senior leads and mid/junior developers within 48 hours."
       />
     </>
-  );
-}
-
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="rounded-2xl border border-line bg-white p-4">
-      <dt className="text-xs text-muted">{label}</dt>
-      <dd className="mt-1 text-lg font-bold text-navy">{value}</dd>
-    </div>
   );
 }

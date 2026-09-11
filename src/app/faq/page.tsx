@@ -7,9 +7,18 @@ import { breadcrumbJsonLd, faqJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "FAQ",
+  title: "Frequently Asked Questions (FAQ) | Pricing, Delivery & IP Ownership",
   description:
-    "Answers on how MZA Logics works: delivery tracks with and without AI, pricing and contracts, IP ownership, data handling, timelines, and support.",
+    "Common questions about working with MZA Logics: AI-accelerated vs hand-crafted delivery, IP ownership, sprint pricing, contract terms, security, and post-launch maintenance.",
+  alternates: {
+    canonical: "/faq",
+  },
+  openGraph: {
+    title: "Frequently Asked Questions (FAQ) | MZA Logics",
+    description:
+      "Answers on pricing, IP ownership, sprint timelines, and delivery tracks at MZA Logics.",
+    url: `${site.url}/faq`,
+  },
 };
 
 export default function FaqPage() {

@@ -8,10 +8,21 @@ import { services } from "@/content/services";
 import { engagementModels, engagementNote } from "@/content/engagement";
 import { servicesJsonLd } from "@/lib/jsonld";
 
+import { site } from "@/lib/site";
+
 export const metadata: Metadata = {
-  title: "Solutions",
+  title: "Software Engineering Solutions & Practices | Mobile, Web & AI",
   description:
-    "End-to-end software development — mobile, web, UI/UX, MVP, DevOps, and CMS. Launch faster. Scale smarter.",
+    "Explore MZA Logics engineering capabilities: native & cross-platform mobile apps (Flutter, React Native), scalable web platforms (Next.js), AI/LLM integration, MVP prototyping, and cloud DevOps.",
+  alternates: {
+    canonical: "/solutions",
+  },
+  openGraph: {
+    title: "Software Engineering Solutions & Practices | MZA Logics",
+    description:
+      "End-to-end software development services from concept to scale. Dual delivery tracks: AI-accelerated or 100% hand-crafted.",
+    url: `${site.url}/solutions`,
+  },
 };
 
 export default function SolutionsPage() {

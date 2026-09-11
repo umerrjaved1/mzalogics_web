@@ -35,7 +35,7 @@ export function Faq({ items }: { items: FaqItem[] }) {
                   onClick={() => setOpen(isOpen ? -1 : index)}
                 >
                   <span className="text-[15px] font-semibold text-navy">
-                    <span className="mr-3 text-navy/35">0{index + 1}</span>
+                    <span className="mr-3 text-muted">0{index + 1}</span>
                     {item.question}
                   </span>
                   <ChevronDown className={cn("shrink-0 text-muted transition", isOpen && "rotate-180")} size={18} />

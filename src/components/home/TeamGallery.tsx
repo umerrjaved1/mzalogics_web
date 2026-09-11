@@ -13,7 +13,7 @@ export function TeamGallery() {
     <Section className="overflow-hidden">
       <Container className="grid items-center gap-12 lg:grid-cols-2">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-navy/45">Team Gallery</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-muted">Team Gallery</p>
           <p className="mt-4 text-sm text-muted">25+ skilled professionals</p>
           <h2 className="mt-3 text-4xl font-bold tracking-tight text-navy sm:text-5xl">
             Let&apos;s build the future of work together

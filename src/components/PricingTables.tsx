@@ -48,7 +48,12 @@ export function PricingTables({
               <span className="inline-flex items-center gap-2 rounded-full bg-navy px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
                 {track.badge}
               </span>
-              <h3 className="mt-4 text-2xl font-bold text-navy">{track.label}</h3>
+              {/* Without the compact intro above, this is the section's own heading. */}
+              {compact ? (
+                <h3 className="mt-4 text-2xl font-bold text-navy">{track.label}</h3>
+              ) : (
+                <h2 className="mt-4 text-2xl font-bold text-navy">{track.label}</h2>
+              )}
               <p className="mt-3 text-sm leading-7 text-muted">{track.blurb}</p>
             </div>
             <ul className="grid gap-3 self-center sm:grid-cols-2">
@@ -115,7 +120,7 @@ export function PricingTables({
                     <Check
                       size={16}
                       strokeWidth={3}
-                      className={cn("mt-0.5 shrink-0", tier.featured ? "text-accent-2" : "text-navy/45")}
+                      className={cn("mt-0.5 shrink-0", tier.featured ? "text-accent-2" : "text-muted")}
                     />
                     {item}
                   </li>

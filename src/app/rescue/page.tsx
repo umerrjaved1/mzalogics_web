@@ -5,10 +5,21 @@ import { Faq } from "@/components/Faq";
 import { CtaBand } from "@/components/CtaBand";
 import { rescueFaqs } from "@/content/faqs";
 
+import { site } from "@/lib/site";
+
 export const metadata: Metadata = {
-  title: "Rescue & modernize",
+  title: "Project Rescue & Legacy Code Modernization | Architecture Audits",
   description:
-    "Audit vibe-coded products and legacy systems. Security, architecture, documentation, then a quoted execution plan.",
+    "Stabilize broken codebases, fix architecture bottlenecks, and eliminate security flaws. Code audits, refactoring, and rescue execution from senior engineers in Lahore.",
+  alternates: {
+    canonical: "/rescue",
+  },
+  openGraph: {
+    title: "Project Rescue & Code Modernization | MZA Logics",
+    description:
+      "Comprehensive code audits, vulnerability scans, and architecture refactoring for stalled or buggy software.",
+    url: `${site.url}/rescue`,
+  },
 };
 
 const coverage = [

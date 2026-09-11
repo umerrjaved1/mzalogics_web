@@ -5,15 +5,27 @@ import { CtaBand } from "@/components/CtaBand";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { PricingTables } from "@/components/PricingTables";
+import { TalentRateDeck } from "@/components/pricing/TalentRateDeck";
 import { TrackComparisonTable } from "@/components/AiPractice";
 import { addOns, everyEngagementIncludes, pricingNotes } from "@/content/pricing";
 import { pricingFaqs } from "@/content/faqs";
 import { breadcrumbJsonLd, faqJsonLd, pricingJsonLd } from "@/lib/jsonld";
 
+import { site } from "@/lib/site";
+
 export const metadata: Metadata = {
-  title: "Pricing",
+  title: "Pricing & Sprint Plans | AI-Driven vs Hand-Crafted Pods",
   description:
-    "Transparent plans for two delivery tracks — AI-driven development from $3,900 or fully hand-written code from $5,900. Dedicated engineers, retainers, and add-ons included.",
+    "Predictable, transparent software engineering pricing. AI-accelerated delivery from $3,900/sprint, 100% hand-crafted engineering from $5,900, and dedicated full-time developers at $4,200/mo.",
+  alternates: {
+    canonical: "/pricing",
+  },
+  openGraph: {
+    title: "Software Engineering Pricing & Pod Plans | MZA Logics",
+    description:
+      "Transparent sprint pricing for AI-driven and hand-crafted tracks. No hidden fees, no lock-in, 100% IP ownership.",
+    url: `${site.url}/pricing`,
+  },
 };
 
 export default function PricingPage() {
@@ -46,6 +58,13 @@ export default function PricingPage() {
       </Section>
 
       <PricingTables />
+
+      {/* Direct Specialist Talent Rate Deck by Seniority */}
+      <Section className="pt-0">
+        <Container>
+          <TalentRateDeck />
+        </Container>
+      </Section>
 
       <Section className="pt-0">
         <Container>

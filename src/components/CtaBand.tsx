@@ -2,8 +2,8 @@ import { Button, ArrowDisc } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 
 export function CtaBand({
-  title = "Ready to build smarter?",
-  body = "Whether it is a new app, a product redesign, or scaling your digital platform — let's create something powerful together.",
+  title = "Let's build software that fits your business",
+  body = "Software built around you — not the other way around. Enterprise experience, startup agility, and personal focus. Reach out to kick off your discovery call.",
 }: {
   title?: string;
   body?: string;

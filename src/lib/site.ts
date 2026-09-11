@@ -1,10 +1,12 @@
 export const site = {
   name: "MZA Logics",
   legalName: "MZA Logics",
-  tagline: "We Build Software That Grows With Your Business",
-  headline: "Apps That Drive the Future",
+  tagline: "Software Built Around You — Not the Other Way Around",
+  headline: "Custom Software, Built for the Way You Work",
   description:
-    "A Lahore software studio building mobile apps, web platforms, and AI features — with two delivery tracks: AI-driven for speed, or fully hand-written when policy demands it.",
+    "MZA Logics is a senior-led software engineering studio in Lahore. We build custom mobile apps, web platforms, and AI systems tailored around your business — not the other way around.",
+  shortDescription:
+    "Software studio in Lahore engineering mobile apps, web platforms, and AI systems built around your business.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mzalogics.com",
   email: "Mzalogics@gmail.com",
   careersEmail: "Mzalogics@gmail.com",
@@ -17,10 +19,18 @@ export const site = {
   customers: "50+",
   responseTime: "We reply to new enquiries within one business day.",
   hours: "Mon-Fri, 9:00-18:00 PKT (UTC+5)",
+  geo: {
+    latitude: 31.4704,
+    longitude: 74.4108,
+  },
   locations: [
     {
       label: "Studio",
       address: "144 G Block, D.H.A. Main Blvd, Sector G DHA Phase 1",
+      city: "Lahore",
+      region: "Punjab",
+      postalCode: "54792",
+      country: "PK",
       detail: "Lahore, Pakistan",
     },
   ],

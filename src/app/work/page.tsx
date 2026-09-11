@@ -4,9 +4,21 @@ import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { CtaBand } from "@/components/CtaBand";
 import { caseStudies } from "@/content/case-studies";
 
+import { site } from "@/lib/site";
+
 export const metadata: Metadata = {
-  title: "Work",
-  description: "Anonymized case studies: challenge, stack, and outcomes for enterprise software engagements.",
+  title: "Case Studies & Client Outcomes | Mobile & Web Platforms Shipped",
+  description:
+    "Explore proven results and case studies from MZA Logics: healthtech apps, fintech portals, retail platforms, and SaaS products shipped with verifiable metrics.",
+  alternates: {
+    canonical: "/work",
+  },
+  openGraph: {
+    title: "Case Studies & Client Outcomes | MZA Logics",
+    description:
+      "Proven outcomes in mobile, web, and AI development for global startups and established enterprises.",
+    url: `${site.url}/work`,
+  },
 };
 
 export default function WorkPage() {

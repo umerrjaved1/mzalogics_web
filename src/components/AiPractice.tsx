@@ -21,7 +21,7 @@ export function AiPractice() {
           <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {aiPipeline.map((step) => (
               <article key={step.number} className="rounded-[28px] border border-black/8 bg-white p-6">
-                <p className="text-sm font-semibold text-navy/35">{step.number}</p>
+                <p className="text-sm font-semibold text-muted">{step.number}</p>
                 <h3 className="mt-6 text-lg font-bold text-navy">{step.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-muted">{step.body}</p>
                 <p className="mt-5 inline-flex rounded-full bg-paper px-3 py-1 text-[11px] font-medium text-navy/70">
@@ -108,7 +108,7 @@ export function AiPractice() {
           <ul className="space-y-3 self-center">
             {aiWhenNot.map((item) => (
               <li key={item} className="flex gap-3 rounded-2xl border border-black/8 bg-white p-5 text-sm text-navy">
-                <Minus size={16} className="mt-0.5 shrink-0 text-navy/35" />
+                <Minus size={16} className="mt-0.5 shrink-0 text-muted" />
                 {item}
               </li>
             ))}
@@ -145,11 +145,16 @@ export function AiPractice() {
 
 export function TrackComparisonTable() {
   return (
-    <div className="mt-8 overflow-x-auto rounded-[28px] border border-black/8 bg-white">
+    <div
+      tabIndex={0}
+      role="region"
+      aria-label="AI-assisted versus hand-crafted delivery comparison"
+      className="mt-8 overflow-x-auto rounded-[28px] border border-black/8 bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+    >
       <table className="w-full min-w-[720px] border-collapse text-left text-sm">
         <thead>
           <tr className="border-b border-line">
-            <th scope="col" className="px-6 py-4 font-semibold text-navy/45">
+            <th scope="col" className="px-6 py-4 font-semibold text-muted">
               &nbsp;
             </th>
             <th scope="col" className="px-6 py-4 font-bold text-navy">

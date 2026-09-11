@@ -3,9 +3,21 @@ import Link from "next/link";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { getInsights } from "@/lib/insights";
 
+import { site } from "@/lib/site";
+
 export const metadata: Metadata = {
-  title: "Insights",
-  description: "Practical notes on enterprise delivery, production AI, and software that has to survive operations.",
+  title: "Engineering Insights & Articles | Production Software & AI Architecture",
+  description:
+    "Practical architectural notes from our software engineering pods on enterprise delivery, production AI, mobile performance, and scalable systems.",
+  alternates: {
+    canonical: "/insights",
+  },
+  openGraph: {
+    title: "Engineering Insights & Articles | MZA Logics",
+    description:
+      "Field notes on enterprise delivery, production AI, and software architecture from MZA Logics.",
+    url: `${site.url}/insights`,
+  },
 };
 
 export default function InsightsPage() {

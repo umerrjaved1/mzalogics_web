@@ -35,21 +35,28 @@ export function Footer() {
         <FooterColumn title="Resources" items={footerNav.resources} />
 
         <div>
-          <h2 className="text-sm font-semibold">Contact</h2>
+          <h3 className="text-sm font-semibold">Contact</h3>
           <ul className="mt-4 space-y-3 text-sm text-muted">
             <li>
               <p className="text-[11px] uppercase tracking-wider">Our Email</p>
-              <a href={`mailto:${site.email}`} className="text-navy">
+              <a href={`mailto:${site.email}`} className="inline-flex min-h-[24px] items-center text-navy">
                 {site.email}
               </a>
             </li>
             <li>
               <p className="text-[11px] uppercase tracking-wider">Our Phone</p>
-              <a href={`tel:${site.phoneHref}`}>{site.phoneDisplay}</a>
+              <a href={`tel:${site.phoneHref}`} className="inline-flex min-h-[24px] items-center">
+                {site.phoneDisplay}
+              </a>
             </li>
             <li>
               <p className="text-[11px] uppercase tracking-wider">WhatsApp</p>
-              <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noreferrer">
+              <a
+                href={`https://wa.me/${site.whatsapp}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-[24px] items-center"
+              >
                 Message us
               </a>
             </li>
@@ -74,16 +81,16 @@ export function Footer() {
           © {new Date().getFullYear()} {site.legalName}. All rights reserved.
         </p>
         <div className="flex flex-wrap gap-4">
-          <Link href="/faq" className="hover:text-navy">
+          <Link href="/faq" className="inline-flex min-h-[24px] items-center hover:text-navy">
             FAQ
           </Link>
-          <Link href="/privacy" className="hover:text-navy">
+          <Link href="/privacy" className="inline-flex min-h-[24px] items-center hover:text-navy">
             Privacy
           </Link>
-          <Link href="/terms" className="hover:text-navy">
+          <Link href="/terms" className="inline-flex min-h-[24px] items-center hover:text-navy">
             Terms
           </Link>
-          <Link href="/sitemap.xml" className="hover:text-navy">
+          <Link href="/sitemap.xml" className="inline-flex min-h-[24px] items-center hover:text-navy">
             Sitemap
           </Link>
         </div>
@@ -101,11 +108,11 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h2 className="text-sm font-semibold">{title}</h2>
+      <h3 className="text-sm font-semibold">{title}</h3>
       <ul className="mt-4 space-y-2 text-sm text-muted">
         {items.map((item) => (
           <li key={item.href}>
-            <Link href={item.href} className="hover:text-navy">
+            <Link href={item.href} className="inline-flex min-h-[24px] items-center hover:text-navy">
               {item.label}
             </Link>
           </li>

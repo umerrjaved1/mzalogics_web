@@ -8,7 +8,8 @@ import { AiPractice } from "@/components/AiPractice";
 import { Faq } from "@/components/Faq";
 import { aiFaqs } from "@/content/faqs";
 import { getService, services } from "@/content/services";
-import { serviceJsonLd } from "@/lib/jsonld";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/jsonld";
+import { site } from "@/lib/site";
 
 export function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
@@ -22,7 +23,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = getService(slug);
   if (!service) return {};
-  return { title: service.title, description: service.summary };
+  return {
+    title: `${service.title} | Software Engineering Practice`,
+    description: service.summary,
+    alternates: {
+      canonical: `/solutions/${slug}`,
+    },
+    openGraph: {
+      title: `${service.title} | ${site.name}`,
+      description: service.summary,
+      url: `${site.url}/solutions/${slug}`,
+    },
+  };
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -35,6 +47,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <JsonLd data={serviceJsonLd(service)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Solutions", path: "/solutions" },
+          { name: service.title, path: `/solutions/${service.slug}` },
+        ])}
+      />
       <Section className="dot-grid">
         <Container className="max-w-3xl">
           <Eyebrow>

@@ -5,6 +5,10 @@ import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { CtaBand } from "@/components/CtaBand";
 import { caseStudies, getCaseStudy } from "@/content/case-studies";
 
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { site } from "@/lib/site";
+
 export function generateStaticParams() {
   return caseStudies.map((study) => ({ slug: study.slug }));
 }
@@ -17,7 +21,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const study = getCaseStudy(slug);
   if (!study) return {};
-  return { title: study.title, description: study.challenge };
+  return {
+    title: `${study.title} | Case Study`,
+    description: study.challenge,
+    alternates: {
+      canonical: `/work/${slug}`,
+    },
+    openGraph: {
+      title: `${study.title} | MZA Logics Case Study`,
+      description: study.challenge,
+      url: `${site.url}/work/${slug}`,
+    },
+  };
 }
 
 export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -27,6 +42,13 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Work", path: "/work" },
+          { name: study.title, path: `/work/${study.slug}` },
+        ])}
+      />
       <Section className="dot-grid">
         <Container className="max-w-3xl">
           <Eyebrow>{study.industry}</Eyebrow>

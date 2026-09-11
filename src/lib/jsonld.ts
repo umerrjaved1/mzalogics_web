@@ -11,15 +11,27 @@ export function organizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: site.name,
+    legalName: site.legalName,
     url: site.url,
+    logo: `${site.url}/icon.svg`,
     email: site.email,
     telephone: site.phoneHref,
     description: site.description,
+    sameAs: socials.map((social) => social.href),
     address: {
       "@type": "PostalAddress",
       streetAddress: site.locations[0].address,
-      addressLocality: "Lahore",
-      addressCountry: "PK",
+      addressLocality: site.locations[0].city,
+      addressRegion: site.locations[0].region,
+      postalCode: site.locations[0].postalCode,
+      addressCountry: site.locations[0].country,
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "52",
+      bestRating: "5",
+      worstRating: "1",
     },
   };
 }
@@ -29,9 +41,35 @@ export function serviceJsonLd(service: Service) {
     "@context": "https://schema.org",
     "@type": "Service",
     name: `${service.title} — ${site.name}`,
-    provider: { "@type": "Organization", name: site.name, url: site.url },
+    serviceType: service.title,
+    provider: {
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+    },
     description: service.description,
     url: `${site.url}/solutions/${service.slug}`,
+    areaServed: ["Worldwide", "United States", "United Kingdom", "United Arab Emirates", "Pakistan"],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: `${service.title} Plans`,
+      itemListElement: [
+        {
+          "@type": "Offer",
+          name: `${service.title} AI-Accelerated Track`,
+          priceCurrency: "USD",
+          price: "3900",
+          description: "Rapid delivery pod powered by AI synthesis with senior architect review",
+        },
+        {
+          "@type": "Offer",
+          name: `${service.title} Hand-Crafted Track`,
+          priceCurrency: "USD",
+          price: "5900",
+          description: "100% human-authored codebase with strict IP isolation and formal verification",
+        },
+      ],
+    },
   };
 }
 
@@ -46,7 +84,10 @@ export function faqJsonLd(items: { question: string; answer: string }[] = homeFa
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer },
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
     })),
   };
 }
@@ -69,8 +110,21 @@ export function websiteJsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: site.name,
+    alternateName: "MZA Logics Software Studio",
     url: site.url,
-    publisher: { "@type": "Organization", name: site.name, url: site.url },
+    publisher: {
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${site.url}/insights?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 }
 
@@ -79,20 +133,43 @@ export function localBusinessJsonLd() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: site.name,
+    image: `${site.url}/icon.svg`,
     url: site.url,
     email: site.email,
     telephone: site.phoneHref,
+    priceRange: "$$ - $$$",
     description: site.description,
     foundingDate: site.founded,
-    areaServed: "Worldwide",
+    areaServed: ["Worldwide", "Pakistan", "United States", "United Kingdom", "United Arab Emirates"],
     sameAs: socials.map((social) => social.href),
     address: {
       "@type": "PostalAddress",
       streetAddress: site.locations[0].address,
-      addressLocality: "Lahore",
-      addressCountry: "PK",
+      addressLocality: site.locations[0].city,
+      addressRegion: site.locations[0].region,
+      postalCode: site.locations[0].postalCode,
+      addressCountry: site.locations[0].country,
     },
-    openingHours: "Mo-Fr 09:00-18:00",
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: site.geo.latitude,
+      longitude: site.geo.longitude,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "18:00",
+      },
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "52",
+      bestRating: "5",
+      worstRating: "1",
+    },
   };
 }
 
@@ -118,7 +195,11 @@ export function personJsonLd(member: TeamMember) {
     description: member.focus,
     url: `${site.url}/team/${member.slug}`,
     knowsAbout: member.skills,
-    worksFor: { "@type": "Organization", name: site.name, url: site.url },
+    worksFor: {
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+    },
   };
 }
 
@@ -127,7 +208,7 @@ export function pricingJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
-    name: `${site.name} plans`,
+    name: `${site.name} Engineering Plans`,
     url: `${site.url}/pricing`,
     itemListElement: pricingTracks.flatMap((track) =>
       track.tiers.map((tier) => ({
