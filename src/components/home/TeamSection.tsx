@@ -22,7 +22,7 @@ export function TeamSection() {
   const portfolio = teamPortfolio().slice(0, 4);
 
   return (
-    <Section id="team" className="relative">
+    <Section id="team" className="relative pt-10 pb-10 sm:pt-12 sm:pb-12">
       <Container>
         {/* Section Header */}
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
@@ -32,7 +32,7 @@ export function TeamSection() {
               Meet Your Dedicated Engineering Pod
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
-              {site.teamSize} vetted engineers, architects, designers, and QA specialists in Lahore. No bait-and-switch between pitch and delivery. Pick the exact seniority and rate card that fits your budget.
+              {site.teamSize} named engineers, architects, designers, and QA specialists in Lahore. No bait-and-switch between pitch and delivery. Pick the exact seniority and rate card that fits your budget.
             </p>
           </div>
 
@@ -73,7 +73,7 @@ export function TeamSection() {
               }`}
             >
               <ShieldCheck size={13} />
-              Senior &amp; Leads ($48–$70/hr)
+              Senior &amp; Leads ($26–$39/hr)
             </button>
             <button
               type="button"
@@ -86,7 +86,7 @@ export function TeamSection() {
               }`}
             >
               <Zap size={13} />
-              Mid-Level ($32–$38/hr)
+              Mid-Level ($18–$26/hr)
             </button>
             <button
               type="button"
@@ -99,7 +99,7 @@ export function TeamSection() {
               }`}
             >
               <Sparkles size={13} />
-              Junior ($20–$24/hr)
+              Junior ($11–$15/hr)
             </button>
           </div>
 
@@ -109,11 +109,17 @@ export function TeamSection() {
         </div>
 
         {/* Team Grid */}
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredTeam.slice(0, 6).map((member) => (
-            <TeamCard key={member.slug} member={member} />
-          ))}
-        </div>
+        {filteredTeam.length === 0 ? (
+          <p className="mt-8 rounded-2xl border border-black/8 bg-white px-6 py-10 text-center text-base text-muted">
+            No engineers in this tier right now. Choose All Tiers to see the pod.
+          </p>
+        ) : (
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredTeam.slice(0, 6).map((member) => (
+              <TeamCard key={member.slug} member={member} />
+            ))}
+          </div>
+        )}
 
         {/* Shipped Work Portfolio Strip */}
         <div className="mt-16 pt-12 border-t border-black/8">

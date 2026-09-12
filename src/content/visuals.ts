@@ -1,66 +1,80 @@
 /**
- * Dummy visual assets until real ones are ready.
- * Search REPLACE_LATER in this file, then swap URLs / marks.
- *
- * What to add later (real data):
- * 1. Client logos — SVG/PNG in /public/clients/{slug}.svg (replace clientLogos[].logo)
- * 2. Product screenshots — PNG/WebP of shipped UIs (replace caseStudies[].screenshot)
- * 3. Case-study hero crops — wide 1600×900 product shots (replace caseStudies[].heroImage)
- * 4. Testimonial portraits — approved headshots (replace testimonials[].image)
- * 5. Studio / office photos — DHA office, whiteboarding, launch (replace studioPhotos)
- * 6. Industry stills — real environments, not stock (replace industries[].image)
- * 7. Team photos — already on team.ts Unsplash faces; swap to staff portraits
+ * Visual assets. Local files in /public/media win; stock is the fallback.
+ * See public/media/README.txt for filenames.
  */
 
+export function photo(id: string, w: number, h: number, extra = "") {
+  return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&h=${h}&q=85${extra}`;
+}
+
 export const clientLogos = [
-  { name: "NovaTech", mark: "NT", tone: "from-sky-400 to-blue-600" },
-  { name: "BrightPath", mark: "BP", tone: "from-emerald-400 to-teal-600" },
-  { name: "CloudVerve", mark: "CV", tone: "from-violet-400 to-indigo-600" },
-  { name: "BlueEdge", mark: "BE", tone: "from-cyan-300 to-blue-500" },
-  { name: "SwiftLaunch", mark: "SL", tone: "from-amber-300 to-orange-500" },
-  { name: "FlowTech", mark: "FT", tone: "from-rose-400 to-pink-600" },
-  { name: "Meridian", mark: "ML", tone: "from-lime-300 to-emerald-600" },
-  { name: "Northfield", mark: "NF", tone: "from-slate-300 to-slate-600" },
+  { name: "NovaTech", mark: "NT", tone: "from-sky-400 to-blue-600", local: "/media/clients/novatech.svg" },
+  { name: "BrightPath", mark: "BP", tone: "from-emerald-400 to-teal-600", local: "/media/clients/brightpath.svg" },
+  { name: "CloudVerve", mark: "CV", tone: "from-violet-400 to-indigo-600", local: "/media/clients/cloudverve.svg" },
+  { name: "BlueEdge", mark: "BE", tone: "from-cyan-300 to-blue-500", local: "/media/clients/blueedge.svg" },
+  { name: "SwiftLaunch", mark: "SL", tone: "from-amber-300 to-orange-500", local: "/media/clients/swiftlaunch.svg" },
+  { name: "FlowTech", mark: "FT", tone: "from-rose-400 to-pink-600", local: "/media/clients/flowtech.svg" },
+  { name: "Meridian", mark: "ML", tone: "from-lime-300 to-emerald-600", local: "/media/clients/meridian.svg" },
+  { name: "Northfield", mark: "NF", tone: "from-slate-300 to-slate-600", local: "/media/clients/northfield.svg" },
 ] as const;
 
 export const studioPhotos = [
   {
     title: "Studio",
-    alt: "Placeholder: MZA Logics studio floor — replace with DHA office photo",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=1000&fit=crop",
+    alt: "MZA Logics studio",
+    local: "/media/studio/studio.jpg",
+    image: photo("photo-1497366811353-6870744d04b2", 900, 1200),
     rotate: "-rotate-6",
   },
   {
     title: "Whiteboarding",
-    alt: "Placeholder: team whiteboarding a sprint — replace with real session photo",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=1000&fit=crop",
+    alt: "Sprint whiteboarding",
+    local: "/media/studio/whiteboarding.jpg",
+    image: photo("photo-1542744173-8e7e53415bb0", 900, 1200),
     rotate: "rotate-3",
   },
   {
     title: "Pods",
-    alt: "Placeholder: engineering pod at desks — replace with real pod photo",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=1000&fit=crop",
+    alt: "Engineering pod",
+    local: "/media/studio/pods.jpg",
+    image: photo("photo-1522071820081-009f0129c71c", 900, 1200),
     rotate: "-rotate-2",
   },
   {
     title: "Reviews",
-    alt: "Placeholder: code review huddle — replace with real review photo",
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=1000&fit=crop",
+    alt: "Code review",
+    local: "/media/studio/reviews.jpg",
+    image: photo("photo-1600880292203-757bb62b4baf", 900, 1200),
     rotate: "rotate-6",
   },
   {
     title: "Launch",
-    alt: "Placeholder: launch celebration — replace with a real ship-day photo",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=1000&fit=crop",
+    alt: "Launch day",
+    local: "/media/studio/launch.jpg",
+    image: photo("photo-1559136555-9303baea8ebd", 900, 1200),
     rotate: "-rotate-3",
   },
 ] as const;
 
+export const serviceCovers: Record<string, { local: string; fallback: string }> = {
+  "ai-development": { local: "/media/solutions/ai-development.jpg", fallback: photo("photo-1677442136019-21780ecad995", 1400, 880) },
+  "app-development": { local: "/media/solutions/app-development.jpg", fallback: photo("photo-1556656793-08538906a9f8", 1400, 880) },
+  "web-platforms": { local: "/media/solutions/web-platforms.jpg", fallback: photo("photo-1460925895917-afdab827c52f", 1400, 880) },
+  "product-design": { local: "/media/solutions/product-design.jpg", fallback: photo("photo-1558655146-d09347e92766", 1400, 880) },
+  "mvp-prototyping": { local: "/media/solutions/mvp-prototyping.jpg", fallback: photo("photo-1517245386807-bb43f82c33c4", 1400, 880) },
+  cloud: { local: "/media/solutions/cloud.jpg", fallback: photo("photo-1451187580459-43490279c0fa", 1400, 880) },
+  cms: { local: "/media/solutions/cms.jpg", fallback: photo("photo-1499750310107-5fef28a66643", 1400, 880) },
+};
+
+export const aboutHero = {
+  local: "/media/studio/studio.jpg",
+  fallback: photo("photo-1497366811353-6870744d04b2", 2000, 1100),
+};
+
 export const REPLACE_LATER = [
-  "Client logo SVGs → src/content/visuals.ts clientLogos",
-  "App screenshots → src/content/case-studies.ts screenshot + heroImage",
-  "Reviewer portraits → src/content/testimonials.ts image",
-  "Office photos → src/content/visuals.ts studioPhotos",
-  "Industry photos → src/content/industries.ts image",
-  "Staff headshots → src/content/team.ts image",
+  "Client logos → public/media/clients/{name}.svg",
+  "Case study stills → public/media/work/{slug}.jpg and {slug}-hero.jpg",
+  "Practice covers → public/media/solutions/{slug}.jpg",
+  "Studio photos → public/media/studio/*.jpg",
+  "Staff portraits → public/media/team/{slug}.jpg",
 ] as const;

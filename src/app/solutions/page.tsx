@@ -9,16 +9,9 @@ import { engagementModels, engagementNote } from "@/content/engagement";
 import { servicesJsonLd } from "@/lib/jsonld";
 
 import { site } from "@/lib/site";
-
-const serviceCovers: Record<string, string> = {
-  "ai-development": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=900&h=560&fit=crop",
-  "app-development": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=900&h=560&fit=crop",
-  "web-platforms": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&h=560&fit=crop",
-  "product-design": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=900&h=560&fit=crop",
-  "mvp-prototyping": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=900&h=560&fit=crop",
-  cloud: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&h=560&fit=crop",
-  cms: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=900&h=560&fit=crop",
-};
+import { serviceCovers } from "@/content/visuals";
+import { MediaImg } from "@/components/ui/MediaImg";
+import { resolveLocal } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Software Engineering Solutions & Practices | Mobile, Web & AI",
@@ -39,7 +32,7 @@ export default function SolutionsPage() {
   return (
     <>
       <JsonLd data={servicesJsonLd()} />
-      <Section className="dot-grid pb-8">
+      <Section className="dot-grid pb-8 sm:pb-8">
         <Container>
           <Eyebrow>Solutions</Eyebrow>
           <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
@@ -50,7 +43,7 @@ export default function SolutionsPage() {
           </p>
         </Container>
       </Section>
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <div className="grid gap-4 lg:grid-cols-3">
             {engagementModels.map((model) => (
@@ -78,12 +71,16 @@ export default function SolutionsPage() {
                 href={`/solutions/${service.slug}`}
                 className="overflow-hidden rounded-3xl border border-line bg-white hover:border-navy"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={serviceCovers[service.slug] ?? serviceCovers["web-platforms"]}
-                  alt=""
-                  className="h-40 w-full object-cover"
-                />
+                {resolveLocal((serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local) ? (
+                  <MediaImg
+                    local={(serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local}
+                    fallback={(serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local}
+                    alt=""
+                    className="h-40 w-full"
+                  />
+                ) : (
+                  <div className="grid h-40 place-items-center bg-navy text-sm font-semibold text-white/80">{service.title}</div>
+                )}
                 <div className="p-6">
                   <p className="text-sm font-semibold text-navy">{service.number}</p>
                   <h2 className="mt-2 text-xl font-semibold text-navy">{service.title}</h2>

@@ -7,23 +7,25 @@ import { JsonLd } from "@/components/JsonLd";
 import { PricingTables } from "@/components/PricingTables";
 import { TalentRateDeck } from "@/components/pricing/TalentRateDeck";
 import { TrackComparisonTable } from "@/components/AiPractice";
+import { DealStrip } from "@/components/conversion/DealStrip";
 import { addOns, everyEngagementIncludes, pricingNotes } from "@/content/pricing";
 import { pricingFaqs } from "@/content/faqs";
 import { breadcrumbJsonLd, faqJsonLd, pricingJsonLd } from "@/lib/jsonld";
 
 import { site } from "@/lib/site";
+import { HeroDeviceVisual } from "@/components/ui/DeviceMockup";
 
 export const metadata: Metadata = {
   title: "Pricing & Sprint Plans | AI-Driven vs Hand-Crafted Pods",
   description:
-    "Predictable, transparent software engineering pricing. AI-accelerated delivery from $3,900/sprint, 100% hand-crafted engineering from $5,900, and dedicated full-time developers at $4,200/mo.",
+    "Q4 deal: 45% off studio rates. AI-accelerated delivery from $2,150, hand-crafted from $3,250, dedicated engineers from $2,290/mo. Offer ends 31 Dec 2026.",
   alternates: {
     canonical: "/pricing",
   },
   openGraph: {
     title: "Software Engineering Pricing & Pod Plans | MZA Logics",
     description:
-      "Transparent sprint pricing for AI-driven and hand-crafted tracks. No hidden fees, no lock-in, 100% IP ownership.",
+      "Q4 close-the-deal offer: 45% off starting rates through 31 Dec 2026. Same team, same review gates.",
     url: `${site.url}/pricing`,
   },
 };
@@ -40,33 +42,39 @@ export default function PricingPage() {
         ])}
       />
 
-      <Section className="pb-10">
+      <Section className="pb-8 sm:pb-10">
         <Container>
-          <Eyebrow>Pricing</Eyebrow>
-          <h1 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight text-navy sm:text-5xl">
-            Choose how your software gets built
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted">
-            Every engagement runs on the same team and the same review gates. The only decision is whether AI
-            handles the repetitive work — which changes the timeline and the hours, not the standard.
-          </p>
-          <p className="mt-4 max-w-2xl text-sm text-muted">
-            Prices below are indicative starting points. You get a fixed quote against a written scope after a
-            free discovery call.
-          </p>
+          <div className="grid items-center gap-10 lg:grid-cols-2">
+            <div>
+              <Eyebrow>Pricing</Eyebrow>
+              <h1 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight text-navy sm:text-5xl">
+                Choose how your software gets built
+              </h1>
+              <p className="mt-4 max-w-2xl text-lg text-muted">
+                Every engagement runs on the same team and the same review gates. The only decision is whether AI
+                handles the repetitive work — which changes the timeline and the hours, not the standard.
+              </p>
+              <p className="mt-4 max-w-2xl text-base text-muted">
+                Q4 deal: 45% off our standard starting rates through 31 December 2026. You still get a fixed quote
+                against a written scope after a free discovery call.
+              </p>
+            </div>
+            <HeroDeviceVisual className="mx-auto w-full max-w-[520px]" />
+          </div>
         </Container>
       </Section>
 
+      <DealStrip />
       <PricingTables />
 
       {/* Direct Specialist Talent Rate Deck by Seniority */}
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <TalentRateDeck />
         </Container>
       </Section>
 
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <Eyebrow>Included on both tracks</Eyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">
@@ -86,7 +94,7 @@ export default function PricingPage() {
         </Container>
       </Section>
 
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <Eyebrow>Track comparison</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-4xl">
@@ -96,7 +104,7 @@ export default function PricingPage() {
         </Container>
       </Section>
 
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <Eyebrow>Add-ons & retainers</Eyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">
@@ -106,7 +114,17 @@ export default function PricingPage() {
             {addOns.map((item) => (
               <article key={item.title} className="rounded-[28px] border border-black/8 bg-white p-6">
                 <h3 className="font-bold text-navy">{item.title}</h3>
-                <p className="mt-2 text-2xl font-extrabold tracking-tight text-navy">{item.price}</p>
+                {item.compareAt ? (
+                  <p className="mt-2 text-sm text-muted line-through">{item.compareAt}</p>
+                ) : null}
+                <div className="mt-1 flex flex-wrap items-baseline gap-2">
+                  <p className="text-2xl font-extrabold tracking-tight text-navy">{item.price}</p>
+                  {item.saveLabel ? (
+                    <span className="rounded-full bg-emerald-700 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                      {item.saveLabel}
+                    </span>
+                  ) : null}
+                </div>
                 <p className="mt-3 text-sm leading-7 text-muted">{item.body}</p>
               </article>
             ))}

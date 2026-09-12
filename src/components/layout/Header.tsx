@@ -25,10 +25,12 @@ export function Header() {
   );
 
   const [menuPathname, setMenuPathname] = useState(pathname);
-  if (pathname !== menuPathname) {
+
+  useEffect(() => {
+    if (pathname === menuPathname) return;
     setMenuPathname(pathname);
     setOpen(false);
-  }
+  }, [pathname, menuPathname]);
 
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -56,10 +58,7 @@ export function Header() {
   }, [open]);
 
   const activeHref = nav.reduce<string | null>((best, item) => {
-    const matches =
-      item.href === "/"
-        ? pathname === "/"
-        : pathname === item.href || pathname.startsWith(`${item.href}/`);
+    const matches = pathname === item.href || pathname.startsWith(`${item.href}/`);
     if (!matches) return best;
     return best === null || item.href.length > best.length ? item.href : best;
   }, null);
@@ -98,7 +97,6 @@ export function Header() {
                   href={item.href}
                   className={cn(
                     "relative rounded-full px-3.5 py-1.5 text-[13.5px] font-semibold transition-all duration-200 xl:px-4 xl:text-[14px]",
-                    (item.href === "/talent" || item.href === "/insights") && "hidden xl:inline-flex",
                     dark
                       ? active
                         ? "bg-white text-navy shadow-sm"
@@ -118,7 +116,7 @@ export function Header() {
             {/* Availability Pill */}
             <div className="hidden xl:flex items-center gap-1.5 text-xs font-semibold text-navy">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className={dark ? "text-white/80" : "text-navy/80"}>Pod Slots Open</span>
+              <span className={dark ? "text-white/80" : "text-navy/80"}>Q4 · 45% off</span>
             </div>
 
             <Link

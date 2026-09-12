@@ -35,9 +35,11 @@ export function TalentRateDeck() {
       badge: "Flagship Talent",
       roleHighlight: "Architects & Technical Leads",
       seniorityParam: "Senior / Lead",
-      hourlyPrice: "$50 – $70",
+      hourlyPrice: "$26 – $39",
+      hourlyCompareAt: "$50 – $70",
       hourlyPeriod: "/ hour",
-      monthlyPrice: "$4,800 – $6,200",
+      monthlyPrice: "$2,200 – $3,080",
+      monthlyCompareAt: "$4,800 – $6,200",
       monthlyPeriod: "/ month (Full-Time)",
       accentBorder: "border-accent-2/40 hover:border-accent-2",
       badgeClass: "bg-accent-2/15 text-accent-2 border-accent-2/30",
@@ -60,9 +62,11 @@ export function TalentRateDeck() {
       badge: "High Velocity",
       roleHighlight: "Full-Stack & DevOps Engineers",
       seniorityParam: "Mid-Level",
-      hourlyPrice: "$35 – $48",
+      hourlyPrice: "$18 – $26",
+      hourlyCompareAt: "$35 – $48",
       hourlyPeriod: "/ hour",
-      monthlyPrice: "$3,400 – $4,200",
+      monthlyPrice: "$1,540 – $2,310",
+      monthlyCompareAt: "$3,400 – $4,200",
       monthlyPeriod: "/ month (Full-Time)",
       accentBorder: "border-accent-cyan/40 hover:border-accent-cyan",
       badgeClass: "bg-accent-cyan/15 text-accent-cyan border-accent-cyan/30",
@@ -85,9 +89,11 @@ export function TalentRateDeck() {
       badge: "Cost-Efficient Builder",
       roleHighlight: "Frontend & QA Specialists",
       seniorityParam: "Junior / Associate",
-      hourlyPrice: "$20 – $28",
+      hourlyPrice: "$11 – $15",
+      hourlyCompareAt: "$20 – $28",
       hourlyPeriod: "/ hour",
-      monthlyPrice: "$2,200 – $2,800",
+      monthlyPrice: "$990 – $1,540",
+      monthlyCompareAt: "$2,200 – $2,800",
       monthlyPeriod: "/ month (Full-Time)",
       accentBorder: "border-emerald-400/40 hover:border-emerald-400",
       badgeClass: "bg-emerald-400/15 text-emerald-400 border-emerald-400/30",
@@ -206,7 +212,15 @@ export function TalentRateDeck() {
 
               {/* Price Tag with dynamic animation */}
               <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                <div className="flex items-baseline gap-2">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-sm text-white/40 line-through">
+                    {billingPeriod === "hourly" ? tier.hourlyCompareAt : tier.monthlyCompareAt}
+                  </p>
+                  <span className="rounded-full bg-accent-2 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-navy">
+                    45% off
+                  </span>
+                </div>
+                <div className="mt-1 flex items-baseline gap-2">
                   <span className="text-4xl font-extrabold tracking-tight text-white">
                     {billingPeriod === "hourly" ? tier.hourlyPrice : tier.monthlyPrice}
                   </span>
@@ -216,8 +230,8 @@ export function TalentRateDeck() {
                 </div>
                 <p className="mt-1 text-[11px] text-white/40">
                   {billingPeriod === "hourly"
-                    ? "Flexible hours • Billed weekly against logged sprint tickets"
-                    : "160 hours / month • Dedicated exclusive allocation"}
+                    ? "Q4 deal · billed weekly against logged sprint tickets"
+                    : "Q4 deal · 160 hours / month exclusive allocation"}
                 </p>
               </div>
 
@@ -240,7 +254,6 @@ export function TalentRateDeck() {
                         <Avatar
                           initials={member.initials}
                           tone={member.tone}
-                          image={member.image}
                           alt={member.name}
                           size="sm"
                           showStatus={true}

@@ -1,3 +1,4 @@
+import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/cn";
 
 export function Container({
@@ -18,13 +19,14 @@ export function Section({
   children,
   className,
   id,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-}) {
+  ...rest
+}: ComponentPropsWithoutRef<"section">) {
   return (
-    <section id={id} className={cn("py-20 sm:py-28", className)}>
+    <section
+      id={id}
+      className={cn("pt-12 pb-12 sm:pt-16 sm:pb-16", className)}
+      {...rest}
+    >
       {children}
     </section>
   );

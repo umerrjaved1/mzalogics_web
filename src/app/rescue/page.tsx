@@ -45,7 +45,7 @@ export default function RescuePage() {
           </p>
         </Container>
       </Section>
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container className="grid gap-4 lg:grid-cols-2">
           <article className="rounded-3xl border border-line p-6">
             <p className="text-xs font-semibold text-accent">Most used</p>

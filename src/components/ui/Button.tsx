@@ -1,3 +1,4 @@
+import type { MouseEvent } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
@@ -7,7 +8,7 @@ type ButtonProps = {
   variant?: "primary" | "secondary" | "ghost" | "dark";
   className?: string;
   type?: "button" | "submit";
-  onClick?: () => void;
+  onClick?: (event: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
   disabled?: boolean;
   "aria-label"?: string;
 };
@@ -33,8 +34,16 @@ export function Button({
   );
 
   if (href) {
+    const external = /^(https?:|mailto:|tel:)/.test(href);
+    if (external) {
+      return (
+        <a href={href} className={styles} aria-label={ariaLabel} onClick={onClick} target="_blank" rel="noreferrer">
+          {children}
+        </a>
+      );
+    }
     return (
-      <Link href={href} className={styles} aria-label={ariaLabel}>
+      <Link href={href} className={styles} aria-label={ariaLabel} onClick={onClick}>
         {children}
       </Link>
     );

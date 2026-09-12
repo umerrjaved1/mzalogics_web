@@ -10,7 +10,7 @@ export function Faq({ items = homeFaqs }: { items?: FaqItem[] }) {
   const [open, setOpen] = useState(0);
 
   return (
-    <Section>
+    <Section className="pt-10 pb-10 sm:pt-12 sm:pb-12">
       <Container className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <Eyebrow>FAQ</Eyebrow>
@@ -35,7 +35,7 @@ export function Faq({ items = homeFaqs }: { items?: FaqItem[] }) {
                   onClick={() => setOpen(isOpen ? -1 : index)}
                 >
                   <span className="text-[15px] font-semibold text-navy">
-                    <span className="mr-3 text-muted">0{index + 1}</span>
+                    <span className="mr-3 text-muted">{String(index + 1).padStart(2, "0")}</span>
                     {item.question}
                   </span>
                   <ChevronDown className={cn("shrink-0 text-muted transition", isOpen && "rotate-180")} size={18} />

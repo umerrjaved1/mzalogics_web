@@ -26,13 +26,6 @@ export function organizationJsonLd() {
       postalCode: site.locations[0].postalCode,
       addressCountry: site.locations[0].country,
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "52",
-      bestRating: "5",
-      worstRating: "1",
-    },
   };
 }
 
@@ -58,14 +51,14 @@ export function serviceJsonLd(service: Service) {
           "@type": "Offer",
           name: `${service.title} AI-Accelerated Track`,
           priceCurrency: "USD",
-          price: "3900",
+          price: "2150",
           description: "Rapid delivery pod powered by AI synthesis with senior architect review",
         },
         {
           "@type": "Offer",
           name: `${service.title} Hand-Crafted Track`,
           priceCurrency: "USD",
-          price: "5900",
+          price: "3250",
           description: "100% human-authored codebase with strict IP isolation and formal verification",
         },
       ],
@@ -98,10 +91,22 @@ export function jobJsonLd() {
     "@type": "JobPosting",
     title: job.title,
     description: job.summary,
+    datePosted: "2026-09-01",
+    validThrough: "2027-03-01",
     employmentType: job.type === "Full-time" ? "FULL_TIME" : "PART_TIME",
     hiringOrganization: { "@type": "Organization", name: site.name, url: site.url },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: site.locations[0].city,
+        addressCountry: site.locations[0].country,
+      },
+    },
     jobLocationType: "TELECOMMUTE",
     applicantLocationRequirements: { "@type": "Country", name: "Pakistan" },
+    directApply: true,
+    url: `${site.url}/careers`,
   }));
 }
 
@@ -116,14 +121,6 @@ export function websiteJsonLd() {
       "@type": "Organization",
       name: site.name,
       url: site.url,
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${site.url}/insights?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
     },
   };
 }
@@ -163,13 +160,6 @@ export function localBusinessJsonLd() {
         closes: "18:00",
       },
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "52",
-      bestRating: "5",
-      worstRating: "1",
-    },
   };
 }
 

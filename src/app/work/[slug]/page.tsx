@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { CtaBand } from "@/components/CtaBand";
 import { caseStudies, getCaseStudy } from "@/content/case-studies";
+import { CaseStudyCover } from "@/components/ui/CaseStudyCover";
+import { resolveLocal } from "@/lib/media";
 
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
@@ -49,17 +51,17 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           { name: study.title, path: `/work/${study.slug}` },
         ])}
       />
-      <Section className="pb-8">
+      <Section className="pb-8 sm:pb-10">
         <Container className="max-w-4xl">
           <Eyebrow>{study.industry}</Eyebrow>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-navy sm:text-5xl">{study.title}</h1>
           <p className="mt-3 text-base text-muted">{study.client}</p>
           <div className="relative mt-8 overflow-hidden rounded-[28px] border border-black/8">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={study.heroImage}
-              alt={`${study.title} product view`}
-              className="h-[280px] w-full object-cover sm:h-[380px]"
+            <CaseStudyCover
+              industry={study.industry}
+              title={study.title}
+              local={resolveLocal(`/media/work/${study.slug}-hero.jpg`) ?? resolveLocal(`/media/work/${study.slug}.jpg`)}
+              className="h-[280px] w-full sm:h-[380px]"
             />
           </div>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">

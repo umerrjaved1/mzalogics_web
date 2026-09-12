@@ -3,12 +3,13 @@ import { ArrowUpRight } from "lucide-react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { CaseStudyCover } from "@/components/ui/CaseStudyCover";
 import { caseStudies } from "@/content/case-studies";
+import { resolveLocal } from "@/lib/media";
 
 export function WorkProof() {
   const featured = caseStudies.slice(0, 4);
 
   return (
-    <Section id="work">
+    <Section id="work" className="pb-8 sm:pb-10">
       <Container>
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
@@ -17,7 +18,7 @@ export function WorkProof() {
               Products you can see
             </h2>
             <p className="mt-3 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-              Outcomes from recent mobile, web, and operations products.
+              Outcomes from recent mobile, web, and operations products. Covers are diagrams unless a client has released a still.
             </p>
           </div>
           <Link
@@ -39,7 +40,7 @@ export function WorkProof() {
               <CaseStudyCover
                 industry={study.industry}
                 title={study.title}
-                image={study.screenshot}
+                local={resolveLocal(`/media/work/${study.slug}.jpg`)}
                 compact
                 className="h-52 sm:h-60"
               />

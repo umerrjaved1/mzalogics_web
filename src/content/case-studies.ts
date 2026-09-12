@@ -8,10 +8,9 @@ export type CaseStudy = {
   outcome: string;
   metrics: { value: string; label: string }[];
   stack: string[];
-  /** Dummy product still — replace with a real UI screenshot. */
-  screenshot: string;
-  /** Wide crop for the case-study hero — replace with a real product shot. */
-  heroImage: string;
+  /** Optional stock or legacy URL. Live pages use /public/media/work when present. */
+  screenshot?: string;
+  heroImage?: string;
 };
 
 export const caseStudies: CaseStudy[] = [

@@ -3,14 +3,16 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingSocial } from "@/components/layout/FloatingSocial";
+import { LeadDock } from "@/components/conversion/LeadDock";
 import { MotionProvider } from "@/components/MotionProvider";
+import { Analytics } from "@/components/Analytics";
 import { site } from "@/lib/site";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -31,22 +33,11 @@ export const metadata: Metadata = {
     telephone: true,
   },
   keywords: [
-    "software development company Lahore",
-    "custom software development agency",
-    "mobile app development company",
-    "Flutter app development Pakistan",
-    "React Native development studio",
-    "Next.js development agency",
-    "AI app development",
-    "dedicated developers Lahore",
-    "hire engineering team Pakistan",
-    "enterprise cloud solutions",
-    "rapid MVP prototyping studio",
-    "software house DHA Lahore",
+    "custom software development",
+    "mobile app development Lahore",
+    "AI software engineering",
+    "Next.js development studio",
   ],
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: `${site.name} | Custom Software, Mobile Apps & AI Development Company`,
     description: site.description,
@@ -67,7 +58,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${site.name} | Custom Software, Mobile Apps & AI Development Company`,
     description: site.description,
-    creator: "@mzalogics",
     images: ["/opengraph-image"],
   },
   robots: {
@@ -103,6 +93,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </main>
           <Footer />
           <FloatingSocial />
+          <LeadDock />
+          <Analytics />
         </MotionProvider>
       </body>
     </html>

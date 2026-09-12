@@ -25,7 +25,7 @@ export function PricingTables({
   const track = pricingTracks.find((item) => item.id === trackId) ?? pricingTracks[0];
 
   return (
-    <Section id="plans" className={compact ? "" : "pt-0"}>
+    <Section id="plans" className={compact ? "pt-10 pb-10 sm:pt-12 sm:pb-12" : "pt-0 sm:pt-0 pb-8 sm:pb-10"}>
       <Container>
         {compact ? (
           <div className="max-w-2xl">
@@ -82,17 +82,34 @@ export function PricingTables({
                 <h3 className={cn("text-xl font-bold", tier.featured ? "text-white" : "text-navy")}>
                   {tier.name}
                 </h3>
-                {tier.featured ? (
-                  <span className="rounded-full bg-accent-2 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-navy">
-                    Most chosen
-                  </span>
-                ) : null}
+                <div className="flex flex-wrap items-center justify-end gap-1.5">
+                  {tier.saveLabel ? (
+                    <span
+                      className={cn(
+                        "rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]",
+                        tier.featured ? "bg-accent-2 text-navy" : "bg-emerald-700 text-white",
+                      )}
+                    >
+                      {tier.saveLabel}
+                    </span>
+                  ) : null}
+                  {tier.featured ? (
+                    <span className="rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white">
+                      Most chosen
+                    </span>
+                  ) : null}
+                </div>
               </div>
               <p className={cn("mt-1.5 text-sm", tier.featured ? "text-white/70" : "text-muted")}>
                 {tier.tagline}
               </p>
 
-              <p className={cn("mt-6 text-4xl font-extrabold tracking-tight", tier.featured ? "text-white" : "text-navy")}>
+              {tier.compareAt ? (
+                <p className={cn("mt-6 text-sm line-through", tier.featured ? "text-white/45" : "text-muted")}>
+                  {tier.compareAt}
+                </p>
+              ) : null}
+              <p className={cn(tier.compareAt ? "mt-1" : "mt-6", "text-4xl font-extrabold tracking-tight", tier.featured ? "text-white" : "text-navy")}>
                 {tier.price}
               </p>
               <p className={cn("mt-1 text-xs", tier.featured ? "text-white/55" : "text-muted")}>
@@ -140,7 +157,7 @@ export function PricingTables({
                     : "bg-navy text-white hover:bg-navy-2",
                 )}
               >
-                Get a fixed quote
+                Lock this Q4 rate
               </Link>
             </article>
           ))}

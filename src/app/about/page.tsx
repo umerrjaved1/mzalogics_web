@@ -8,18 +8,21 @@ import { team } from "@/content/team";
 import { techStack, timeline, trustSignals } from "@/content/tech";
 import { Button, ArrowDisc } from "@/components/ui/Button";
 import Link from "next/link";
+import { MediaImg } from "@/components/ui/MediaImg";
+import { aboutHero, studioPhotos } from "@/content/visuals";
+import { resolveLocal, teamPhotos } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "About Us | Software Engineering Studio & Team in Lahore",
   description:
-    "Learn how MZA Logics builds scalable software for 50+ global clients. 25+ software engineers, designers, and delivery leads in DHA Lahore, Pakistan.",
+    `Learn how MZA Logics builds software for operators worldwide. ${site.teamSize} named specialists in DHA Lahore, Pakistan.`,
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title: "About MZA Logics | Software Engineering Studio in Lahore",
     description:
-      "25+ engineers, mobile architects, and AI specialists building market-leading products since 2021.",
+      `${site.teamSize} engineers, architects, and delivery leads building products since 2021.`,
     url: `${site.url}/about`,
   },
 };
@@ -27,15 +30,45 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <Section className="pb-8">
+      <Section className="pb-8 sm:pb-8">
         <Container>
-          <Eyebrow>Our Story &amp; Vision</Eyebrow>
-          <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-navy sm:text-5xl lg:text-6xl">
-            Software Built Around You — <span className="bg-gradient-to-r from-navy to-accent-2 bg-clip-text text-transparent">Not the Other Way Around</span>
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted leading-relaxed">
-            Founded in 2021 by senior engineers in Lahore with a shared conviction: growing businesses deserve software made specifically for how they operate, not forced into cookie-cutter templates.
-          </p>
+          <div className="grid items-center gap-10 lg:grid-cols-2">
+            <div>
+              <Eyebrow>Our Story &amp; Vision</Eyebrow>
+              <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy sm:text-5xl lg:text-6xl">
+                Software Built Around You — <span className="bg-gradient-to-r from-navy to-accent-2 bg-clip-text text-transparent">Not the Other Way Around</span>
+              </h1>
+              <p className="mt-4 max-w-2xl text-lg text-muted leading-relaxed">
+                Founded in 2021 by senior engineers in Lahore with a shared conviction: growing businesses deserve software made specifically for how they operate, not forced into cookie-cutter templates.
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-[28px] border border-black/8 bg-navy shadow-lg">
+              {resolveLocal(aboutHero.local) ? (
+                <MediaImg
+                  local={aboutHero.local}
+                  fallback={aboutHero.local}
+                  alt="MZA Logics studio in DHA Lahore"
+                  className="h-64 w-full sm:h-80"
+                />
+              ) : (
+                <div className="grid h-64 place-items-center px-6 text-center sm:h-80">
+                  <p className="text-sm font-semibold text-white/80">Studio photography — drop studio.jpg in public/media/studio</p>
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {studioPhotos.slice(1).map((tile) => (
+              <figure key={tile.title} className="overflow-hidden rounded-2xl border border-black/8 bg-paper">
+                {resolveLocal(tile.local) ? (
+                  <MediaImg local={tile.local} fallback={tile.local} alt={tile.alt} className="h-28 w-full sm:h-32" />
+                ) : (
+                  <div className="h-28 w-full bg-navy/10 sm:h-32" aria-hidden />
+                )}
+                <figcaption className="bg-navy px-3 py-2 text-sm font-semibold text-white">{tile.title}</figcaption>
+              </figure>
+            ))}
+          </div>
           <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
             {metrics.map((item) => (
               <div key={item.label} className="rounded-2xl border border-black/8 bg-white p-5 shadow-sm">
@@ -48,7 +81,7 @@ export default function AboutPage() {
       </Section>
 
       {/* 4 Core Vision Pillars */}
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <div className="rounded-[32px] border border-black/8 bg-gradient-to-br from-white via-paper to-white p-8 sm:p-12 shadow-sm">
             <Eyebrow>Our Guiding Pillars</Eyebrow>
@@ -61,9 +94,9 @@ export default function AboutPage() {
 
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-sm">
-                <div className="text-xs font-bold uppercase tracking-widest text-accent-2">Pillar 01</div>
+                <div className="text-xs font-bold uppercase tracking-widest text-emerald-700">Pillar 01</div>
                 <h3 className="mt-2 font-bold text-navy text-lg">Accessibility First</h3>
-                <p className="mt-2 text-sm text-muted leading-relaxed">
+                <p className="mt-2 text-base text-muted leading-relaxed">
                   Enterprise-grade software shouldn&apos;t be a luxury reserved for Fortune 500s. We bridge the gap so ambitious, growing companies can access elite engineering at transparent rates.
                 </p>
               </div>
@@ -71,7 +104,7 @@ export default function AboutPage() {
               <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-sm">
                 <div className="text-xs font-bold uppercase tracking-widest text-accent-cyan">Pillar 02</div>
                 <h3 className="mt-2 font-bold text-navy text-lg">Craftsmanship &amp; Trust</h3>
-                <p className="mt-2 text-sm text-muted leading-relaxed">
+                <p className="mt-2 text-base text-muted leading-relaxed">
                   Founded by senior engineers with 10+ years of battle-tested enterprise experience. No hype, no junior-only blind spots—just clean code, rigorous review gates, and zero compromise.
                 </p>
               </div>
@@ -79,7 +112,7 @@ export default function AboutPage() {
               <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-sm">
                 <div className="text-xs font-bold uppercase tracking-widest text-accent-purple">Pillar 03</div>
                 <h3 className="mt-2 font-bold text-navy text-lg">People-Powered Delivery</h3>
-                <p className="mt-2 text-sm text-muted leading-relaxed">
+                <p className="mt-2 text-base text-muted leading-relaxed">
                   Our deep industry network lets you scale flexibly—from principal architects to mid-level specialists and junior builders, each with clear rate cards and vetted portfolios.
                 </p>
               </div>
@@ -87,7 +120,7 @@ export default function AboutPage() {
               <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-sm">
                 <div className="text-xs font-bold uppercase tracking-widest text-emerald-700">Pillar 04</div>
                 <h3 className="mt-2 font-bold text-navy text-lg">Tailored, Not Templated</h3>
-                <p className="mt-2 text-sm text-muted leading-relaxed">
+                <p className="mt-2 text-base text-muted leading-relaxed">
                   Every business operates uniquely. We reject off-the-shelf one-size-fits-all clones and celebrate software sculpted precisely around your users, workflows, and growth targets.
                 </p>
               </div>
@@ -96,7 +129,7 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container className="max-w-3xl">
           <h2 className="text-2xl font-bold text-navy">Our Foundation &amp; Belief</h2>
           <p className="mt-3 text-sm leading-7 text-muted">{foundation}</p>
@@ -113,7 +146,7 @@ export default function AboutPage() {
           </p>
         </Container>
       </Section>
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <h2 className="text-2xl font-bold text-navy">Our values</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -151,7 +184,7 @@ export default function AboutPage() {
             </Link>
           </div>
           <div className="mt-6">
-            <TeamGrid members={team.slice(0, 6)} />
+            <TeamGrid members={team.slice(0, 6)} photos={teamPhotos(team.map((member) => member.slug))} />
           </div>
           <h2 className="mt-14 text-2xl font-bold text-navy">How we got here</h2>
           <ol className="mt-6 space-y-4 border-l border-line pl-6">
@@ -206,8 +239,8 @@ export default function AboutPage() {
             {site.locations.map((location) => (
               <article key={location.label} className="rounded-3xl border border-line p-6">
                 <h3 className="font-semibold text-navy">{location.label}</h3>
-                <p className="mt-2 text-sm text-muted">{location.address}</p>
-                <p className="text-sm text-muted">{location.detail}</p>
+                <p className="mt-2 text-base text-muted">{location.address}</p>
+                <p className="text-base text-muted">{location.detail}</p>
               </article>
             ))}
           </div>

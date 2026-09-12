@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import { cn } from "@/lib/cn";
 
 export function Avatar({
   initials,
   tone,
   image,
+  local,
   alt,
   className,
   size = "md",
@@ -16,11 +16,13 @@ export function Avatar({
   initials: string;
   tone: string;
   image?: string;
+  local?: string;
   alt?: string;
   className?: string;
   size?: "sm" | "md" | "lg" | "xl";
   showStatus?: boolean;
 }) {
+  const [src, setSrc] = useState(local || image);
   const [imgError, setImgError] = useState(false);
 
   const sizeClasses = {
@@ -39,7 +41,7 @@ export function Avatar({
 
   return (
     <div className={cn("relative shrink-0 select-none", className)}>
-      {image && !imgError ? (
+      {src && !imgError ? (
         <div
           className={cn(
             "relative overflow-hidden border border-black/10 shadow-sm transition-all duration-300",
@@ -49,10 +51,13 @@ export function Avatar({
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={image}
+            src={src}
             alt={alt ?? initials}
             className="h-full w-full object-cover object-center"
-            onError={() => setImgError(true)}
+            onError={() => {
+              if (image && src !== image) setSrc(image);
+              else setImgError(true);
+            }}
             loading="lazy"
           />
         </div>

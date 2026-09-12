@@ -15,7 +15,7 @@ export function CareersClient() {
 
   return (
     <>
-      <Section className="dot-grid pb-8">
+      <Section className="dot-grid pb-8 sm:pb-8">
         <Container>
           <Eyebrow>We&apos;re hiring</Eyebrow>
           <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
@@ -26,7 +26,7 @@ export function CareersClient() {
           </p>
         </Container>
       </Section>
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <h2 className="text-2xl font-semibold text-navy">How we work</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

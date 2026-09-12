@@ -5,6 +5,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { CaseStudyCover } from "@/components/ui/CaseStudyCover";
 import { caseStudies } from "@/content/case-studies";
 import { site } from "@/lib/site";
+import { resolveLocal } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Case Studies & Client Outcomes | Mobile & Web Platforms Shipped",
@@ -24,18 +25,18 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <>
-      <Section className="pb-8">
+      <Section className="pb-8 sm:pb-8">
         <Container>
           <Eyebrow>Work</Eyebrow>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
             Case studies you can see
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            Selected engagements across healthcare, retail, SaaS, and operations.
+            Selected engagements. Clients stay confidential. Covers are diagrams unless we have an approved product still.
           </p>
         </Container>
       </Section>
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container className="grid gap-5 md:grid-cols-2">
           {caseStudies.map((study) => (
             <Link
@@ -46,7 +47,7 @@ export default function WorkPage() {
               <CaseStudyCover
                 industry={study.industry}
                 title={study.title}
-                image={study.screenshot}
+                local={resolveLocal(`/media/work/${study.slug}.jpg`)}
                 compact
                 className="h-56"
               />

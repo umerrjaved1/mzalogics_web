@@ -22,6 +22,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { TeamCard } from "@/components/TeamGrid";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { getTeamMember, team } from "@/content/team";
+import { resolveLocal } from "@/lib/media";
 import { breadcrumbJsonLd, personJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 
@@ -92,7 +93,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
                 <Avatar
                   initials={member.initials}
                   tone={member.tone}
-                  image={member.image}
+                  local={resolveLocal(`/media/team/${member.slug}.jpg`)}
                   alt={member.name}
                   size="xl"
                   showStatus
@@ -218,7 +219,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
       </Section>
 
       {/* Skills & Tech Stack Section */}
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <Eyebrow>Skillset &amp; Technical Arsenal</Eyebrow>
           <h2 className="mt-2 text-2xl font-bold tracking-tight text-navy sm:text-3xl">
@@ -238,7 +239,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
       </Section>
 
       {/* Interactive Portfolio & Shipped Projects */}
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <div className="flex items-center justify-between">
             <div>
@@ -306,7 +307,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
 
       {/* Colleagues in Same Department */}
       {colleagues.length > 0 && (
-        <Section className="pt-0">
+        <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
           <Container>
             <Eyebrow>Related Pod Members</Eyebrow>
             <h2 className="mt-2 text-2xl font-bold tracking-tight text-navy sm:text-3xl">
@@ -314,7 +315,11 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
             </h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {colleagues.slice(0, 3).map((colleague) => (
-                <TeamCard key={colleague.slug} member={colleague} />
+                <TeamCard
+                  key={colleague.slug}
+                  member={colleague}
+                  photo={resolveLocal(`/media/team/${colleague.slug}.jpg`)}
+                />
               ))}
             </div>
           </Container>

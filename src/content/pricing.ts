@@ -1,9 +1,6 @@
 /**
- * PLACEHOLDER PRICING.
- *
- * Figures are indicative starting points for two delivery tracks — replace with
- * signed-off commercial numbers before launch. Every price is rendered publicly
- * on /pricing and in the home-page pricing section.
+ * Indicative starting prices for the two delivery tracks.
+ * Final quotes follow a written scope after discovery.
  */
 
 export type PricingTier = {
@@ -11,6 +8,8 @@ export type PricingTier = {
   name: string;
   tagline: string;
   price: string;
+  compareAt?: string;
+  saveLabel?: string;
   priceNote: string;
   timeline: string;
   bestFor: string;
@@ -50,8 +49,10 @@ export const pricingTracks: PricingTrack[] = [
         slug: "ai-launch",
         name: "Launch",
         tagline: "MVPs, pilots, and single-purpose apps",
-        price: "$3,900",
-        priceNote: "fixed scope, starting at",
+        price: "$2,150",
+        compareAt: "$3,900",
+        saveLabel: "45% off",
+        priceNote: "Q4 deal · fixed scope, starting at",
         timeline: "2-4 weeks",
         bestFor: "Founders validating an idea with real users",
         team: "1 senior engineer + designer, part-time delivery lead",
@@ -67,8 +68,10 @@ export const pricingTracks: PricingTrack[] = [
         slug: "ai-growth",
         name: "Growth",
         tagline: "Production platforms with real users",
-        price: "$11,500",
-        priceNote: "typical engagement, starting at",
+        price: "$6,290",
+        compareAt: "$11,500",
+        saveLabel: "45% off",
+        priceNote: "Q4 deal · typical engagement, starting at",
         timeline: "6-10 weeks",
         bestFor: "Teams replacing spreadsheets or scaling a live product",
         team: "2-3 engineers, designer, QA, delivery lead",
@@ -86,8 +89,10 @@ export const pricingTracks: PricingTrack[] = [
         slug: "ai-enterprise",
         name: "Enterprise",
         tagline: "Multi-team systems and AI products",
-        price: "From $28,000",
-        priceNote: "quoted after architecture review",
+        price: "From $15,400",
+        compareAt: "From $28,000",
+        saveLabel: "45% off",
+        priceNote: "Q4 deal · quoted after architecture review",
         timeline: "12 weeks+",
         bestFor: "Operators with compliance, scale, or AI feature needs",
         team: "Dedicated pod: 4+ engineers, AI lead, QA, DevOps, delivery",
@@ -120,8 +125,10 @@ export const pricingTracks: PricingTrack[] = [
         slug: "manual-launch",
         name: "Launch",
         tagline: "MVPs, pilots, and single-purpose apps",
-        price: "$5,900",
-        priceNote: "fixed scope, starting at",
+        price: "$3,250",
+        compareAt: "$5,900",
+        saveLabel: "45% off",
+        priceNote: "Q4 deal · fixed scope, starting at",
         timeline: "4-6 weeks",
         bestFor: "Founders with IP or policy constraints from day one",
         team: "1 senior engineer + designer, part-time delivery lead",
@@ -137,8 +144,10 @@ export const pricingTracks: PricingTrack[] = [
         slug: "manual-growth",
         name: "Growth",
         tagline: "Production platforms with real users",
-        price: "$16,500",
-        priceNote: "typical engagement, starting at",
+        price: "$8,990",
+        compareAt: "$16,500",
+        saveLabel: "45% off",
+        priceNote: "Q4 deal · typical engagement, starting at",
         timeline: "10-16 weeks",
         bestFor: "Regulated teams that need human-authored code on record",
         team: "2-3 engineers, designer, QA, delivery lead",
@@ -156,8 +165,10 @@ export const pricingTracks: PricingTrack[] = [
         slug: "manual-enterprise",
         name: "Enterprise",
         tagline: "Multi-team, audit-heavy systems",
-        price: "From $38,000",
-        priceNote: "quoted after architecture review",
+        price: "From $20,900",
+        compareAt: "From $38,000",
+        saveLabel: "45% off",
+        priceNote: "Q4 deal · quoted after architecture review",
         timeline: "16 weeks+",
         bestFor: "Enterprises with strict vendor and audit requirements",
         team: "Dedicated pod: 4+ engineers, QA, DevOps, delivery lead",
@@ -179,7 +190,7 @@ export const trackComparison: { dimension: string; ai: string; manual: string }[
   { dimension: "Who writes the code", ai: "Engineers direct AI, then review and refactor every diff", manual: "MZA engineers, every line, no generation" },
   { dimension: "Typical timeline", ai: "2-10 weeks for most scopes", manual: "4-16 weeks for the same scope" },
   { dimension: "Indicative cost", ai: "Baseline", manual: "Roughly 1.4x the AI track" },
-  { dimension: "Hourly rate", ai: "$32 / hour blended", manual: "$32 / hour blended" },
+  { dimension: "Hourly rate", ai: "$18 / hour blended (Q4 deal)", manual: "$18 / hour blended (Q4 deal)" },
   { dimension: "Human review", ai: "Mandatory named reviewer on every merge", manual: "Standard peer review on every merge" },
   { dimension: "Test coverage target", ai: "Same target, tests drafted by AI and hardened by QA", manual: "Same target, tests written by QA" },
   { dimension: "IP provenance", ai: "Generation log per merge, licence scan on dependencies", manual: "Clean-room attestation, contributor-level records" },
@@ -200,39 +211,102 @@ export const everyEngagementIncludes = [
 export const addOns = [
   {
     title: "Dedicated engineer",
-    price: "$4,200 / month",
+    price: "$2,290 / month",
+    compareAt: "$4,200 / month",
+    saveLabel: "45% off",
     body: "One senior engineer embedded in your team, full-time, minimum one month. Add the AI-assisted pipeline at no extra rate.",
   },
   {
     title: "Dedicated pod",
-    price: "From $14,900 / month",
+    price: "From $8,190 / month",
+    compareAt: "From $14,900 / month",
+    saveLabel: "45% off",
     body: "Three to five people — engineering, design, QA, delivery — running your roadmap as a unit with a fixed monthly cost.",
   },
   {
     title: "Maintenance & DevOps retainer",
-    price: "From $850 / month",
+    price: "From $469 / month",
+    compareAt: "From $850 / month",
+    saveLabel: "45% off",
     body: "Monitoring, security patching, dependency updates, store releases, and a monthly health report.",
   },
   {
     title: "AI feature sprint",
-    price: "$6,500 / 3 weeks",
+    price: "$3,590 / 3 weeks",
+    compareAt: "$6,500 / 3 weeks",
+    saveLabel: "45% off",
     body: "A scoped AI capability in your existing product: retrieval, assistant, extraction, or classification — with an eval suite you keep.",
   },
   {
     title: "Product design sprint",
-    price: "$2,900 / 2 weeks",
+    price: "$1,590 / 2 weeks",
+    compareAt: "$2,900 / 2 weeks",
+    saveLabel: "45% off",
     body: "Research, flows, and a clickable high-fidelity prototype you can put in front of users or investors.",
   },
   {
     title: "Code & architecture audit",
-    price: "$1,400 fixed",
+    price: "$790 fixed",
+    compareAt: "$1,400 fixed",
+    saveLabel: "45% off",
     body: "A written review of an existing codebase: risks, security findings, effort estimate, and a prioritised remediation plan.",
   },
 ];
 
+export const activeDeal = {
+  id: "q4-2026",
+  eyebrow: "Q4 close-the-deal offer",
+  title: "45% off studio rates through 31 Dec 2026",
+  body: "Same engineers and the same review gates. Book this quarter and lock the reduced starting rate on any plan.",
+  endsLabel: "Ends 31 Dec 2026",
+  cta: "Lock this rate",
+  href: "/contact?deal=q4-2026",
+  extras: [
+    "Free 30-minute discovery call",
+    "Extra 30 days of fixes on Launch and Growth",
+    "No lock-in after the first milestone",
+  ],
+} as const;
+
 export const pricingNotes = [
+  "Q4 deal prices are 45% below our standard starting rates and apply to statements of work signed by 31 December 2026.",
   "All figures are in USD and exclude applicable taxes and third-party licence or cloud costs.",
   "Fixed-scope projects are billed 40% to start, 30% at the mid-point demo, and 30% on delivery.",
   "Retainers and dedicated engagements are billed monthly in advance, with 30 days notice to end.",
   "Final quotes follow a free discovery call — the scope drives the number, not the tier you picked.",
 ];
+
+export type LeadScope = "mobile" | "web" | "ai" | "mvp" | "pod";
+
+export function estimateForScope(scope: LeadScope, track: "ai" | "manual" | "undecided") {
+  const id = track === "manual" ? "manual" : "ai";
+  const tiers = pricingTracks.find((item) => item.id === id)?.tiers ?? pricingTracks[0].tiers;
+  const launch = tiers[0];
+  const growth = tiers[1];
+
+  if (scope === "pod") {
+    return {
+      price: addOns[1].price,
+      compareAt: addOns[1].compareAt,
+      timeline: "monthly",
+      note: "Q4 deal · dedicated-pod starting point. We confirm capacity on the call.",
+    };
+  }
+
+  if (scope === "ai" && id === "ai") {
+    return {
+      price: addOns[3].price,
+      compareAt: addOns[3].compareAt,
+      timeline: "3 weeks",
+      note: "Q4 deal · typical starting point for a scoped AI feature.",
+    };
+  }
+
+  const tier = scope === "web" ? growth : launch;
+  return {
+    price: tier.price,
+    compareAt: tier.compareAt,
+    timeline: tier.timeline,
+    note: `${tier.priceNote}. This is a starting range, not a quote.`,
+  };
+}

@@ -8,15 +8,17 @@ export const site = {
   shortDescription:
     "Software studio in Lahore engineering mobile apps, web platforms, and AI systems built around your business.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mzalogics.com",
-  email: "Mzalogics@gmail.com",
-  careersEmail: "Mzalogics@gmail.com",
+  email: "mzalogics@gmail.com",
+  careersEmail: "mzalogics@gmail.com",
   phoneDisplay: "0300 3600188",
   phoneHref: "+923003600188",
   whatsapp: "923003600188",
   linkedin: "https://www.linkedin.com/company/mza-logics",
+  calendarUrl: process.env.NEXT_PUBLIC_CALENDAR_URL ?? "",
   founded: "2021",
-  teamSize: "25+",
+  teamSize: "16",
   customers: "50+",
+  availability: "Booking Q4 2026 pods",
   responseTime: "We reply to new enquiries within one business day.",
   hours: "Mon-Fri, 9:00-18:00 PKT (UTC+5)",
   geo: {
@@ -36,27 +38,24 @@ export const site = {
   ],
 } as const;
 
-export const socials = [
-  { label: "LinkedIn", href: site.linkedin },
-  { label: "GitHub", href: "https://github.com/mza-logics" },
-  { label: "X", href: "https://x.com/mzalogics" },
-  { label: "Dribbble", href: "https://dribbble.com/mzalogics" },
-] as const;
+export function whatsappHref(
+  message = "Hi MZA Logics — I want a 20-minute discovery call about a product build.",
+) {
+  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
+}
+
+export const socials = [{ label: "LinkedIn", href: site.linkedin }] as const;
 
 export const nav = [
-  { href: "/", label: "Home" },
   { href: "/solutions", label: "Solutions" },
-  { href: "/solutions/ai-development", label: "AI" },
   { href: "/work", label: "Work" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/about", label: "About" },
   { href: "/team", label: "Team" },
-  { href: "/talent", label: "Talent" },
-  { href: "/insights", label: "Insights" },
 ] as const;
 
 export const footerNav = {
   company: [
-    { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/team", label: "Team" },
     { href: "/work", label: "Work" },
@@ -85,8 +84,8 @@ export const footerNav = {
 } as const;
 
 export const metrics = [
-  { value: "50+", label: "Customers worldwide" },
-  { value: "25+", label: "Skilled professionals" },
-  { value: "2021", label: "Established" },
+  { value: site.customers, label: "Products shipped" },
+  { value: site.teamSize, label: "Named specialists" },
+  { value: site.founded, label: "Established" },
   { value: "2 tracks", label: "AI-driven or hand-crafted" },
 ] as const;

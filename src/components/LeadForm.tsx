@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Sparkles, MessageCircle, Send, ShieldCheck, CheckCircle2, Zap } from "lucide-react";
+import { Calendar, MessageCircle, Send, ShieldCheck, CheckCircle2, Zap } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import type { FormKind } from "@/lib/forms";
-import { site } from "@/lib/site";
+import { estimateForScope, type LeadScope } from "@/content/pricing";
+import { site, whatsappHref } from "@/lib/site";
 
-type ProjectType = "mobile" | "web" | "ai" | "mvp" | "pod";
+type ProjectType = LeadScope;
 type TrackType = "undecided" | "ai" | "manual";
 
 export function LeadForm({
@@ -35,15 +36,18 @@ export function LeadForm({
   const [selectedSeniority, setSelectedSeniority] = useState<string>("");
 
   const planRef = useRef<HTMLInputElement>(null);
+  const dealRef = useRef<HTMLInputElement>(null);
   const trackRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const plan = params.get("plan") ?? "";
+    const deal = params.get("deal") ?? "";
     const engineer = params.get("engineer") ?? "";
     const seniority = params.get("seniority") ?? "";
 
     if (planRef.current) planRef.current.value = plan;
+    if (dealRef.current) dealRef.current.value = deal;
     if (trackRef.current && plan) {
       const isManual = plan.startsWith("manual");
       trackRef.current.value = isManual ? "manual" : "ai";
@@ -103,7 +107,7 @@ export function LeadForm({
   }
 
   return (
-    <Section id="book" className="relative">
+    <Section id="book" className="relative pt-10 pb-10 sm:pt-12 sm:pb-12">
       <Container>
         <div className="overflow-hidden rounded-[32px] border border-black/8 bg-white p-6 shadow-[0_16px_50px_rgba(9,6,26,0.04)] sm:p-10 lg:p-12">
           <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.15fr]">
@@ -125,7 +129,7 @@ export function LeadForm({
                   </div>
                 </div>
                 <a
-                  href={`https://wa.me/${site.whatsapp}?text=Hi%20MZA%20Logics,%20I'd%20like%20to%20discuss%20a%20project`}
+                  href={whatsappHref("Hi MZA Logics, I'd like to discuss a project")}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-800"
@@ -133,6 +137,17 @@ export function LeadForm({
                   <MessageCircle size={15} />
                   Chat on WhatsApp ({site.phoneDisplay})
                 </a>
+                {site.calendarUrl ? (
+                  <a
+                    href={site.calendarUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-navy/15 bg-white py-2.5 text-xs font-bold text-navy transition hover:bg-paper"
+                  >
+                    <Calendar size={15} />
+                    Book 20 minutes
+                  </a>
+                ) : null}
               </div>
 
               {/* Trust assurances */}
@@ -183,11 +198,11 @@ export function LeadForm({
                   </span>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {[
-                      { id: "mobile" as ProjectType, label: "📱 Mobile App" },
-                      { id: "web" as ProjectType, label: "💻 Web / SaaS" },
-                      { id: "ai" as ProjectType, label: "⚡ AI Integration" },
-                      { id: "mvp" as ProjectType, label: "🚀 14-Day MVP" },
-                      { id: "pod" as ProjectType, label: "👥 Dedicated Pod" },
+                      { id: "mobile" as ProjectType, label: "Mobile App" },
+                      { id: "web" as ProjectType, label: "Web / SaaS" },
+                      { id: "ai" as ProjectType, label: "AI Integration" },
+                      { id: "mvp" as ProjectType, label: "MVP" },
+                      { id: "pod" as ProjectType, label: "Dedicated Pod" },
                     ].map((btn) => (
                       <button
                         key={btn.id}
@@ -263,13 +278,34 @@ export function LeadForm({
                       </div>
                     </button>
                   </div>
+
+                  {(() => {
+                    const estimate = estimateForScope(projectType, selectedTrack);
+                    return (
+                      <p className="mt-5 rounded-2xl border border-navy/10 bg-white px-4 py-3 text-sm text-navy">
+                        {estimate.compareAt ? (
+                          <span className="mr-2 text-muted line-through">{estimate.compareAt}</span>
+                        ) : null}
+                        <span className="font-bold">{estimate.price}</span>
+                        <span className="text-muted"> · {estimate.timeline} · {estimate.note}</span>
+                      </p>
+                    );
+                  })()}
                 </div>
               )}
 
               {/* Main Contact Form */}
-              <form onSubmit={onSubmit}>
-                <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
+              <form onSubmit={onSubmit} className="relative">
+                <input
+                  type="text"
+                  name="website"
+                  className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
                 <input type="hidden" name="plan" ref={planRef} />
+                <input type="hidden" name="deal" ref={dealRef} />
                 <input type="hidden" name="projectType" value={projectType} />
 
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -294,11 +330,21 @@ export function LeadForm({
                     />
                   </label>
 
-                  <label className="text-sm font-semibold text-navy sm:col-span-2">
+                  <label className="text-sm font-semibold text-navy">
+                    Phone
+                    <input
+                      name="phone"
+                      type="tel"
+                      placeholder="+92 300 0000000"
+                      className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                    />
+                  </label>
+
+                  <label className="text-sm font-semibold text-navy">
                     Company / Organization
                     <input
                       name="company"
-                      placeholder="e.g. NovaTech Labs"
+                      placeholder="e.g. your company"
                       className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
                     />
                   </label>

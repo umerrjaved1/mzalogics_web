@@ -38,15 +38,15 @@ const frames = [
 
 function FrameArt({ art }: { art: (typeof frames)[number]["art"] }) {
   return (
-    <svg viewBox="0 0 160 100" className="h-24 w-full" aria-hidden>
+    <svg viewBox="0 0 160 100" className="h-16 w-full sm:h-[72px]" aria-hidden>
       {art === "sketch" && (
-        <g fill="none" stroke="#09061a" strokeWidth="2">
+        <g fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="20" y="18" width="70" height="64" rx="8" />
-          <path d="M100 28h36M100 44h28M100 60h32" stroke="#3d3d54" />
+          <path d="M100 28h36M100 44h28M100 60h32" opacity="0.55" />
         </g>
       )}
       {art === "repo" && (
-        <g fill="none" stroke="#09061a" strokeWidth="2">
+        <g fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="40" cy="50" r="10" />
           <circle cx="80" cy="30" r="8" />
           <circle cx="80" cy="70" r="8" />
@@ -55,20 +55,20 @@ function FrameArt({ art }: { art: (typeof frames)[number]["art"] }) {
         </g>
       )}
       {art === "board" && (
-        <g fill="#09061a">
-          <rect x="18" y="22" width="36" height="56" rx="6" opacity="0.15" />
-          <rect x="62" y="22" width="36" height="40" rx="6" opacity="0.35" />
+        <g fill="currentColor">
+          <rect x="18" y="22" width="36" height="56" rx="6" opacity="0.22" />
+          <rect x="62" y="22" width="36" height="40" rx="6" opacity="0.5" />
           <rect x="106" y="22" width="36" height="28" rx="6" />
         </g>
       )}
       {art === "shield" && (
-        <g fill="none" stroke="#09061a" strokeWidth="2.2">
+        <g fill="none" stroke="currentColor" strokeWidth="2.2">
           <path d="M80 16l40 16v24c0 22-18 36-40 42-22-6-40-20-40-42V32z" />
           <path d="M64 52l14 14 24-26" />
         </g>
       )}
       {art === "rocket" && (
-        <g fill="none" stroke="#09061a" strokeWidth="2">
+        <g fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M80 16c18 20 22 40 18 58H62c-4-18 0-38 18-58z" />
           <circle cx="80" cy="48" r="6" />
           <path d="M62 74l-10 12M98 74l10 12" />
@@ -82,7 +82,7 @@ export function Process() {
   const [active, setActive] = useState(0);
 
   return (
-    <Section id="process">
+    <Section id="process" className="pt-8 pb-12 sm:pt-10 sm:pb-14">
       <Container>
         <Eyebrow>How we ship</Eyebrow>
         <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-5xl">
@@ -116,7 +116,7 @@ export function Process() {
                 className={`min-w-[148px] shrink-0 rounded-3xl border p-4 text-left transition sm:min-w-0 ${
                   selected
                     ? "border-navy bg-navy text-white shadow-lg"
-                    : "border-black/8 bg-white text-navy hover:border-black/20"
+                    : "border-black/8 bg-white text-navy hover:border-navy/25"
                 }`}
               >
                 <FrameArt art={frame.art} />

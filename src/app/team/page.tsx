@@ -9,11 +9,12 @@ import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { team, teamPortfolio } from "@/content/team";
 import { breadcrumbJsonLd, personJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
+import { teamPhotos } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Hire Vetted Developers & Engineers | Transparent Rates in Lahore",
   description:
-    "Choose your engineers from MZA Logics in Lahore. Filter by seniority: Senior/Lead ($48-$70/hr), Mid-Level ($32-$38/hr), or Junior ($20-$24/hr). Vetted, trusted, and ready in 48 hours.",
+    "Choose your engineers from MZA Logics in Lahore. Q4 deal rates: Senior/Lead ($26-$39/hr), Mid-Level ($18-$26/hr), or Junior ($11-$15/hr). Vetted, trusted, and ready in 48 hours.",
   alternates: {
     canonical: "/team",
   },
@@ -39,7 +40,7 @@ export default function TeamPage() {
       />
 
       {/* Hero Section */}
-      <Section className="pb-10">
+      <Section className="pb-8 sm:pb-10">
         <Container>
           <Eyebrow>People-Powered Delivery</Eyebrow>
           <h1 className="mt-3 max-w-4xl text-4xl font-extrabold tracking-tight text-navy sm:text-6xl">
@@ -59,7 +60,7 @@ export default function TeamPage() {
                 <span className="text-xs font-bold text-accent-cyan bg-navy px-2 py-0.5 rounded-md">
                   Senior &amp; Leads
                 </span>
-                <span className="text-xs font-mono font-bold text-navy">$48–$70/hr</span>
+                <span className="text-xs font-mono font-bold text-navy">$26–$39/hr</span>
               </div>
               <p className="mt-3 text-xs text-muted leading-relaxed">
                 Veteran architects with 7–14 years experience. Best for technical discovery, high-scale system design, and security audits.
@@ -71,7 +72,7 @@ export default function TeamPage() {
                 <span className="text-xs font-bold text-navy bg-paper px-2 py-0.5 rounded-md border border-black/10">
                   Mid-Level Developers
                 </span>
-                <span className="text-xs font-mono font-bold text-navy">$30–$38/hr</span>
+                <span className="text-xs font-mono font-bold text-navy">$18–$26/hr</span>
               </div>
               <p className="mt-3 text-xs text-muted leading-relaxed">
                 Independent engineers with 4–6 years experience. Best for core feature velocity, API integrations, and mobile screens.
@@ -83,7 +84,7 @@ export default function TeamPage() {
                 <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
                   Junior / Associates
                 </span>
-                <span className="text-xs font-mono font-bold text-navy">$20–$24/hr</span>
+                <span className="text-xs font-mono font-bold text-navy">$11–$15/hr</span>
               </div>
               <p className="mt-3 text-xs text-muted leading-relaxed">
                 Fast, cost-effective developers with 2+ years experience. Best for responsive layouts, test automation, and rapid UI builds.
@@ -94,7 +95,7 @@ export default function TeamPage() {
       </Section>
 
       {/* Main Team Talent Directory with Interactive Filters */}
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <div className="mb-6 flex items-baseline justify-between gap-4">
             <div>
@@ -105,12 +106,12 @@ export default function TeamPage() {
             </div>
           </div>
 
-          <TeamGrid members={team} />
+          <TeamGrid members={team} photos={teamPhotos(team.map((member) => member.slug))} />
         </Container>
       </Section>
 
       {/* Shipped Team Portfolio Grid */}
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
             <div>

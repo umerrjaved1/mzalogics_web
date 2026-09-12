@@ -32,7 +32,7 @@ export default function FaqPage() {
         ])}
       />
 
-      <Section className="pb-10">
+      <Section className="pb-8 sm:pb-8">
         <Container>
           <Eyebrow>FAQ</Eyebrow>
           <h1 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight text-navy sm:text-5xl">
@@ -49,7 +49,7 @@ export default function FaqPage() {
       </Section>
 
       {faqGroups.map((group) => (
-        <Section key={group.title} className="pt-0">
+        <Section key={group.title} className="pt-0 sm:pt-0 pb-8 sm:pb-10">
           <Container className="grid gap-8 lg:grid-cols-[0.6fr_1.4fr]">
             <h2 className="text-2xl font-bold text-navy">{group.title}</h2>
             <dl className="divide-y divide-line border-y border-line">

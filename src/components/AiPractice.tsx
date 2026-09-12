@@ -12,7 +12,7 @@ export function AiPractice() {
 
   return (
     <>
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <Eyebrow>How we build with AI</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-4xl">
@@ -33,7 +33,7 @@ export function AiPractice() {
         </Container>
       </Section>
 
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <Eyebrow>Guardrails</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-4xl">
@@ -51,7 +51,7 @@ export function AiPractice() {
         </Container>
       </Section>
 
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <Eyebrow>AI in your product</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-4xl">
@@ -75,7 +75,7 @@ export function AiPractice() {
         </Container>
       </Section>
 
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <Eyebrow>With AI or without</Eyebrow>
           <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-4xl">
@@ -93,7 +93,7 @@ export function AiPractice() {
         </Container>
       </Section>
 
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <Eyebrow>When we say no</Eyebrow>
@@ -117,7 +117,7 @@ export function AiPractice() {
       </Section>
 
       {aiTeam.length > 0 ? (
-        <Section className="pt-0">
+        <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
           <Container>
             <Eyebrow>Who you work with</Eyebrow>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">The AI practice</h2>

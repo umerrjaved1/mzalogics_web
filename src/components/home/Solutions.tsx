@@ -70,7 +70,7 @@ const scenes = [
 
 export function Solutions() {
   return (
-    <Section id="solutions">
+    <Section id="solutions" className="pt-10 pb-10 sm:pt-12 sm:pb-12">
       <Container>
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>

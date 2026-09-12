@@ -1,5 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/cn";
+import { MediaImg } from "@/components/ui/MediaImg";
 
 /* Deterministic abstract cover art for case studies — no real screenshots needed.
    Each industry maps to a palette + motif so every card looks distinct. */
@@ -90,41 +91,44 @@ export function CaseStudyCover({
   className,
   compact = false,
   image,
+  local,
 }: {
   industry: string;
   title: string;
   className?: string;
   compact?: boolean;
-  /** Dummy or real product screenshot layered over the motif. */
   image?: string;
+  local?: string;
 }) {
   const p = paletteByIndustry[industry] ?? fallback;
+  const photo = local ?? image;
   return (
     <div
-      className={cn(
-        "relative overflow-hidden",
-        className
-      )}
+      className={cn("relative overflow-hidden", className)}
       style={{ background: `linear-gradient(135deg, ${p.from} 0%, ${p.to} 100%)` }}
     >
-      {image ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={image}
+      {photo ? (
+        <MediaImg
+          local={local}
+          fallback={image ?? local ?? ""}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover opacity-55"
+          className="absolute inset-0 h-full w-full"
         />
-      ) : null}
-      {/* soft radial highlight */}
+      ) : (
+        <>
+          <div
+            className="pointer-events-none absolute -top-1/3 left-1/2 h-[120%] w-[80%] -translate-x-1/2 rounded-full opacity-30 blur-2xl"
+            style={{ background: `radial-gradient(circle, ${p.accent} 0%, transparent 70%)` }}
+            aria-hidden="true"
+          />
+          <MotifSvg motif={p.motif} accent={p.accent} />
+        </>
+      )}
+
       <div
-        className="pointer-events-none absolute -top-1/3 left-1/2 h-[120%] w-[80%] -translate-x-1/2 rounded-full opacity-30 blur-2xl"
-        style={{ background: `radial-gradient(circle, ${p.accent} 0%, transparent 70%)` }}
+        className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 via-black/25 to-transparent"
         aria-hidden="true"
       />
-      <MotifSvg motif={p.motif} accent={p.accent} />
-
-      {/* bottom gradient for legibility */}
-      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/45 to-transparent" aria-hidden="true" />
 
       {/* label */}
       <div className="absolute inset-0 flex flex-col justify-end p-5">

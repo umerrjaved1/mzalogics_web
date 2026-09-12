@@ -25,7 +25,7 @@ const pillars = [
     title: "Accessibility First",
     headline: "Enterprise-Grade Power, Within Your Reach",
     body: "Custom software isn't a luxury reserved for Fortune 500 giants — it is a strategic advantage every ambitious business can afford. We bridge enterprise engineering pedigree with flexible sprint pricing so growing companies can compete and win.",
-    highlight: "Flexible Pods from $1,800/sprint",
+    highlight: "Q4 deal · Launch from $2,150",
     accent: "from-blue-500/20 to-cyan-500/20",
     iconColor: "text-cyan-400",
   },

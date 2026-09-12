@@ -8,7 +8,7 @@ import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import type { TeamMember, SeniorityLevel, Department } from "@/content/team";
 import { seniorityLevels, departments } from "@/content/team";
 
-export function TeamCard({ member }: { member: TeamMember }) {
+export function TeamCard({ member, photo }: { member: TeamMember; photo?: string }) {
   const isSenior = member.seniority === "Senior / Lead";
   const isJunior = member.seniority === "Junior / Associate";
 
@@ -22,7 +22,7 @@ export function TeamCard({ member }: { member: TeamMember }) {
               <Avatar
                 initials={member.initials}
                 tone={member.tone}
-                image={member.image}
+                local={photo}
                 alt={member.name}
                 size="md"
                 showStatus
@@ -32,9 +32,9 @@ export function TeamCard({ member }: { member: TeamMember }) {
             <div className="text-right">
               {/* Seniority badge */}
               <span
-                className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider ${
                   isSenior
-                    ? "bg-navy text-accent-2"
+                    ? "bg-navy text-emerald-300"
                     : isJunior
                       ? "bg-blue-50 text-blue-700 border border-blue-200"
                       : "bg-paper text-navy/80 border border-black/8"
@@ -46,7 +46,7 @@ export function TeamCard({ member }: { member: TeamMember }) {
               {/* Rates */}
               <div className="mt-1.5 font-mono text-xs font-bold text-navy">
                 <span>{member.hourlyRate}</span>
-                <span className="text-[10px] font-normal text-muted"> / {member.monthlyRate}</span>
+                <span className="text-xs font-normal text-muted"> / {member.monthlyRate}</span>
               </div>
             </div>
           </div>
@@ -66,8 +66,8 @@ export function TeamCard({ member }: { member: TeamMember }) {
           </div>
 
           {/* Why Hire Callout */}
-          <div className="mt-3.5 rounded-xl bg-paper/80 border border-black/5 p-3 text-[11px] leading-relaxed text-muted">
-            <span className="font-bold text-navy text-[10px] uppercase tracking-wider block mb-1">
+          <div className="mt-3.5 rounded-xl bg-paper/80 border border-black/5 p-3 text-sm leading-relaxed text-muted">
+            <span className="font-bold text-navy text-xs uppercase tracking-wider block mb-1">
               Why hire:
             </span>
             <p className="line-clamp-2">{member.whyHire}</p>
@@ -78,13 +78,13 @@ export function TeamCard({ member }: { member: TeamMember }) {
             {member.skills.slice(0, 4).map((skill) => (
               <span
                 key={skill}
-                className="rounded-md bg-white px-2 py-0.5 text-[10px] font-semibold text-navy/70 border border-black/5"
+                className="rounded-md bg-white px-2 py-0.5 text-xs font-semibold text-navy/70 border border-black/5"
               >
                 {skill}
               </span>
             ))}
             {member.skills.length > 4 && (
-              <span className="rounded-md bg-paper px-1.5 py-0.5 text-[10px] font-medium text-muted">
+              <span className="rounded-md bg-paper px-1.5 py-0.5 text-xs font-medium text-muted">
                 +{member.skills.length - 4}
               </span>
             )}
@@ -93,7 +93,7 @@ export function TeamCard({ member }: { member: TeamMember }) {
 
         {/* Footer Actions: Availability + Hire Button */}
         <div className="mt-5 pt-4 border-t border-black/5 flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 text-[11px] text-muted">
+          <div className="flex items-center gap-1.5 text-xs text-muted">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="font-medium text-navy/80">{member.availability}</span>
           </div>
@@ -114,7 +114,13 @@ export function TeamCard({ member }: { member: TeamMember }) {
   );
 }
 
-export function TeamGrid({ members }: { members: TeamMember[] }) {
+export function TeamGrid({
+  members,
+  photos,
+}: {
+  members: TeamMember[];
+  photos?: Record<string, string | undefined>;
+}) {
   const [seniorityFilter, setSeniorityFilter] = useState<string>("all");
   const [deptFilter, setDeptFilter] = useState<string>("all");
 
@@ -181,7 +187,7 @@ export function TeamGrid({ members }: { members: TeamMember[] }) {
       {filteredMembers.length > 0 ? (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredMembers.map((member) => (
-            <TeamCard key={member.slug} member={member} />
+            <TeamCard key={member.slug} member={member} photo={photos?.[member.slug]} />
           ))}
         </div>
       ) : (

@@ -31,7 +31,7 @@ export default function InsightsPage() {
           Software that has to survive Monday
         </h1>
         <p className="mt-4 max-w-2xl text-muted">
-          Practical notes from delivery — not listicles. Replace with your own writing when you have it.
+          Field notes from delivery: how we scope, ship, and rescue production systems.
         </p>
         <div className="mt-12 space-y-4">
           {posts.map((post) => (

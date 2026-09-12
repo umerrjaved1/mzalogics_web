@@ -11,7 +11,7 @@ export function AiDelivery() {
   const [selectedTrack, setSelectedTrack] = useState<"ai" | "handcrafted">("ai");
 
   return (
-    <Section className="relative overflow-hidden bg-navy text-white" data-nav-surface="dark">
+    <Section className="relative overflow-hidden bg-navy pt-14 pb-14 text-white sm:pt-16 sm:pb-16" data-nav-surface="dark">
       {/* Ambient background glows */}
       <div
         className="pointer-events-none absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-accent-2/10 blur-[150px]"
@@ -112,7 +112,7 @@ export function AiDelivery() {
                     View AI Pod Pricing
                     <ArrowRight size={15} />
                   </Link>
-                  <span className="text-xs text-white/60">Tiers from $1,800/sprint</span>
+                  <span className="text-xs text-white/60">Q4 deal · from $2,150</span>
                 </div>
               </div>
 
@@ -169,7 +169,7 @@ export function AiDelivery() {
                     View Enterprise Pricing
                     <ArrowRight size={15} />
                   </Link>
-                  <span className="text-xs text-white/60">Tiers from $2,400/sprint</span>
+                  <span className="text-xs text-white/60">Q4 deal · from $3,250</span>
                 </div>
               </div>
 

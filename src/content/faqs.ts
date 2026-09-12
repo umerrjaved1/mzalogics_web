@@ -9,7 +9,7 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "What does it cost?",
     answer:
-      "Fixed-scope projects start at $3,900 on the AI-driven track and $5,900 hand-crafted; production platforms typically land at $11,500 and $16,500 respectively. Dedicated engineers are $4,200 per month. Full plans, add-ons, and payment terms are on the pricing page — and the final number always follows a discovery call, not a tier.",
+      "Through 31 Dec 2026, Q4 deal prices start at $2,150 on the AI-driven track and $3,250 hand-crafted (45% off the standard $3,900 / $5,900). Production platforms typically start at $6,290 and $8,990. Dedicated engineers start at $2,290 per month. The final number always follows a discovery call, not a tier.",
   },
   {
     question: "What does MZA Logics actually build?",

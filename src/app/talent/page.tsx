@@ -26,6 +26,7 @@ import Link from "next/link";
 import { ArrowRight, Check, Sparkles, Shield, Clock } from "lucide-react";
 import { TeamGrid } from "@/components/TeamGrid";
 import { team } from "@/content/team";
+import { teamPhotos } from "@/lib/media";
 
 const steps = [
   {
@@ -49,7 +50,7 @@ const steps = [
 export default function TalentPage() {
   return (
     <>
-      <Section className="dot-grid pb-8">
+      <Section className="dot-grid pb-8 sm:pb-8">
         <Container>
           <Eyebrow>People-Powered Delivery</Eyebrow>
           <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy sm:text-5xl lg:text-6xl">
@@ -62,18 +63,21 @@ export default function TalentPage() {
           {/* Quick Rate Overview Pill Cards */}
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="rounded-2xl border border-black/8 bg-white p-4 shadow-sm">
-              <div className="text-xs font-bold text-accent-2 uppercase tracking-wider">Senior / Lead</div>
-              <div className="mt-1 text-2xl font-extrabold text-navy">$50 – $70 <span className="text-xs font-medium text-muted">/ hr</span></div>
+              <div className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Senior / Lead</div>
+              <p className="mt-1 text-xs text-muted line-through">$50 – $70</p>
+              <div className="text-2xl font-extrabold text-navy">$26 – $39 <span className="text-xs font-medium text-muted">/ hr · 45% off</span></div>
               <p className="mt-1 text-xs text-muted">Architects, Tech Leads, Mobile Leads</p>
             </div>
             <div className="rounded-2xl border border-black/8 bg-white p-4 shadow-sm">
               <div className="text-xs font-bold text-accent-cyan uppercase tracking-wider">Mid-Level</div>
-              <div className="mt-1 text-2xl font-extrabold text-navy">$35 – $48 <span className="text-xs font-medium text-muted">/ hr</span></div>
+              <p className="mt-1 text-xs text-muted line-through">$35 – $48</p>
+              <div className="text-2xl font-extrabold text-navy">$18 – $26 <span className="text-xs font-medium text-muted">/ hr · 45% off</span></div>
               <p className="mt-1 text-xs text-muted">Full-Stack, DevOps, Cloud, UI/UX</p>
             </div>
             <div className="rounded-2xl border border-black/8 bg-white p-4 shadow-sm">
               <div className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Junior / Associate</div>
-              <div className="mt-1 text-2xl font-extrabold text-navy">$20 – $28 <span className="text-xs font-medium text-muted">/ hr</span></div>
+              <p className="mt-1 text-xs text-muted line-through">$20 – $28</p>
+              <div className="text-2xl font-extrabold text-navy">$11 – $15 <span className="text-xs font-medium text-muted">/ hr · 45% off</span></div>
               <p className="mt-1 text-xs text-muted">Frontend, QA Automation, Styling</p>
             </div>
           </div>
@@ -81,14 +85,16 @@ export default function TalentPage() {
       </Section>
 
       {/* Onboarding Steps */}
-      <Section className="pt-0">
+      <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <Eyebrow>Time-to-Ship</Eyebrow>
           <h2 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">How Picking &amp; Onboarding Works</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, index) => (
               <article key={step.title} className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm">
-                <p className="text-xs font-bold tracking-widest uppercase text-accent-2">Step 0{index + 1}</p>
+                <p className="text-xs font-bold tracking-widest uppercase text-emerald-700">
+                  Step {String(index + 1).padStart(2, "0")}
+                </p>
                 <h3 className="mt-3 font-bold text-navy text-lg">{step.title}</h3>
                 <p className="mt-2 text-sm text-muted leading-relaxed">{step.body}</p>
               </article>
@@ -115,7 +121,7 @@ export default function TalentPage() {
           </div>
 
           <div className="mt-8">
-            <TeamGrid members={team} />
+            <TeamGrid members={team} photos={teamPhotos(team.map((member) => member.slug))} />
           </div>
         </Container>
       </Section>
