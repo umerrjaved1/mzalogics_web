@@ -10,11 +10,14 @@ import { team, teamPortfolio } from "@/content/team";
 import { breadcrumbJsonLd, personJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 import { teamPhotos } from "@/lib/media";
+import { promo, isPromoActive } from "@/content/promo";
 
 export const metadata: Metadata = {
   title: "Hire Vetted Developers & Engineers | Transparent Rates in Lahore",
   description:
-    "Choose your engineers from MZA Logics in Lahore. Q4 deal rates: Senior/Lead ($26-$39/hr), Mid-Level ($18-$26/hr), or Junior ($11-$15/hr). Vetted, trusted, and ready in 48 hours.",
+    isPromoActive()
+      ? `Choose your engineers from MZA Logics in Lahore. ${promo.eyebrow} rates: Senior/Lead ($26-$39/hr), Mid-Level ($18-$26/hr), or Junior ($11-$15/hr). Vetted, trusted, and ready in 48 hours.`
+      : "Choose your engineers from MZA Logics in Lahore. Senior/Lead, Mid-Level, and Junior specialists with transparent hourly and monthly rates. Vetted, trusted, and ready in 48 hours.",
   alternates: {
     canonical: "/team",
   },

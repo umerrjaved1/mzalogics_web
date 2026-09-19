@@ -1,3 +1,5 @@
+import { promo, isPromoActive } from "@/content/promo";
+
 export type FaqItem = { question: string; answer: string };
 
 export const homeFaqs: FaqItem[] = [
@@ -8,8 +10,9 @@ export const homeFaqs: FaqItem[] = [
   },
   {
     question: "What does it cost?",
-    answer:
-      "Through 31 Dec 2026, Q4 deal prices start at $2,150 on the AI-driven track and $3,250 hand-crafted (45% off the standard $3,900 / $5,900). Production platforms typically start at $6,290 and $8,990. Dedicated engineers start at $2,290 per month. The final number always follows a discovery call, not a tier.",
+    answer: isPromoActive()
+      ? `While the ${promo.eyebrow.toLowerCase()} runs (${promo.endsLabel.toLowerCase()}), prices start at $2,150 on the AI-driven track and $3,250 hand-crafted — ${promo.discountLabel} the standard $3,900 / $5,900. Production platforms typically start at $6,290 and $8,990, and dedicated engineers at $2,290 per month. The final number always follows a discovery call, not a tier.`
+      : "Projects start at $3,900 on the AI-driven track and $5,900 hand-crafted. Production platforms typically start at $11,500 and $16,500, and dedicated engineers at $4,160 per month. The final number always follows a discovery call, not a tier.",
   },
   {
     question: "What does MZA Logics actually build?",

@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
+import { Solutions } from "@/components/home/Solutions";
+import { LogoMarquee } from "@/components/home/LogoMarquee";
 import { WorkProof } from "@/components/home/WorkProof";
-import { AiDelivery } from "@/components/home/AiDelivery";
+import { AiDeliveryTeaser } from "@/components/home/AiDeliveryTeaser";
 import { Testimonials } from "@/components/home/Testimonials";
 import { LeadForm } from "@/components/LeadForm";
 import { CtaBand } from "@/components/CtaBand";
 import { DealStrip } from "@/components/conversion/DealStrip";
 import { JsonLd } from "@/components/JsonLd";
 import { localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
+import { testimonials } from "@/content/testimonials";
+import { testimonialPhotos } from "@/lib/media";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -42,10 +46,17 @@ export default function Home() {
       <JsonLd data={organizationJsonLd()} />
       <JsonLd data={websiteJsonLd()} />
       <JsonLd data={localBusinessJsonLd()} />
+      {/* What we do → who we do it for → proof → what others say → how we work → book. */}
       <Hero />
+      <Solutions />
+      <LogoMarquee />
       <WorkProof />
-      <AiDelivery />
-      <Testimonials />
+      <Testimonials
+        photos={testimonialPhotos(
+          testimonials.flatMap((item) => (item.attributed ? [item.attributed.slug] : [])),
+        )}
+      />
+      <AiDeliveryTeaser />
       <DealStrip />
       <LeadForm
         kind="contact"

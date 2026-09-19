@@ -18,6 +18,7 @@ import { Container, Eyebrow } from "@/components/ui/Container";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Avatar } from "@/components/ui/Avatar";
 import { team, TeamMember } from "@/content/team";
+import { promo, isPromoActive, promoNote } from "@/content/promo";
 import { cn } from "@/lib/cn";
 
 export function TalentRateDeck() {
@@ -213,12 +214,16 @@ export function TalentRateDeck() {
               {/* Price Tag with dynamic animation */}
               <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-sm text-white/40 line-through">
-                    {billingPeriod === "hourly" ? tier.hourlyCompareAt : tier.monthlyCompareAt}
-                  </p>
-                  <span className="rounded-full bg-accent-2 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-navy">
-                    45% off
-                  </span>
+                  {isPromoActive() ? (
+                    <p className="text-sm text-white/40 line-through">
+                      {billingPeriod === "hourly" ? tier.hourlyCompareAt : tier.monthlyCompareAt}
+                    </p>
+                  ) : null}
+                  {isPromoActive() ? (
+                    <span className="rounded-full bg-accent-2 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-navy">
+                      {promo.discountLabel}
+                    </span>
+                  ) : null}
                 </div>
                 <div className="mt-1 flex items-baseline gap-2">
                   <span className="text-4xl font-extrabold tracking-tight text-white">
@@ -230,8 +235,8 @@ export function TalentRateDeck() {
                 </div>
                 <p className="mt-1 text-[11px] text-white/40">
                   {billingPeriod === "hourly"
-                    ? "Q4 deal · billed weekly against logged sprint tickets"
-                    : "Q4 deal · 160 hours / month exclusive allocation"}
+                    ? promoNote("Q4 deal · billed weekly against logged sprint tickets")
+                    : promoNote("Q4 deal · 160 hours / month exclusive allocation")}
                 </p>
               </div>
 

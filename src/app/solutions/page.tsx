@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { CtaBand } from "@/components/CtaBand";
+import { AiDelivery } from "@/components/home/AiDelivery";
 import { JsonLd } from "@/components/JsonLd";
 import { services } from "@/content/services";
 import { engagementModels, engagementNote } from "@/content/engagement";
@@ -96,6 +97,7 @@ export default function SolutionsPage() {
           </div>
         </Container>
       </Section>
+      <AiDelivery />
       <CtaBand />
     </>
   );

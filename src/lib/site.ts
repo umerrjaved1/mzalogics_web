@@ -46,12 +46,32 @@ export function whatsappHref(
 
 export const socials = [{ label: "LinkedIn", href: site.linkedin }] as const;
 
-export const nav = [
-  { href: "/solutions", label: "Solutions" },
+export type NavChild = { href: string; label: string; note: string };
+export type NavItem = { href: string; label: string; children?: readonly NavChild[] };
+
+/**
+ * The seven practices plus the two engagement offers that used to be
+ * reachable only from the footer.
+ */
+export const solutionsMenu: readonly NavChild[] = [
+  { href: "/solutions/app-development", label: "Mobile app development", note: "iOS and Android, native or Flutter" },
+  { href: "/solutions/web-platforms", label: "Custom web development", note: "Dashboards and platforms that scale" },
+  { href: "/solutions/ai-development", label: "AI-driven development", note: "LLM features with a human gate" },
+  { href: "/solutions/product-design", label: "UI/UX design", note: "Research, flows, and design systems" },
+  { href: "/solutions/mvp-prototyping", label: "MVP & prototyping", note: "Validate the idea in weeks" },
+  { href: "/solutions/cloud", label: "Maintenance & DevOps", note: "CI/CD, observability, and SLAs" },
+  { href: "/solutions/cms", label: "CMS development", note: "Editable sites your team owns" },
+  { href: "/talent", label: "Hire our engineers", note: "Dedicated specialists, billed monthly" },
+  { href: "/rescue", label: "Project rescue", note: "Audit and stabilise a stalled build" },
+] as const;
+
+export const nav: readonly NavItem[] = [
+  { href: "/solutions", label: "Solutions", children: solutionsMenu },
   { href: "/work", label: "Work" },
   { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
   { href: "/team", label: "Team" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 export const footerNav = {
@@ -79,7 +99,7 @@ export const footerNav = {
     { href: "/talent", label: "Hire our engineers" },
     { href: "/rescue", label: "Project rescue" },
     { href: "/insights", label: "Insights" },
-    { href: "/contact", label: "Book a call" },
+    { href: "/contact#book-call", label: "Book a call" },
   ],
 } as const;
 

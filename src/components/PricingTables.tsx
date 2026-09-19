@@ -6,6 +6,7 @@ import { Check, Sparkles, Wrench } from "lucide-react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { Button, ArrowDisc } from "@/components/ui/Button";
 import { pricingTracks, type TrackId } from "@/content/pricing";
+import { effectivePrice, promoNote } from "@/content/promo";
 import { cn } from "@/lib/cn";
 
 /**
@@ -68,7 +69,10 @@ export function PricingTables({
         </div>
 
         <div className="mt-6 grid items-start gap-5 lg:grid-cols-3">
-          {track.tiers.map((tier) => (
+          {track.tiers.map((tier) => {
+            // Deal price while the offer runs; standard rate once it lapses.
+            const deal = effectivePrice(tier.price, tier.compareAt);
+            return (
             <article
               key={tier.slug}
               className={cn(
@@ -83,7 +87,7 @@ export function PricingTables({
                   {tier.name}
                 </h3>
                 <div className="flex flex-wrap items-center justify-end gap-1.5">
-                  {tier.saveLabel ? (
+                  {tier.saveLabel && deal.discounted ? (
                     <span
                       className={cn(
                         "rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]",
@@ -104,16 +108,16 @@ export function PricingTables({
                 {tier.tagline}
               </p>
 
-              {tier.compareAt ? (
+              {deal.compareAt ? (
                 <p className={cn("mt-6 text-sm line-through", tier.featured ? "text-white/45" : "text-muted")}>
-                  {tier.compareAt}
+                  {deal.compareAt}
                 </p>
               ) : null}
-              <p className={cn(tier.compareAt ? "mt-1" : "mt-6", "text-4xl font-extrabold tracking-tight", tier.featured ? "text-white" : "text-navy")}>
-                {tier.price}
+              <p className={cn(deal.compareAt ? "mt-1" : "mt-6", "text-4xl font-extrabold tracking-tight", tier.featured ? "text-white" : "text-navy")}>
+                {deal.price}
               </p>
               <p className={cn("mt-1 text-xs", tier.featured ? "text-white/55" : "text-muted")}>
-                {tier.priceNote}
+                {promoNote(tier.priceNote)}
               </p>
 
               <dl className={cn("mt-6 space-y-2 border-y py-4 text-sm", tier.featured ? "border-white/15" : "border-line")}>
@@ -157,10 +161,11 @@ export function PricingTables({
                     : "bg-navy text-white hover:bg-navy-2",
                 )}
               >
-                Lock this Q4 rate
+                {deal.discounted ? "Lock this Q4 rate" : "Start this plan"}
               </Link>
             </article>
-          ))}
+            );
+          })}
         </div>
 
         {compact ? (

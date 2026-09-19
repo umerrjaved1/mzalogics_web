@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { Button, ArrowDisc } from "@/components/ui/Button";
-import { goToLead, whatsappLeadHref } from "@/lib/lead-intent";
+import { whatsappLeadHref } from "@/lib/lead-intent";
+import { bookingHref } from "@/lib/booking";
+import { promo, isPromoActive } from "@/content/promo";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 const STORAGE_KEY = "mza-lead-dock-dismissed";
@@ -43,8 +45,14 @@ export function LeadDock() {
       <div className="rounded-3xl border border-white/15 bg-navy/95 p-4 text-white shadow-[0_20px_50px_rgba(9,6,26,0.45)] backdrop-blur-xl">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-emerald-300">Q4 deal · 45% off through 31 Dec</p>
-            <p className="mt-1 text-base font-bold leading-snug">Lock the reduced rate. 20 minutes. No deck required.</p>
+            {isPromoActive() ? (
+              <p className="text-sm font-semibold text-emerald-300">{promo.dockLine}</p>
+            ) : null}
+            <p className="mt-1 text-base font-bold leading-snug">
+              {isPromoActive()
+                ? "Lock the reduced rate. 20 minutes. No deck required."
+                : "Talk to an engineer. 20 minutes. No deck required."}
+            </p>
           </div>
           <button
             type="button"
@@ -59,16 +67,7 @@ export function LeadDock() {
           </button>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
-          <Button
-            href="/contact"
-            className="h-11 px-4 text-sm font-bold"
-            onClick={(event) => {
-              if (document.getElementById("book")) {
-                event.preventDefault();
-                goToLead();
-              }
-            }}
-          >
+          <Button href={bookingHref} className="h-11 px-4 text-sm font-bold">
             Book a call
             <ArrowDisc />
           </Button>

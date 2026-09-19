@@ -1,10 +1,26 @@
 export type Testimonial = {
   quote: string;
+  /** Job title while anonymous; replaced by the person's name once attributed. */
   name: string;
   role: string;
   note: string;
   initials: string;
   company: string;
+  /**
+   * Fill this in ONLY after the client has given written permission to be
+   * named. Presence of this object is what turns an anonymous quote into an
+   * attributed one — full name, real company, and a photo if you have one.
+   *
+   * Photo: drop a file at /public/media/testimonials/{slug}.jpg. If it is not
+   * on disk the card falls back to initials, never to a stock face.
+   */
+  attributed?: {
+    slug: string;
+    fullName: string;
+    company: string;
+    /** Optional link to the client's site. */
+    href?: string;
+  };
 };
 
 export const testimonials: Testimonial[] = [

@@ -9,6 +9,10 @@ export type FormPayload = {
   message?: string;
   role?: string;
   stack?: string;
+  /** Indicative budget band — the first thing that qualifies an enquiry. */
+  budget?: string;
+  /** When they want it live. */
+  timeline?: string;
   /** "ai" | "manual" | "undecided" — which delivery track the client wants. */
   track?: string;
   /** Pricing tier slug, when the enquiry came from a plan card. */

@@ -1,19 +1,14 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { Button, ArrowDisc } from "@/components/ui/Button";
+import { ArrowDisc } from "@/components/ui/Button";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { HeroDeviceVisual } from "@/components/ui/DeviceMockup";
-import { useReducedMotion } from "@/lib/use-reduced-motion";
+import { BookCallButton } from "@/components/conversion/BookCallButton";
 import { site } from "@/lib/site";
 
 export function Hero() {
-  const reduced = useReducedMotion();
-
   return (
     <section className="relative overflow-hidden pt-8 pb-16 lg:pt-12 lg:pb-24">
       <div
@@ -23,49 +18,28 @@ export function Hero() {
 
       <Container className="relative z-10 grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">
         <div className="relative z-20 flex flex-col items-start">
-          <motion.p
-            initial={reduced ? false : { y: 12, opacity: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduced ? 0 : 0.4 }}
-            className="text-sm font-semibold text-navy"
-          >
+          <p className="rise-in text-sm font-semibold text-navy">
             <span className="mr-2 inline-flex h-2 w-2 rounded-full bg-emerald-500" aria-hidden />
             {site.availability} · {site.customers} products shipped
-          </motion.p>
+          </p>
 
-          <motion.h1
-            initial={reduced ? false : { y: 16, opacity: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.05 }}
-            className="mt-5 text-4xl font-extrabold tracking-[-0.04em] text-navy sm:text-6xl lg:text-[64px] lg:leading-[1.08]"
-          >
+          <h1 className="rise-in mt-5 text-4xl font-extrabold tracking-[-0.04em] text-navy sm:text-6xl lg:text-[64px] lg:leading-[1.08]">
             Apps your team will actually use
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={reduced ? false : { y: 16, opacity: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.1 }}
-            className="mt-5 max-w-lg text-lg leading-relaxed text-muted sm:text-xl"
-          >
+          <p className="rise-in rise-in-1 mt-5 max-w-lg text-lg leading-relaxed text-muted sm:text-xl">
             Mobile, web, and AI systems built around how you already work — for teams worldwide.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={reduced ? false : { y: 16, opacity: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.15 }}
-            className="mt-8 flex flex-wrap items-center gap-4"
-          >
+          <div className="rise-in rise-in-2 mt-8 flex flex-wrap items-center gap-4">
             <MagneticButton>
-              <Button
-                href="/contact"
-                aria-label="Book a discovery call"
+              <BookCallButton
                 className="h-12 px-6 text-base font-semibold shadow-lg shadow-navy/15"
+                aria-label="Book a discovery call"
               >
                 Book a discovery call
                 <ArrowDisc />
-              </Button>
+              </BookCallButton>
             </MagneticButton>
             <Link
               href="/work"
@@ -77,9 +51,9 @@ export function Hero() {
                 <ArrowRight size={14} aria-hidden />
               </span>
             </Link>
-          </motion.div>
+          </div>
 
-          <dl className="mt-10 grid w-full max-w-md grid-cols-3 gap-6 border-t border-black/8 pt-6">
+          <dl className="rise-in rise-in-3 mt-10 grid w-full max-w-md grid-cols-3 gap-6 border-t border-black/8 pt-6">
             <div>
               <dt className="text-sm text-muted">Shipped</dt>
               <dd className="text-2xl font-extrabold text-navy sm:text-3xl">{site.customers}</dd>
@@ -95,14 +69,9 @@ export function Hero() {
           </dl>
         </div>
 
-        <motion.div
-          initial={reduced ? false : { scale: 0.97, opacity: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.12 }}
-          className="relative z-10 w-full min-w-0 overflow-hidden"
-        >
+        <div className="rise-in rise-in-2 relative z-10 w-full min-w-0 overflow-hidden">
           <HeroDeviceVisual />
-        </motion.div>
+        </div>
       </Container>
     </section>
   );

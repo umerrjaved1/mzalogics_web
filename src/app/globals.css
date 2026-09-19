@@ -128,6 +128,34 @@ body {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
+/* Entrance animation.
+   CSS, not JS: the browser runs this on first paint, so hero copy is never
+   left at opacity:0 waiting for hydration on a slow connection. */
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise-in {
+  animation: riseIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rise-in-1 {
+  animation-delay: 0.06s;
+}
+.rise-in-2 {
+  animation-delay: 0.12s;
+}
+.rise-in-3 {
+  animation-delay: 0.18s;
+}
+
 /* Keyframe animations */
 @keyframes marquee {
   from {

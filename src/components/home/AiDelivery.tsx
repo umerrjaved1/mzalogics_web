@@ -5,13 +5,18 @@ import Link from "next/link";
 import { Sparkles, Wrench, ShieldCheck, Zap, CheckCircle2, ArrowRight, Lock, Gauge } from "lucide-react";
 import { Container, Section } from "@/components/ui/Container";
 import { aiStats, aiPipeline } from "@/content/ai";
+import { promoNote } from "@/content/promo";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
 export function AiDelivery() {
   const [selectedTrack, setSelectedTrack] = useState<"ai" | "handcrafted">("ai");
 
   return (
-    <Section className="relative overflow-hidden bg-navy pt-14 pb-14 text-white sm:pt-16 sm:pb-16" data-nav-surface="dark">
+    <Section
+      id="how-we-build"
+      className="relative overflow-hidden scroll-mt-24 bg-navy pt-14 pb-14 text-white sm:pt-16 sm:pb-16"
+      data-nav-surface="dark"
+    >
       {/* Ambient background glows */}
       <div
         className="pointer-events-none absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-accent-2/10 blur-[150px]"
@@ -112,7 +117,7 @@ export function AiDelivery() {
                     View AI Pod Pricing
                     <ArrowRight size={15} />
                   </Link>
-                  <span className="text-xs text-white/60">Q4 deal · from $2,150</span>
+                  <span className="text-xs text-white/60">{promoNote("Q4 deal · from $2,150")}</span>
                 </div>
               </div>
 
@@ -169,7 +174,7 @@ export function AiDelivery() {
                     View Enterprise Pricing
                     <ArrowRight size={15} />
                   </Link>
-                  <span className="text-xs text-white/60">Q4 deal · from $3,250</span>
+                  <span className="text-xs text-white/60">{promoNote("Q4 deal · from $3,250")}</span>
                 </div>
               </div>
 

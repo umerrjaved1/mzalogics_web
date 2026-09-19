@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { isValidEmail, type FormKind } from "@/lib/forms";
 import { allowRequest } from "@/lib/rate-limit";
+import { forwardToWebhook, logLead } from "@/lib/lead-store";
 import { site } from "@/lib/site";
 
 const kinds: FormKind[] = ["contact", "talent", "rescue", "career"];
@@ -34,44 +35,80 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please include a valid email and a short message." }, { status: 400 });
   }
 
+  const record = {
+    kind,
+    name: body.name ?? "",
+    email,
+    phone: body.phone ?? "",
+    company: body.company ?? "",
+    role: body.role ?? "",
+    stack: body.stack ?? "",
+    budget: body.budget ?? "",
+    timeline: body.timeline ?? "",
+    track: body.track ?? body.selectedDeliveryTrack ?? "",
+    projectType: body.projectType ?? body.projectTypeScope ?? "",
+    plan: body.plan ?? "",
+    deal: body.deal ?? "",
+    message,
+  };
+
   const lines = [
-    `Kind: ${kind}`,
-    `Name: ${body.name ?? ""}`,
-    `Email: ${email}`,
-    `Phone: ${body.phone ?? ""}`,
-    `Company: ${body.company ?? ""}`,
-    `Role: ${body.role ?? ""}`,
-    `Stack: ${body.stack ?? ""}`,
-    `Delivery track: ${body.track ?? body.selectedDeliveryTrack ?? ""}`,
-    `Project type: ${body.projectType ?? body.projectTypeScope ?? ""}`,
-    `Plan: ${body.plan ?? ""}`,
-    `Deal: ${body.deal ?? ""}`,
+    `Kind: ${record.kind}`,
+    `Name: ${record.name}`,
+    `Email: ${record.email}`,
+    `Phone: ${record.phone}`,
+    `Company: ${record.company}`,
+    `Role: ${record.role}`,
+    `Stack: ${record.stack}`,
+    `Budget: ${record.budget}`,
+    `Timeline: ${record.timeline}`,
+    `Delivery track: ${record.track}`,
+    `Project type: ${record.projectType}`,
+    `Plan: ${record.plan}`,
+    `Deal: ${record.deal}`,
     "",
     message,
   ].join("\n");
 
+  // Primary channel: email.
+  let emailed = false;
+  let emailError: string | null = null;
   const apiKey = process.env.RESEND_API_KEY;
+
   if (!apiKey) {
-    console.error("[contact] RESEND_API_KEY is not configured");
-    return NextResponse.json(
-      { error: "Email is temporarily unavailable. Use WhatsApp or email us directly." },
-      { status: 503 },
-    );
+    emailError = "RESEND_API_KEY is not configured";
+    console.error(`[contact] ${emailError}`);
+  } else {
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      from: process.env.RESEND_FROM ?? `MZA Logics <${site.email}>`,
+      to: site.email,
+      replyTo: email,
+      subject: `[${kind}] ${site.name} website`,
+      text: lines,
+    });
+    if (error) {
+      emailError = String(error.message ?? error);
+      console.error("[contact] resend failed", error);
+    } else {
+      emailed = true;
+    }
   }
 
-  const resend = new Resend(apiKey);
-  const { error } = await resend.emails.send({
-    from: process.env.RESEND_FROM ?? `MZA Logics <${site.email}>`,
-    to: site.email,
-    replyTo: email,
-    subject: `[${kind}] ${site.name} website`,
-    text: lines,
-  });
+  // Backup channel, then the log. The lead is recorded either way.
+  const webhooked = emailed ? false : await forwardToWebhook(record);
+  const delivery = emailed ? "resend" : webhooked ? "webhook" : "log-only";
+  logLead(record, delivery);
 
-  if (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Email provider failed. Use WhatsApp or email us directly." }, { status: 502 });
+  if (emailed || webhooked) {
+    return NextResponse.json({ ok: true, via: delivery });
   }
 
-  return NextResponse.json({ ok: true, via: "resend" });
+  return NextResponse.json(
+    {
+      error: "We could not deliver your message just now. Please WhatsApp or email us directly.",
+      detail: emailError ?? undefined,
+    },
+    { status: 503 },
+  );
 }

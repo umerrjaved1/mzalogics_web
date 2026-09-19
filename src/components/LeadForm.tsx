@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Calendar, MessageCircle, Send, ShieldCheck, CheckCircle2, Zap } from "lucide-react";
+import { bookingHref } from "@/lib/booking";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import type { FormKind } from "@/lib/forms";
@@ -26,6 +29,7 @@ export function LeadForm({
   eyebrow?: string;
   extraFields?: "talent" | "rescue" | "career";
 }) {
+  const router = useRouter();
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
   const [error, setError] = useState("");
 
@@ -100,6 +104,8 @@ export function LeadForm({
 
       setStatus("ok");
       form.reset();
+      // A distinct URL is what makes the conversion measurable in analytics.
+      router.push(`/thank-you?kind=${encodeURIComponent(kind)}`);
     } catch {
       setError("We could not reach the server. Check your connection and try again, or message us on WhatsApp.");
       setStatus("error");
@@ -137,17 +143,13 @@ export function LeadForm({
                   <MessageCircle size={15} />
                   Chat on WhatsApp ({site.phoneDisplay})
                 </a>
-                {site.calendarUrl ? (
-                  <a
-                    href={site.calendarUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-navy/15 bg-white py-2.5 text-xs font-bold text-navy transition hover:bg-paper"
-                  >
-                    <Calendar size={15} />
-                    Book 20 minutes
-                  </a>
-                ) : null}
+                <Link
+                  href={bookingHref}
+                  className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-navy/15 bg-white py-2.5 text-xs font-bold text-navy transition hover:bg-paper"
+                >
+                  <Calendar size={15} />
+                  Book a 20-minute call
+                </Link>
               </div>
 
               {/* Trust assurances */}
@@ -348,6 +350,41 @@ export function LeadForm({
                       className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
                     />
                   </label>
+
+                  {kind === "contact" || kind === "talent" ? (
+                    <>
+                      <label className="text-sm font-semibold text-navy">
+                        Indicative budget
+                        <select
+                          name="budget"
+                          defaultValue=""
+                          className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                        >
+                          <option value="">Not sure yet</option>
+                          <option value="under-5k">Under $5,000</option>
+                          <option value="5k-15k">$5,000 – $15,000</option>
+                          <option value="15k-40k">$15,000 – $40,000</option>
+                          <option value="40k-plus">$40,000+</option>
+                          <option value="retainer">Monthly retainer</option>
+                        </select>
+                      </label>
+
+                      <label className="text-sm font-semibold text-navy">
+                        Target timeline
+                        <select
+                          name="timeline"
+                          defaultValue=""
+                          className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                        >
+                          <option value="">Flexible</option>
+                          <option value="asap">As soon as possible</option>
+                          <option value="1-3-months">In 1–3 months</option>
+                          <option value="3-6-months">In 3–6 months</option>
+                          <option value="exploring">Just exploring</option>
+                        </select>
+                      </label>
+                    </>
+                  ) : null}
 
                   {/* Hidden or visible track select for form submission */}
                   <div className="hidden">

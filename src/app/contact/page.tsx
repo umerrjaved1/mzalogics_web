@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LeadForm } from "@/components/LeadForm";
+import { BookingPanel } from "@/components/conversion/BookingPanel";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { site } from "@/lib/site";
 
@@ -28,19 +29,21 @@ export default function ContactPage() {
             Contact us
           </h1>
           <p className="mt-4 max-w-xl text-muted">
-            Email {site.email}, WhatsApp {site.phoneDisplay}, or use the form
-            {site.calendarUrl ? ", or book a 20-minute slot" : ""}. We typically reply within 24 hours.
+            Pick a slot below, message us on WhatsApp {site.phoneDisplay}, or send a brief with the
+            form. We reply within one business day.
           </p>
           <p className="mt-4 text-sm text-muted">
             {site.locations[0].address}, {site.locations[0].detail}
           </p>
         </Container>
       </Section>
+      <BookingPanel />
       <LeadForm
         kind="contact"
-        title="Tell us about the system"
-        intro="A short note is enough. We will propose a 30-minute scoping call."
+        title="Prefer to send a brief?"
+        intro="A short note is enough. We will read it and come back with a written scope."
         submitLabel="Request a call"
+        eyebrow="Send a brief"
       />
     </>
   );

@@ -24,3 +24,13 @@ export function resolveMedia(local: string | undefined, fallback: string) {
 export function teamPhotos(slugs: readonly string[]) {
   return Object.fromEntries(slugs.map((slug) => [slug, resolveLocal(`/media/team/${slug}.jpg`)]));
 }
+
+/**
+ * Headshots for clients who have agreed to be named. Resolved on the server
+ * and handed to the client component, the same way team photos are.
+ */
+export function testimonialPhotos(slugs: readonly string[]) {
+  return Object.fromEntries(
+    slugs.map((slug) => [slug, resolveLocal(`/media/testimonials/${slug}.jpg`)]),
+  );
+}

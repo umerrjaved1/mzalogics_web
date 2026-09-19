@@ -3,9 +3,13 @@ import { CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button, ArrowDisc } from "@/components/ui/Button";
 import { activeDeal } from "@/content/pricing";
+import { isPromoActive } from "@/content/promo";
 import { cn } from "@/lib/cn";
 
 export function DealStrip({ className }: { className?: string } = {}) {
+  // The whole strip disappears once the offer lapses.
+  if (!isPromoActive()) return null;
+
   return (
     <section className={cn("py-6 sm:py-8", className)}>
       <Container>

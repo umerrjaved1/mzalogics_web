@@ -55,7 +55,24 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <Container className="max-w-4xl">
           <Eyebrow>{study.industry}</Eyebrow>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-navy sm:text-5xl">{study.title}</h1>
-          <p className="mt-3 text-base text-muted">{study.client}</p>
+          <p className="mt-3 text-base text-muted">
+            {study.namedClient ? (
+              study.namedClient.href ? (
+                <a
+                  href={study.namedClient.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-semibold text-navy underline underline-offset-2"
+                >
+                  {study.namedClient.name}
+                </a>
+              ) : (
+                <span className="font-semibold text-navy">{study.namedClient.name}</span>
+              )
+            ) : (
+              study.client
+            )}
+          </p>
           <div className="relative mt-8 overflow-hidden rounded-[28px] border border-black/8">
             <CaseStudyCover
               industry={study.industry}

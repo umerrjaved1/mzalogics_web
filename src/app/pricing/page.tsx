@@ -9,6 +9,7 @@ import { TalentRateDeck } from "@/components/pricing/TalentRateDeck";
 import { TrackComparisonTable } from "@/components/AiPractice";
 import { DealStrip } from "@/components/conversion/DealStrip";
 import { addOns, everyEngagementIncludes, pricingNotes } from "@/content/pricing";
+import { effectivePrice, isPromoActive, promo } from "@/content/promo";
 import { pricingFaqs } from "@/content/faqs";
 import { breadcrumbJsonLd, faqJsonLd, pricingJsonLd } from "@/lib/jsonld";
 
@@ -17,15 +18,17 @@ import { HeroDeviceVisual } from "@/components/ui/DeviceMockup";
 
 export const metadata: Metadata = {
   title: "Pricing & Sprint Plans | AI-Driven vs Hand-Crafted Pods",
-  description:
-    "Q4 deal: 45% off studio rates. AI-accelerated delivery from $2,150, hand-crafted from $3,250, dedicated engineers from $2,290/mo. Offer ends 31 Dec 2026.",
+  description: isPromoActive()
+    ? `${promo.eyebrow}: ${promo.discountLabel} studio rates. AI-accelerated delivery from $2,150, hand-crafted from $3,250, dedicated engineers from $2,290/mo. ${promo.endsLabel}.`
+    : "Transparent studio rates. AI-accelerated delivery from $3,900, hand-crafted from $5,900, dedicated engineers from $4,160/mo. Fixed quote after a free discovery call.",
   alternates: {
     canonical: "/pricing",
   },
   openGraph: {
     title: "Software Engineering Pricing & Pod Plans | MZA Logics",
-    description:
-      "Q4 close-the-deal offer: 45% off starting rates through 31 Dec 2026. Same team, same review gates.",
+    description: isPromoActive()
+      ? `${promo.eyebrow}: ${promo.discountLabel} starting rates. Same team, same review gates.`
+      : "Two delivery tracks, one rate card. Same team, same review gates.",
     url: `${site.url}/pricing`,
   },
 };
@@ -55,8 +58,10 @@ export default function PricingPage() {
                 handles the repetitive work — which changes the timeline and the hours, not the standard.
               </p>
               <p className="mt-4 max-w-2xl text-base text-muted">
-                Q4 deal: 45% off our standard starting rates through 31 December 2026. You still get a fixed quote
-                against a written scope after a free discovery call.
+                {isPromoActive()
+                  ? `${promo.eyebrow}: ${promo.discountLabel} our standard starting rates. `
+                  : ""}
+                You get a fixed quote against a written scope after a free discovery call.
               </p>
             </div>
             <HeroDeviceVisual className="mx-auto w-full max-w-[520px]" />
@@ -111,23 +116,26 @@ export default function PricingPage() {
             Ongoing capacity, priced monthly
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {addOns.map((item) => (
-              <article key={item.title} className="rounded-[28px] border border-black/8 bg-white p-6">
-                <h3 className="font-bold text-navy">{item.title}</h3>
-                {item.compareAt ? (
-                  <p className="mt-2 text-sm text-muted line-through">{item.compareAt}</p>
-                ) : null}
-                <div className="mt-1 flex flex-wrap items-baseline gap-2">
-                  <p className="text-2xl font-extrabold tracking-tight text-navy">{item.price}</p>
-                  {item.saveLabel ? (
-                    <span className="rounded-full bg-emerald-700 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                      {item.saveLabel}
-                    </span>
+            {addOns.map((item) => {
+              const deal = effectivePrice(item.price, item.compareAt);
+              return (
+                <article key={item.title} className="rounded-[28px] border border-black/8 bg-white p-6">
+                  <h3 className="font-bold text-navy">{item.title}</h3>
+                  {deal.compareAt ? (
+                    <p className="mt-2 text-sm text-muted line-through">{deal.compareAt}</p>
                   ) : null}
-                </div>
-                <p className="mt-3 text-sm leading-7 text-muted">{item.body}</p>
-              </article>
-            ))}
+                  <div className="mt-1 flex flex-wrap items-baseline gap-2">
+                    <p className="text-2xl font-extrabold tracking-tight text-navy">{deal.price}</p>
+                    {item.saveLabel && deal.discounted ? (
+                      <span className="rounded-full bg-emerald-700 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                        {item.saveLabel}
+                      </span>
+                    ) : null}
+                  </div>
+                  <p className="mt-3 text-sm leading-7 text-muted">{item.body}</p>
+                </article>
+              );
+            })}
           </div>
           <ul className="mt-8 max-w-3xl space-y-2 text-sm text-muted">
             {pricingNotes.map((note) => (

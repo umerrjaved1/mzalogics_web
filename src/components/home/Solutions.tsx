@@ -68,6 +68,14 @@ const scenes = [
   },
 ];
 
+/** Practices without a scene above — kept reachable from the homepage. */
+const alsoPractices = [
+  { href: "/solutions/product-design", title: "UI/UX design" },
+  { href: "/solutions/cms", title: "CMS development" },
+  { href: "/talent", title: "Hire our engineers" },
+  { href: "/rescue", title: "Project rescue" },
+];
+
 export function Solutions() {
   return (
     <Section id="solutions" className="pt-10 pb-10 sm:pt-12 sm:pb-12">
@@ -76,10 +84,11 @@ export function Solutions() {
           <div>
             <Eyebrow>What we build</Eyebrow>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-5xl">
-              See the product, not the pitch
+              What we can build for you
             </h2>
             <p className="mt-3 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-              Five scenes. One tap to the practice.
+              Mobile apps, web platforms, AI features, MVPs, and the cloud they run on. Tap any one
+              to see how we deliver it.
             </p>
           </div>
           <Link
@@ -96,17 +105,46 @@ export function Solutions() {
             <Link
               key={scene.href}
               href={scene.href}
-              className={`overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-sm transition hover:border-navy/25 hover:shadow-lg ${
+              className={`group overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-sm transition hover:border-navy/25 hover:shadow-lg ${
                 idx === 0 ? "lg:row-span-2" : ""
               }`}
             >
-              <div className={`bg-paper ${idx === 0 ? "min-h-[420px]" : "min-h-[220px]"} overflow-hidden`}>
+              {/* The mockups are the point on a wide screen. On a phone five
+                  stacked frames cost ~2.5 screens of scroll and say nothing a
+                  title does not, so the card collapses to a scannable row. */}
+              <div
+                className={`hidden overflow-hidden bg-paper lg:block ${
+                  idx === 0 ? "min-h-[420px]" : "min-h-[220px]"
+                }`}
+              >
                 {scene.visual}
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-navy">{scene.title}</h3>
-                <p className="mt-1 text-base text-muted">{scene.caption}</p>
+              <div className="flex items-center justify-between gap-4 p-5 lg:block lg:p-6">
+                <div className="min-w-0">
+                  <h3 className="text-lg font-bold text-navy sm:text-xl">{scene.title}</h3>
+                  <p className="mt-1 text-sm text-muted sm:text-base">{scene.caption}</p>
+                </div>
+                <span
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-black/5 text-navy transition-transform group-hover:translate-x-0.5 lg:hidden"
+                  aria-hidden
+                >
+                  <ArrowUpRight size={16} />
+                </span>
               </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center gap-2">
+          <span className="mr-1 text-sm font-semibold text-navy">Also:</span>
+          {alsoPractices.map((practice) => (
+            <Link
+              key={practice.href}
+              href={practice.href}
+              className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-navy transition hover:border-navy/25 hover:bg-paper"
+            >
+              {practice.title}
+              <ArrowUpRight size={14} aria-hidden />
             </Link>
           ))}
         </div>

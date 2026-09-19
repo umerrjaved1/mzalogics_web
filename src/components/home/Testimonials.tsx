@@ -13,8 +13,14 @@ const filters: { id: FilterType; label: string }[] = [
   { id: "handcrafted", label: "Hand-crafted" },
 ];
 
-export function Testimonials() {
+export function Testimonials({
+  photos,
+}: {
+  /** slug → /media path, resolved on the server. Missing = fall back to initials. */
+  photos?: Record<string, string | undefined>;
+} = {}) {
   const [filter, setFilter] = useState<FilterType>("all");
+  const anyAttributed = testimonials.some((item) => item.attributed);
 
   const filteredItems = testimonials.filter((item) => {
     if (filter === "all") return true;
@@ -33,7 +39,9 @@ export function Testimonials() {
               People who shipped with us
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
-              Anonymized notes from confidential engagements. Names stay off the record unless a client asks to be listed.
+              {anyAttributed
+                ? "Named where the client agreed to go on the record; anonymized where the engagement is confidential."
+                : "Anonymized notes from confidential engagements. Names stay off the record unless a client asks to be listed."}
             </p>
           </div>
 
@@ -69,20 +77,63 @@ export function Testimonials() {
                 </blockquote>
               </div>
 
-              <div className="mt-8 flex items-center gap-3 border-t border-black/5 pt-5">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-paper text-sm font-bold text-navy">
-                  {item.initials}
-                </span>
-                <div className="min-w-0">
-                  <div className="truncate text-base font-bold text-navy">{item.name}</div>
-                  <div className="truncate text-sm text-muted">{item.role}</div>
-                </div>
-              </div>
+              <Attribution item={item} photo={item.attributed ? photos?.[item.attributed.slug] : undefined} />
             </SpotlightCard>
           ))}
         </div>
         )}
       </Container>
     </Section>
+  );
+}
+
+/**
+ * Anonymous by default. An attributed quote shows the person's real name and
+ * company, plus a headshot when one is on disk — never a stock face.
+ */
+function Attribution({
+  item,
+  photo,
+}: {
+  item: (typeof testimonials)[number];
+  photo?: string;
+}) {
+  const attributed = item.attributed;
+  const displayName = attributed?.fullName ?? item.name;
+  const displayOrg = attributed ? `${item.role} · ${attributed.company}` : item.role;
+
+  return (
+    <div className="mt-8 flex items-center gap-3 border-t border-black/5 pt-5">
+      {photo ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={photo}
+          alt={displayName}
+          loading="lazy"
+          className="h-12 w-12 shrink-0 rounded-full border border-black/10 object-cover object-center"
+        />
+      ) : (
+        <span
+          aria-hidden
+          className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-paper text-sm font-bold text-navy"
+        >
+          {item.initials}
+        </span>
+      )}
+      <div className="min-w-0">
+        <div className="truncate text-base font-bold text-navy">{displayName}</div>
+        <div className="truncate text-sm text-muted">{displayOrg}</div>
+      </div>
+      {attributed?.href ? (
+        <a
+          href={attributed.href}
+          target="_blank"
+          rel="noreferrer"
+          className="ml-auto shrink-0 text-xs font-semibold text-navy underline underline-offset-2"
+        >
+          Visit
+        </a>
+      ) : null}
+    </div>
   );
 }

@@ -2,15 +2,18 @@ export type CaseStudy = {
   slug: string;
   industry: string;
   title: string;
+  /** How the client is described while the engagement stays confidential. */
   client: string;
+  /**
+   * Set this ONLY after the client has agreed in writing to be named. When
+   * present it replaces the "Confidential — …" line with the real company.
+   */
+  namedClient?: { name: string; href?: string };
   challenge: string;
   approach: string;
   outcome: string;
   metrics: { value: string; label: string }[];
   stack: string[];
-  /** Optional stock or legacy URL. Live pages use /public/media/work when present. */
-  screenshot?: string;
-  heroImage?: string;
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -31,8 +34,6 @@ export const caseStudies: CaseStudy[] = [
       { value: "12 wks", label: "First production cutover" },
     ],
     stack: ["Next.js", "Node.js", "PostgreSQL", "AWS"],
-    screenshot: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop",
-    heroImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&h=900&fit=crop",
   },
   {
     slug: "finance-ops-platform",
@@ -51,8 +52,6 @@ export const caseStudies: CaseStudy[] = [
       { value: "SSO", label: "Enterprise identity" },
     ],
     stack: ["Next.js", "Python", "PostgreSQL", "Azure"],
-    screenshot: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&h=800&fit=crop",
-    heroImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&h=900&fit=crop",
   },
   {
     slug: "healthcare-ops-portal",
@@ -71,8 +70,6 @@ export const caseStudies: CaseStudy[] = [
       { value: "RBAC", label: "Least-privilege access" },
     ],
     stack: ["React Native", "Next.js", "Node.js", "GCP"],
-    screenshot: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=800&fit=crop",
-    heroImage: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&h=900&fit=crop",
   },
   {
     slug: "retail-inventory-ai",
@@ -91,8 +88,6 @@ export const caseStudies: CaseStudy[] = [
       { value: "ERP-native", label: "No parallel ledger" },
     ],
     stack: ["Python", "Next.js", "RAG", "Azure"],
-    screenshot: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=800&fit=crop",
-    heroImage: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600&h=900&fit=crop",
   },
   {
     slug: "claims-assistant",
@@ -111,8 +106,6 @@ export const caseStudies: CaseStudy[] = [
       { value: "0", label: "Cross-tenant leaks in audit" },
     ],
     stack: ["Python", "FastAPI", "pgvector", "Azure OpenAI"],
-    screenshot: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=800&fit=crop",
-    heroImage: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&h=900&fit=crop",
   },
   {
     slug: "retail-app-rebuild",
@@ -131,8 +124,6 @@ export const caseStudies: CaseStudy[] = [
       { value: "−40%", label: "Release effort per version" },
     ],
     stack: ["Flutter", "Kotlin", "Swift", "Firebase"],
-    screenshot: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&h=800&fit=crop",
-    heroImage: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1600&h=900&fit=crop",
   },
 ];
 
