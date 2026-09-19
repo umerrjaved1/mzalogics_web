@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Calendar, MessageCircle, Send, ShieldCheck, CheckCircle2, Zap } from "lucide-react";
 import { bookingHref } from "@/lib/booking";
+import { checkUpload, UPLOAD_ACCEPT, UPLOAD_HINT } from "@/lib/uploads";
+import { EstimateCapture } from "@/components/conversion/EstimateCapture";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import type { FormKind } from "@/lib/forms";
@@ -30,8 +32,27 @@ export function LeadForm({
   extraFields?: "talent" | "rescue" | "career";
 }) {
   const router = useRouter();
+  const formId = useId();
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
   const [error, setError] = useState("");
+  const [fileError, setFileError] = useState<string | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  /** Fast feedback in the browser; the route re-checks before trusting it. */
+  function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.currentTarget.files?.[0];
+    if (!file) {
+      setFileError(null);
+      return;
+    }
+    const verdict = checkUpload(file.name, file.size, file.type);
+    if (verdict.ok) {
+      setFileError(null);
+      return;
+    }
+    setFileError(verdict.error);
+    event.currentTarget.value = "";
+  }
 
   // Interactive Estimator State
   const [projectType, setProjectType] = useState<ProjectType>("mobile");
@@ -77,22 +98,20 @@ export function LeadForm({
     setStatus("loading");
     setError("");
     const form = event.currentTarget;
+    // Multipart, so an optional brief can ride along with the fields.
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-
-    // Include estimated scope info
-    const enrichedData = {
-      kind,
-      ...data,
-      projectTypeScope: projectType,
-      selectedDeliveryTrack: selectedTrack,
-    };
+    formData.set("kind", kind);
+    formData.set("projectTypeScope", projectType);
+    formData.set("selectedDeliveryTrack", selectedTrack);
+    if (kind === "contact") {
+      const shown = estimateForScope(projectType, selectedTrack);
+      formData.set("estimate", `${shown.price} · ${shown.timeline}`);
+    }
 
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(enrichedData),
+        body: formData,
       });
 
       if (!response.ok) {
@@ -284,13 +303,20 @@ export function LeadForm({
                   {(() => {
                     const estimate = estimateForScope(projectType, selectedTrack);
                     return (
-                      <p className="mt-5 rounded-2xl border border-navy/10 bg-white px-4 py-3 text-sm text-navy">
-                        {estimate.compareAt ? (
-                          <span className="mr-2 text-muted line-through">{estimate.compareAt}</span>
-                        ) : null}
-                        <span className="font-bold">{estimate.price}</span>
-                        <span className="text-muted"> · {estimate.timeline} · {estimate.note}</span>
-                      </p>
+                      <>
+                        <p className="mt-5 rounded-2xl border border-navy/10 bg-white px-4 py-3 text-sm text-navy">
+                          {estimate.compareAt ? (
+                            <span className="mr-2 text-muted line-through">{estimate.compareAt}</span>
+                          ) : null}
+                          <span className="font-bold">{estimate.price}</span>
+                          <span className="text-muted"> · {estimate.timeline} · {estimate.note}</span>
+                        </p>
+                        <EstimateCapture
+                          estimate={`${estimate.price} · ${estimate.timeline}`}
+                          projectType={projectType}
+                          track={selectedTrack}
+                        />
+                      </>
                     );
                   })()}
                 </div>
@@ -440,6 +466,29 @@ export function LeadForm({
                       />
                     </label>
                   ) : null}
+
+                  <div className="sm:col-span-2">
+                    <label htmlFor={`${formId}-attachment`} className="text-sm font-semibold text-navy">
+                      Attach a brief or RFP{" "}
+                      <span className="font-normal text-muted">(optional)</span>
+                    </label>
+                    <input
+                      id={`${formId}-attachment`}
+                      ref={fileRef}
+                      type="file"
+                      name="attachment"
+                      accept={UPLOAD_ACCEPT}
+                      onChange={onFileChange}
+                      aria-describedby={`${formId}-attachment-hint`}
+                      className="mt-1.5 w-full cursor-pointer rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none file:mr-3 file:rounded-lg file:border-0 file:bg-navy file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-white hover:file:bg-navy-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                    />
+                    <p
+                      id={`${formId}-attachment-hint`}
+                      className={`mt-1.5 text-xs ${fileError ? "font-semibold text-red-700" : "text-muted"}`}
+                    >
+                      {fileError ?? UPLOAD_HINT}
+                    </p>
+                  </div>
 
                   <label className="text-sm font-semibold text-navy sm:col-span-2">
                     {extraFields === "rescue" ? "What issues is the project facing?" : "Project Overview & Goals *"}

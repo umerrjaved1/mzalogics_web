@@ -106,3 +106,56 @@ test("CSP allows the booking calendar to be framed", () => {
   const src = readFileSync(join(root, "next.config.ts"), "utf8");
   assert.match(src, /frame-src/, "without frame-src the scheduler is blocked by default-src");
 });
+
+/* ------------------------------------------------------------------ */
+/*  Attachment validation — the route must not trust the browser.      */
+/* ------------------------------------------------------------------ */
+
+const { checkUpload, safeFilename, MAX_UPLOAD_BYTES } = await import(
+  pathToFileURL(join(root, "src/lib/uploads.ts")).href
+);
+
+test("accepts an ordinary PDF brief", () => {
+  assert.equal(checkUpload("brief.pdf", 900_000, "application/pdf").ok, true);
+});
+
+test("rejects a file over the size limit", () => {
+  const result = checkUpload("huge.pdf", MAX_UPLOAD_BYTES + 1, "application/pdf");
+  assert.equal(result.ok, false);
+  assert.match(result.error, /limit/i);
+});
+
+test("rejects an executable however it is labelled", () => {
+  assert.equal(checkUpload("payload.exe", 1000, "application/pdf").ok, false);
+  assert.equal(checkUpload("payload.sh", 1000, "text/plain").ok, false);
+});
+
+test("rejects a mime type that contradicts the extension", () => {
+  assert.equal(checkUpload("brief.pdf", 1000, "application/x-msdownload").ok, false);
+});
+
+test("tolerates an empty mime type, which some platforms send", () => {
+  assert.equal(checkUpload("notes.md", 1000, "").ok, true);
+});
+
+test("rejects an empty file", () => {
+  assert.equal(checkUpload("empty.pdf", 0, "application/pdf").ok, false);
+});
+
+test("safeFilename strips directory traversal and odd characters", () => {
+  assert.equal(safeFilename("../../etc/passwd"), "passwd");
+  assert.equal(safeFilename("C:\\temp\\brief.pdf"), "brief.pdf");
+  assert.equal(safeFilename("re;port<>.pdf"), "re_port_.pdf");
+  assert.equal(safeFilename(""), "attachment");
+});
+
+test("contact route validates the upload server-side", () => {
+  const src = readFileSync(join(root, "src/app/api/contact/route.ts"), "utf8");
+  assert.match(src, /checkUpload\(/, "a client-reported type and size cannot be trusted");
+  assert.match(src, /safeFilename\(/, "filenames reach an email, so sanitise them");
+});
+
+test("estimate capture is an accepted lead kind", () => {
+  const src = readFileSync(join(root, "src/lib/forms.ts"), "utf8");
+  assert.match(src, /"estimate"/);
+});

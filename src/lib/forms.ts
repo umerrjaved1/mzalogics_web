@@ -1,4 +1,5 @@
-export type FormKind = "contact" | "talent" | "rescue" | "career";
+/** "estimate" is the lighter capture from the pricing estimator. */
+export type FormKind = "contact" | "talent" | "rescue" | "career" | "estimate";
 
 export type FormPayload = {
   kind: FormKind;
