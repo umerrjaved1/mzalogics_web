@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { FloatingSocial } from "@/components/layout/FloatingSocial";
 import { LeadDock } from "@/components/conversion/LeadDock";
 import { MotionProvider } from "@/components/MotionProvider";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { Analytics } from "@/components/Analytics";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <MotionProvider>
+          <ScrollProgress />
           <Header />
           <main id="main" className="flex-1 pt-[88px]" data-nav-surface="light">
             {children}

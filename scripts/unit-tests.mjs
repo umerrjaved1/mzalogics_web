@@ -224,9 +224,39 @@ test("counters keep their real value when never scrolled into view", () => {
   assert.match(src, /if \(!animatable \|\| !parsed \|\| !inView \|\| !node\) return;/);
 });
 
-test("Reveal animates transform only, never opacity", () => {
+test("Reveal never server-renders its hidden state", () => {
   const src = readFileSync(join(root, "src/components/ui/Reveal.tsx"), "utf8");
-  // Ignore comments: the file explains *why* it avoids opacity.
+  // Opacity is allowed ONLY because the hidden state is applied after mount.
+  // Without this guard, content ships invisible and a client with slow or
+  // broken JS never sees it -- the bug that once blanked the hero.
+  assert.match(src, /useSyncExternalStore/, "needs a server-vs-client snapshot");
+  assert.ok(src.includes("if (!mounted) return"), "must render plain and visible until JS runs");
+});
+
+test("Parallax is opt-out under reduced motion", () => {
+  const src = readFileSync(join(root, "src/components/ui/Parallax.tsx"), "utf8");
+  // useScroll is not covered by MotionConfig, so it must check the preference itself.
+  assert.match(src, /useReducedMotion/);
+  assert.ok(src.includes("if (reduced)"), "must drop the effect entirely under reduced motion");
+});
+
+test("reveal failsafe does not depend on requestAnimationFrame", () => {
+  const src = readFileSync(join(root, "src/lib/reveal-failsafe.ts"), "utf8");
+  // Ignore comments: the file explains *why* it avoids rAF.
   const code = src.split(String.fromCharCode(10)).filter((l) => { const t = l.trim(); return t.indexOf("*") !== 0 && t.indexOf("//") !== 0; }).join(String.fromCharCode(10));
-  assert.ok(code.indexOf("opacity") === -1, "content hidden by JS is content a client may never see");
+  assert.ok(code.indexOf("requestAnimationFrame") === -1, "use a timer so the backstop still runs when rendering is suspended");
+  assert.ok(code.includes("setTimeout"), "coalesce with a timer instead");
+});
+
+test("reveal failsafe uses one shared listener, not one per element", () => {
+  const src = readFileSync(join(root, "src/lib/reveal-failsafe.ts"), "utf8");
+  assert.ok(src.includes("const pending = new Set"), "elements register into a shared set");
+  assert.ok(src.includes("passive: true"), "scroll listener must not block scrolling");
+  assert.ok(src.includes("function detach"), "listener detaches once nothing is pending");
+});
+
+test("Reveal reveals on the observer OR the geometric failsafe", () => {
+  const src = readFileSync(join(root, "src/components/ui/Reveal.tsx"), "utf8");
+  assert.ok(src.includes("const show = inView || failsafe"), "either trigger must be enough");
+  assert.ok(src.includes("registerPendingReveal"), "stays registered until it shows");
 });

@@ -2,7 +2,8 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, Lock, Sparkles, Zap } from "lucide-react";
 import { Container, Section } from "@/components/ui/Container";
 import { aiStats } from "@/content/ai";
-import { Reveal } from "@/components/ui/Reveal";
+import { Reveal, RevealLines } from "@/components/ui/Reveal";
+import { Parallax } from "@/components/ui/Parallax";
 import { Counter } from "@/components/ui/Counter";
 
 /**
@@ -40,10 +41,19 @@ export function AiDeliveryTeaser() {
       className="relative overflow-hidden bg-navy pt-14 pb-14 text-white sm:pt-16 sm:pb-16"
       data-nav-surface="dark"
     >
-      <div
-        className="pointer-events-none absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-accent-2/10 blur-[150px]"
-        aria-hidden="true"
-      />
+      <Parallax
+        distance={90}
+        direction={-1}
+        className="pointer-events-none absolute -top-40 -left-40 h-[600px] w-[600px]"
+      >
+        <div className="h-full w-full rounded-full bg-accent-2/10 blur-[150px]" aria-hidden="true" />
+      </Parallax>
+      <Parallax
+        distance={70}
+        className="pointer-events-none absolute -bottom-40 -right-32 h-[520px] w-[520px]"
+      >
+        <div className="h-full w-full rounded-full bg-accent-purple/15 blur-[150px]" aria-hidden="true" />
+      </Parallax>
 
       <Container className="relative z-10">
         <Reveal className="max-w-2xl">
@@ -52,7 +62,7 @@ export function AiDeliveryTeaser() {
             Dual-track delivery
           </span>
           <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
-            Two ways to ship. One standard.
+            <RevealLines lines={["Two ways to ship.", "One standard."]} />
           </h2>
           <p className="mt-4 text-base leading-relaxed text-white/85 sm:text-lg">
             Choose speed with senior review, or a fully hand-written track when policy forbids LLMs.

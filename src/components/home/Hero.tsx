@@ -6,16 +6,20 @@ import { ArrowDisc } from "@/components/ui/Button";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { HeroDeviceVisual } from "@/components/ui/DeviceMockup";
 import { Counter } from "@/components/ui/Counter";
+import { Parallax } from "@/components/ui/Parallax";
 import { BookCallButton } from "@/components/conversion/BookCallButton";
 import { site } from "@/lib/site";
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden pt-8 pb-16 lg:pt-12 lg:pb-24">
-      <div
-        className="pointer-events-none absolute -top-24 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-accent-2/15 blur-[120px]"
-        aria-hidden="true"
-      />
+      <Parallax
+        distance={70}
+        direction={-1}
+        className="pointer-events-none absolute -top-24 left-1/2 h-[500px] w-[800px] -translate-x-1/2"
+      >
+        <div className="h-full w-full rounded-full bg-accent-2/15 blur-[120px]" aria-hidden="true" />
+      </Parallax>
 
       <Container className="relative z-10 grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">
         <div className="relative z-20 flex flex-col items-start">
@@ -73,9 +77,9 @@ export function Hero() {
           </dl>
         </div>
 
-        <div className="rise-in rise-in-2 relative z-10 w-full min-w-0 overflow-hidden">
+        <Parallax distance={28} className="rise-in rise-in-2 relative z-10 w-full min-w-0 overflow-hidden">
           <HeroDeviceVisual />
-        </div>
+        </Parallax>
       </Container>
     </section>
   );
