@@ -3,7 +3,6 @@ import { Hero } from "@/components/home/Hero";
 import { Solutions } from "@/components/home/Solutions";
 import { IndustryStrip } from "@/components/home/IndustryStrip";
 import { WorkProof } from "@/components/home/WorkProof";
-import { AiDeliveryTeaser } from "@/components/home/AiDeliveryTeaser";
 import { Testimonials } from "@/components/home/Testimonials";
 import { LeadForm } from "@/components/LeadForm";
 import { DealStrip } from "@/components/conversion/DealStrip";
@@ -45,7 +44,9 @@ export default function Home() {
       <JsonLd data={organizationJsonLd()} />
       <JsonLd data={websiteJsonLd()} />
       <JsonLd data={localBusinessJsonLd()} />
-      {/* What we do → who we do it for → proof → what others say → how we work → book. */}
+      {/* What we do → who we do it for → proof → what others say → book.
+          How we build lives on /solutions#how-we-build: it is a procurement
+          detail, not a homepage message. */}
       <Hero />
       <Solutions />
       <IndustryStrip />
@@ -55,14 +56,13 @@ export default function Home() {
           testimonials.flatMap((item) => (item.attributed ? [item.attributed.slug] : [])),
         )}
       />
-      <AiDeliveryTeaser />
       <DealStrip />
       {/* The form is the only close. CtaBand used to follow it asking the same
           thing in different words, so the page ended three times. */}
       <LeadForm
         kind="contact"
         title="Get a written scope"
-        intro={`Tell us about the product and the track you want. WhatsApp ${site.phoneDisplay} — we reply within one business day.`}
+        intro={`Tell us what you want to build. WhatsApp ${site.phoneDisplay} if it is quicker — we reply within one business day.`}
         submitLabel="Send enquiry"
       />
     </>

@@ -172,11 +172,7 @@ export function LeadForm({
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 size={16} className="text-emerald-700 shrink-0" />
-                  <span>Senior engineers in Lahore — 100% time-zone aligned</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-emerald-700 shrink-0" />
-                  <span>Guaranteed response within 1 business day</span>
+                  <span>You keep full IP from day one</span>
                 </div>
               </div>
             </div>
@@ -208,7 +204,7 @@ export function LeadForm({
               {kind === "contact" && (
                 <div className="mb-8 border-b border-black/8 pb-8">
                   <span className="text-xs font-bold uppercase tracking-wider text-navy">
-                    1. Select Project Type
+                    What are you building?
                   </span>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {[
@@ -234,64 +230,6 @@ export function LeadForm({
                     ))}
                   </div>
 
-                  <span className="mt-5 block text-xs font-bold uppercase tracking-wider text-navy">
-                    2. Preferred Delivery Track
-                  </span>
-                  <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                    <button
-                      type="button"
-                      aria-pressed={selectedTrack === "ai"}
-                      onClick={() => handleTrackSelect("ai")}
-                      className={`rounded-xl p-3 text-left transition ${
-                        selectedTrack === "ai"
-                          ? "border-2 border-accent-2 bg-navy text-white shadow-sm"
-                          : "border border-black/8 bg-white text-navy hover:bg-black/5"
-                      }`}
-                    >
-                      <div className="flex items-center gap-1.5 text-xs font-bold">
-                        <Zap size={13} className="text-accent-2" />
-                        AI-Accelerated
-                      </div>
-                      <div className={`mt-1 text-[11px] ${selectedTrack === "ai" ? "text-accent-2" : "text-muted"}`}>
-                        2x Sprint Speed
-                      </div>
-                    </button>
-
-                    <button
-                      type="button"
-                      aria-pressed={selectedTrack === "manual"}
-                      onClick={() => handleTrackSelect("manual")}
-                      className={`rounded-xl p-3 text-left transition ${
-                        selectedTrack === "manual"
-                          ? "border-2 border-navy bg-navy text-white shadow-sm"
-                          : "border border-black/8 bg-white text-navy hover:bg-black/5"
-                      }`}
-                    >
-                      <div className="flex items-center gap-1.5 text-xs font-bold">
-                        <ShieldCheck size={13} />
-                        Hand-Crafted
-                      </div>
-                      <div className={`mt-1 text-[11px] ${selectedTrack === "manual" ? "text-white/70" : "text-muted"}`}>
-                        Zero AI &middot; Strict IP
-                      </div>
-                    </button>
-
-                    <button
-                      type="button"
-                      aria-pressed={selectedTrack === "undecided"}
-                      onClick={() => handleTrackSelect("undecided")}
-                      className={`col-span-2 sm:col-span-1 rounded-xl p-3 text-left transition ${
-                        selectedTrack === "undecided"
-                          ? "border-2 border-navy bg-navy text-white shadow-sm"
-                          : "border border-black/8 bg-white text-navy hover:bg-black/5"
-                      }`}
-                    >
-                      <div className="text-xs font-bold">Advise Me</div>
-                      <div className={`mt-1 text-[11px] ${selectedTrack === "undecided" ? "text-white/70" : "text-muted"}`}>
-                        Recommend Track
-                      </div>
-                    </button>
-                  </div>
 
                   {(() => {
                     const estimate = estimateForScope(projectType, selectedTrack);

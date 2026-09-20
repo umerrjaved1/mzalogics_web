@@ -1,90 +1,58 @@
-"use client";
-
-import React, { useState } from "react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { testimonials } from "@/content/testimonials";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Reveal } from "@/components/ui/Reveal";
 
-type FilterType = "all" | "ai" | "handcrafted";
-
-const filters: { id: FilterType; label: string }[] = [
-  { id: "all", label: "All clients" },
-  { id: "ai", label: "AI track" },
-  { id: "handcrafted", label: "Hand-crafted" },
-];
-
+/**
+ * Client quotes.
+ *
+ * There used to be filter tabs here — All clients / AI track / Hand-crafted —
+ * asking a visitor to sort four anonymous quotes by our internal delivery
+ * methodology. Nobody filters testimonials, least of all by something they
+ * have not read about yet.
+ */
 export function Testimonials({
   photos,
 }: {
   /** slug → /media path, resolved on the server. Missing = fall back to initials. */
   photos?: Record<string, string | undefined>;
 } = {}) {
-  const [filter, setFilter] = useState<FilterType>("all");
   const anyAttributed = testimonials.some((item) => item.attributed);
-
-  const filteredItems = testimonials.filter((item) => {
-    if (filter === "all") return true;
-    if (filter === "ai") return item.note.toLowerCase().includes("ai");
-    if (filter === "handcrafted") return item.note.toLowerCase().includes("hand-crafted");
-    return true;
-  });
 
   return (
     <Section id="testimonials" className="pt-10 pb-10 sm:pt-12 sm:pb-12">
       <Container>
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <div className="max-w-2xl">
-            <Eyebrow>Client stories</Eyebrow>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight text-navy sm:text-3xl">
-              People who shipped with us
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
-              {anyAttributed
-                ? "Named where the client agreed to go on the record; anonymized where the engagement is confidential."
-                : "Anonymized notes from confidential engagements. Names stay off the record unless a client asks to be listed."}
-            </p>
-          </div>
-
-          <div role="tablist" aria-label="Filter testimonials" className="flex rounded-full bg-paper p-1 text-sm font-semibold text-navy">
-            {filters.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                role="tab"
-                aria-selected={filter === item.id}
-                onClick={() => setFilter(item.id)}
-                className={`rounded-full px-4 py-2 ${
-                  filter === item.id ? "bg-navy text-white shadow-sm" : "text-navy/80 hover:text-navy"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {filteredItems.length === 0 ? (
-          <p className="mt-10 rounded-2xl border border-black/8 bg-white px-6 py-10 text-center text-base text-muted">
-            No quotes on this track yet. Try All clients.
+        <Reveal className="max-w-2xl">
+          <Eyebrow>Client stories</Eyebrow>
+          <h2 className="mt-3 text-2xl font-bold tracking-tight text-navy sm:text-3xl">
+            People who shipped with us
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
+            {anyAttributed
+              ? "Named where the client agreed to go on the record."
+              : "Anonymized notes from confidential engagements."}
           </p>
-        ) : (
+        </Reveal>
+
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredItems.slice(0, 6).map((item, index) => (
-            <Reveal key={`${item.name}-${item.role}`} delay={Math.min(index * 0.06, 0.24)} className="h-full">
-            <SpotlightCard className="flex h-full flex-col justify-between p-7 sm:p-8">
-              <div>
+          {testimonials.slice(0, 3).map((item, index) => (
+            <Reveal
+              key={`${item.name}-${item.role}`}
+              delay={Math.min(index * 0.06, 0.24)}
+              className="h-full"
+            >
+              <SpotlightCard className="flex h-full flex-col justify-between p-7 sm:p-8">
                 <blockquote className="text-base leading-relaxed text-navy">
                   &ldquo;{item.quote}&rdquo;
                 </blockquote>
-              </div>
-
-              <Attribution item={item} photo={item.attributed ? photos?.[item.attributed.slug] : undefined} />
-            </SpotlightCard>
+                <Attribution
+                  item={item}
+                  photo={item.attributed ? photos?.[item.attributed.slug] : undefined}
+                />
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>
-        )}
       </Container>
     </Section>
   );

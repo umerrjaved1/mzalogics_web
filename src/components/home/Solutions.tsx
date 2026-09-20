@@ -69,14 +69,6 @@ const scenes = [
   },
 ];
 
-/** Practices without a scene above — kept reachable from the homepage. */
-const alsoPractices = [
-  { href: "/solutions/product-design", title: "UI/UX design" },
-  { href: "/solutions/cms", title: "CMS development" },
-  { href: "/talent", title: "Hire our engineers" },
-  { href: "/rescue", title: "Project rescue" },
-];
-
 export function Solutions() {
   return (
     <Section id="solutions" className="pt-10 pb-10 sm:pt-12 sm:pb-12">
@@ -139,19 +131,7 @@ export function Solutions() {
           ))}
         </div>
 
-        <Reveal className="mt-5 flex flex-wrap items-center gap-2">
-          <span className="mr-1 text-sm font-semibold text-navy">Also:</span>
-          {alsoPractices.map((practice) => (
-            <Link
-              key={practice.href}
-              href={practice.href}
-              className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-navy transition hover:border-navy/25 hover:bg-paper"
-            >
-              {practice.title}
-              <ArrowUpRight size={14} aria-hidden />
-            </Link>
-          ))}
-        </Reveal>
+
       </Container>
     </Section>
   );
