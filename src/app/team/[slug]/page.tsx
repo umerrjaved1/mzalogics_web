@@ -86,7 +86,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
             <ArrowLeft size={14} /> Back to all engineers
           </Link>
 
-          <div className="overflow-hidden rounded-[32px] border border-black/8 bg-white p-6 shadow-[0_16px_50px_rgba(9,6,26,0.04)] sm:p-10 lg:p-12">
+          <div className="overflow-hidden rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_16px_50px_rgba(9,6,26,0.04)] sm:p-10 lg:p-12">
             <div className="grid gap-10 lg:grid-cols-[auto_1fr_320px] lg:items-start">
               {/* Photo & Availability */}
               <div className="flex flex-col items-center sm:items-start">

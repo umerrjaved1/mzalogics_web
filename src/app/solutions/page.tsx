@@ -48,7 +48,7 @@ export default function SolutionsPage() {
         <Container>
           <div className="grid gap-4 lg:grid-cols-3">
             {engagementModels.map((model) => (
-              <article key={model.title} className="rounded-3xl border border-line p-6">
+              <article key={model.title} className="rounded-[28px] border border-line p-6">
                 <h2 className="text-lg font-semibold text-navy">{model.title}</h2>
                 <p className="mt-2 text-base leading-relaxed text-muted">{model.body}</p>
                 <ul className="mt-4 space-y-1 text-base text-navy">
@@ -70,7 +70,7 @@ export default function SolutionsPage() {
               <Link
                 key={service.slug}
                 href={`/solutions/${service.slug}`}
-                className="overflow-hidden rounded-3xl border border-line bg-white hover:border-navy"
+                className="overflow-hidden rounded-[28px] border border-line bg-white hover:border-navy"
               >
                 {resolveLocal((serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local) ? (
                   <MediaImg

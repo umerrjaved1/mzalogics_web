@@ -95,7 +95,7 @@ export default function TalentPage() {
           <h2 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">How Picking &amp; Onboarding Works</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, index) => (
-              <article key={step.title} className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm">
+              <article key={step.title} className="rounded-[28px] border border-black/8 bg-white p-6 shadow-sm">
                 <p className="text-xs font-bold tracking-widest uppercase text-emerald-700">
                   Step {String(index + 1).padStart(2, "0")}
                 </p>

@@ -84,7 +84,7 @@ export function Solutions() {
         <Reveal className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
             <Eyebrow>What we build</Eyebrow>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-5xl">
+            <h2 className="mt-3 text-2xl font-bold tracking-tight text-navy sm:text-3xl">
               What we can build for you
             </h2>
             <p className="mt-3 max-w-xl text-base leading-relaxed text-muted sm:text-lg">

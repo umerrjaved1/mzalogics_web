@@ -47,7 +47,7 @@ export default function RescuePage() {
       </Section>
       <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container className="grid gap-4 lg:grid-cols-2">
-          <article className="rounded-3xl border border-line p-6">
+          <article className="rounded-[28px] border border-line p-6">
             <p className="text-xs font-semibold text-accent">Most used</p>
             <h2 className="mt-2 text-xl font-semibold text-navy">App audit</h2>
             <p className="mt-2 text-sm text-muted">
@@ -59,7 +59,7 @@ export default function RescuePage() {
               <li>• Written action plan</li>
             </ul>
           </article>
-          <article className="rounded-3xl bg-navy p-6 text-white">
+          <article className="rounded-[28px] bg-navy p-6 text-white">
             <h2 className="text-xl font-semibold">Audit + execution</h2>
             <p className="mt-2 text-sm text-white/70">
               Same audit, then a scoped quote to implement. You know the blast radius before anyone touches production.
@@ -77,7 +77,7 @@ export default function RescuePage() {
           <h2 className="text-2xl font-semibold text-navy">Nothing escapes the audit</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {coverage.map((item) => (
-              <article key={item.title} className="rounded-3xl border border-line bg-white p-5">
+              <article key={item.title} className="rounded-[28px] border border-line bg-white p-5">
                 <h3 className="font-semibold text-navy">{item.title}</h3>
                 <p className="mt-2 text-sm text-muted">{item.body}</p>
               </article>

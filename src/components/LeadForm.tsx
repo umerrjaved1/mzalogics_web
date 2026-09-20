@@ -3,7 +3,7 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Calendar, MessageCircle, Send, ShieldCheck, CheckCircle2, Zap } from "lucide-react";
+import { MessageCircle, Send, ShieldCheck, CheckCircle2, Zap } from "lucide-react";
 import { bookingHref } from "@/lib/booking";
 import { checkUpload, UPLOAD_ACCEPT, UPLOAD_HINT } from "@/lib/uploads";
 import { EstimateCapture } from "@/components/conversion/EstimateCapture";
@@ -134,12 +134,12 @@ export function LeadForm({
   return (
     <Section id="book" className="relative pt-10 pb-10 sm:pt-12 sm:pb-12">
       <Container>
-        <div className="overflow-hidden rounded-[32px] border border-black/8 bg-white p-6 shadow-[0_16px_50px_rgba(9,6,26,0.04)] sm:p-10 lg:p-12">
+        <div className="overflow-hidden rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_16px_50px_rgba(9,6,26,0.04)] sm:p-10 lg:p-12">
           <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.15fr]">
             {/* Left Column: Heading & Value Prop */}
             <div>
               <Eyebrow>{eyebrow}</Eyebrow>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-5xl">{title}</h2>
+              <h2 className="mt-3 text-2xl font-bold tracking-tight text-navy sm:text-3xl">{title}</h2>
               <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">{intro}</p>
 
               {/* Direct WhatsApp Quick-Connect Box */}
@@ -162,13 +162,6 @@ export function LeadForm({
                   <MessageCircle size={15} />
                   Chat on WhatsApp ({site.phoneDisplay})
                 </a>
-                <Link
-                  href={bookingHref}
-                  className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-navy/15 bg-white py-2.5 text-xs font-bold text-navy transition hover:bg-paper"
-                >
-                  <Calendar size={15} />
-                  Book a 20-minute call
-                </Link>
               </div>
 
               {/* Trust assurances */}

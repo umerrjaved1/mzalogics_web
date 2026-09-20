@@ -194,7 +194,7 @@ export function Comparison() {
             </p>
           </div>
 
-          <div className="overflow-hidden rounded-[32px] border border-black/8 bg-white shadow-[0_12px_40px_rgba(9,6,26,0.04)]">
+          <div className="overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-[0_12px_40px_rgba(9,6,26,0.04)]">
             <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-black/8">
               {/* Column 1: MZA Logics (Vision Aligned) */}
               <div className="p-7 sm:p-9 bg-navy/[0.02]">

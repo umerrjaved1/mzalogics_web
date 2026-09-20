@@ -42,7 +42,7 @@ export function LeadDock() {
 
   return (
     <div className="fixed bottom-6 right-6 z-40 hidden w-[360px] md:block">
-      <div className="rounded-3xl border border-white/15 bg-navy/95 p-4 text-white shadow-[0_20px_50px_rgba(9,6,26,0.45)] backdrop-blur-xl">
+      <div className="rounded-[28px] border border-white/15 bg-navy/95 p-4 text-white shadow-[0_20px_50px_rgba(9,6,26,0.45)] backdrop-blur-xl">
         <div className="flex items-start justify-between gap-3">
           <div>
             {isPromoActive() ? (

@@ -38,7 +38,7 @@ export default function InsightsPage() {
             <Link
               key={post.slug}
               href={`/insights/${post.slug}`}
-              className="block rounded-3xl border border-line bg-white p-6 hover:border-navy"
+              className="block rounded-[28px] border border-line bg-white p-6 hover:border-navy"
             >
               <p className="text-xs font-semibold uppercase tracking-wider text-accent">
                 {post.category} · {post.date} · {post.minutes} min

@@ -83,7 +83,7 @@ export default function AboutPage() {
       {/* 4 Core Vision Pillars */}
       <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
-          <div className="rounded-[32px] border border-black/8 bg-gradient-to-br from-white via-paper to-white p-8 sm:p-12 shadow-sm">
+          <div className="rounded-[28px] border border-black/8 bg-gradient-to-br from-white via-paper to-white p-8 sm:p-12 shadow-sm">
             <Eyebrow>Our Guiding Pillars</Eyebrow>
             <h2 className="mt-3 text-3xl font-extrabold text-navy sm:text-4xl">
               The Four Foundations of How We Build
@@ -151,7 +151,7 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold text-navy">Our values</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {values.map((value) => (
-              <article key={value.title} className="rounded-3xl border border-line bg-white p-6">
+              <article key={value.title} className="rounded-[28px] border border-line bg-white p-6">
                 <h3 className="font-semibold text-navy">{value.title}</h3>
                 <p className="mt-2 text-sm text-muted">{value.body}</p>
               </article>
@@ -169,7 +169,7 @@ export default function AboutPage() {
           <h2 className="mt-14 text-2xl font-bold text-navy">Leadership</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {leadership.map((person) => (
-              <article key={person.role} className="rounded-3xl border border-line p-6">
+              <article key={person.role} className="rounded-[28px] border border-line p-6">
                 <h3 className="font-semibold text-navy">{person.name}</h3>
                 <p className="text-sm text-muted">{person.role}</p>
                 <p className="mt-3 text-sm text-muted">“{person.bio}”</p>
@@ -205,7 +205,7 @@ export default function AboutPage() {
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {techStack.map((group) => (
-              <article key={group.group} className="rounded-3xl border border-line bg-white p-6">
+              <article key={group.group} className="rounded-[28px] border border-line bg-white p-6">
                 <h3 className="text-sm font-semibold text-navy">{group.group}</h3>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {group.items.map((item) => (
@@ -221,7 +221,7 @@ export default function AboutPage() {
           <h2 className="mt-14 text-2xl font-bold text-navy">Working with us</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {trustSignals.map((item) => (
-              <article key={item.title} className="rounded-3xl border border-line bg-white p-6">
+              <article key={item.title} className="rounded-[28px] border border-line bg-white p-6">
                 <h3 className="font-semibold text-navy">{item.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-muted">{item.body}</p>
               </article>
@@ -237,7 +237,7 @@ export default function AboutPage() {
           <h2 className="mt-14 text-2xl font-bold text-navy">Studio</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {site.locations.map((location) => (
-              <article key={location.label} className="rounded-3xl border border-line p-6">
+              <article key={location.label} className="rounded-[28px] border border-line p-6">
                 <h3 className="font-semibold text-navy">{location.label}</h3>
                 <p className="mt-2 text-base text-muted">{location.address}</p>
                 <p className="text-base text-muted">{location.detail}</p>

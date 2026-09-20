@@ -36,7 +36,7 @@ export function CareersClient() {
               { title: "A real team", body: "Standups, reviews, and a studio — not a silent roster." },
               { title: "Always learning", body: "Budget for tools, courses, and the next model release." },
             ].map((item) => (
-              <article key={item.title} className="rounded-3xl border border-line p-5">
+              <article key={item.title} className="rounded-[28px] border border-line p-5">
                 <h3 className="font-semibold text-navy">{item.title}</h3>
                 <p className="mt-2 text-sm text-muted">{item.body}</p>
               </article>
@@ -59,7 +59,7 @@ export function CareersClient() {
           </div>
           <div className="mt-8 space-y-3">
             {filtered.map((job) => (
-              <article key={job.slug} className="rounded-3xl border border-line p-6">
+              <article key={job.slug} className="rounded-[28px] border border-line p-6">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <h3 className="text-lg font-semibold text-navy">{job.title}</h3>

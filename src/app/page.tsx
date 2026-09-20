@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
 import { Solutions } from "@/components/home/Solutions";
-import { LogoMarquee } from "@/components/home/LogoMarquee";
+import { IndustryStrip } from "@/components/home/IndustryStrip";
 import { WorkProof } from "@/components/home/WorkProof";
 import { AiDeliveryTeaser } from "@/components/home/AiDeliveryTeaser";
 import { Testimonials } from "@/components/home/Testimonials";
 import { LeadForm } from "@/components/LeadForm";
-import { CtaBand } from "@/components/CtaBand";
 import { DealStrip } from "@/components/conversion/DealStrip";
 import { JsonLd } from "@/components/JsonLd";
 import { localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
@@ -49,7 +48,7 @@ export default function Home() {
       {/* What we do → who we do it for → proof → what others say → how we work → book. */}
       <Hero />
       <Solutions />
-      <LogoMarquee />
+      <IndustryStrip />
       <WorkProof />
       <Testimonials
         photos={testimonialPhotos(
@@ -58,13 +57,14 @@ export default function Home() {
       />
       <AiDeliveryTeaser />
       <DealStrip />
+      {/* The form is the only close. CtaBand used to follow it asking the same
+          thing in different words, so the page ended three times. */}
       <LeadForm
         kind="contact"
         title="Get a written scope"
         intro={`Tell us about the product and the track you want. WhatsApp ${site.phoneDisplay} — we reply within one business day.`}
         submitLabel="Send enquiry"
       />
-      <CtaBand />
     </>
   );
 }

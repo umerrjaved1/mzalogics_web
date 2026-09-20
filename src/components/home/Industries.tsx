@@ -16,7 +16,7 @@ export function Industries() {
         </p>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {industries.map((industry) => (
-            <article key={industry.title} className="overflow-hidden rounded-3xl border border-black/8 bg-white">
+            <article key={industry.title} className="overflow-hidden rounded-[28px] border border-black/8 bg-white">
               {resolveLocal(industry.local) ? (
                 <MediaImg local={industry.local} fallback={industry.local} alt="" className="h-44 w-full" />
               ) : (

@@ -76,7 +76,7 @@ export function AiDelivery() {
         </div>
 
         {/* Selected Track Deep-Dive Card */}
-        <div className="mt-10 rounded-[32px] border border-white/15 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-2xl sm:p-8">
+        <div className="mt-10 rounded-[28px] border border-white/15 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-2xl sm:p-8">
           {selectedTrack === "ai" ? (
             <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
               <div>

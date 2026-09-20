@@ -15,7 +15,7 @@ export function BookingPanel() {
     <Section id={BOOKING_ANCHOR} className="scroll-mt-28 pt-8 pb-8 sm:pt-10 sm:pb-10">
       <Container>
         <div className="grid items-start gap-8 lg:grid-cols-[1.25fr_1fr]">
-          <div className="overflow-hidden rounded-[32px] border border-black/8 bg-white shadow-[0_16px_50px_rgba(9,6,26,0.04)]">
+          <div className="overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-[0_16px_50px_rgba(9,6,26,0.04)]">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/8 px-6 py-5 sm:px-8">
               <div>
                 <h2 className="text-xl font-bold tracking-tight text-navy sm:text-2xl">
@@ -77,7 +77,7 @@ export function BookingPanel() {
             )}
           </div>
 
-          <aside className="rounded-[32px] border border-black/8 bg-paper p-6 sm:p-8">
+          <aside className="rounded-[28px] border border-black/8 bg-paper p-6 sm:p-8">
             <h3 className="text-sm font-bold uppercase tracking-wider text-navy">What happens on the call</h3>
             <ol className="mt-5 space-y-5">
               {[

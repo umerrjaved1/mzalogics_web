@@ -113,7 +113,7 @@ export function Process() {
                   if (e.key === "ArrowRight") setActive((i) => (i + 1) % frames.length);
                   if (e.key === "ArrowLeft") setActive((i) => (i - 1 + frames.length) % frames.length);
                 }}
-                className={`min-w-[148px] shrink-0 rounded-3xl border p-4 text-left transition sm:min-w-0 ${
+                className={`min-w-[148px] shrink-0 rounded-[28px] border p-4 text-left transition sm:min-w-0 ${
                   selected
                     ? "border-navy bg-navy text-white shadow-lg"
                     : "border-black/8 bg-white text-navy hover:border-navy/25"

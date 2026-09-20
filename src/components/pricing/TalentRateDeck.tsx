@@ -114,7 +114,7 @@ export function TalentRateDeck() {
   ];
 
   return (
-    <div className="relative overflow-hidden rounded-[36px] border border-white/10 bg-gradient-to-br from-[#0c0824] via-[#09051d] to-[#120a32] p-6 text-white shadow-[0_30px_90px_rgba(9,5,29,0.35)] sm:p-10 lg:p-12">
+    <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-[#0c0824] via-[#09051d] to-[#120a32] p-6 text-white shadow-[0_30px_90px_rgba(9,5,29,0.35)] sm:p-10 lg:p-12">
       {/* Ambient glowing orbs */}
       <div
         className="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full bg-accent-2/10 blur-[100px]"

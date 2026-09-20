@@ -112,7 +112,7 @@ export function Header() {
     <header ref={headerRef} className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
       <div
         className={cn(
-          "pointer-events-auto mx-auto max-w-[1240px] rounded-[28px] border px-3.5 py-2.5 shadow-xl backdrop-blur-2xl transition-all duration-300 sm:rounded-[32px] sm:px-5 sm:py-2.5",
+          "pointer-events-auto mx-auto max-w-[1240px] rounded-[28px] border px-3.5 py-2.5 shadow-xl backdrop-blur-2xl transition-all duration-300 sm:rounded-[28px] sm:px-5 sm:py-2.5",
           dark
             ? "border-white/15 bg-navy/85 text-white shadow-black/40"
             : elevated
@@ -313,7 +313,7 @@ function MegaMenu({ item, onNavigate }: { item: NavItem; onNavigate: () => void 
       id={`menu-${item.label.toLowerCase()}`}
       className="absolute left-1/2 top-full z-50 w-[620px] max-w-[calc(100vw-3rem)] -translate-x-1/2 pt-3"
     >
-      <div className="overflow-hidden rounded-[24px] border border-black/8 bg-white p-3 shadow-[0_24px_60px_rgba(9,6,26,0.16)]">
+      <div className="overflow-hidden rounded-[28px] border border-black/8 bg-white p-3 shadow-[0_24px_60px_rgba(9,6,26,0.16)]">
         <ul className="grid gap-0.5 sm:grid-cols-2">
           {item.children?.map((child) => (
             <li key={child.href}>
