@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 import {
   AiAgentScreen,
   BrowserFrame,
@@ -80,7 +81,7 @@ export function Solutions() {
   return (
     <Section id="solutions" className="pt-10 pb-10 sm:pt-12 sm:pb-12">
       <Container>
-        <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+        <Reveal className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
             <Eyebrow>What we build</Eyebrow>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-5xl">
@@ -98,16 +99,18 @@ export function Solutions() {
             All practices
             <ArrowUpRight size={16} aria-hidden />
           </Link>
-        </div>
+        </Reveal>
 
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
           {scenes.map((scene, idx) => (
-            <Link
+            <Reveal
               key={scene.href}
+              delay={Math.min(idx * 0.07, 0.28)}
+              className={idx === 0 ? "lg:row-span-2" : undefined}
+            >
+            <Link
               href={scene.href}
-              className={`group overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-sm transition hover:border-navy/25 hover:shadow-lg ${
-                idx === 0 ? "lg:row-span-2" : ""
-              }`}
+              className="group flex h-full flex-col overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-navy/25 hover:shadow-[0_18px_40px_rgba(9,6,26,0.10)]"
             >
               {/* The mockups are the point on a wide screen. On a phone five
                   stacked frames cost ~2.5 screens of scroll and say nothing a
@@ -132,10 +135,11 @@ export function Solutions() {
                 </span>
               </div>
             </Link>
+            </Reveal>
           ))}
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center gap-2">
+        <Reveal className="mt-5 flex flex-wrap items-center gap-2">
           <span className="mr-1 text-sm font-semibold text-navy">Also:</span>
           {alsoPractices.map((practice) => (
             <Link
@@ -147,7 +151,7 @@ export function Solutions() {
               <ArrowUpRight size={14} aria-hidden />
             </Link>
           ))}
-        </div>
+        </Reveal>
       </Container>
     </Section>
   );

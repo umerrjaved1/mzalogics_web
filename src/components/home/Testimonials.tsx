@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { testimonials } from "@/content/testimonials";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { Reveal } from "@/components/ui/Reveal";
 
 type FilterType = "all" | "ai" | "handcrafted";
 
@@ -69,8 +70,9 @@ export function Testimonials({
           </p>
         ) : (
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredItems.slice(0, 6).map((item) => (
-            <SpotlightCard key={`${item.name}-${item.role}`} className="flex flex-col justify-between p-7 sm:p-8">
+          {filteredItems.slice(0, 6).map((item, index) => (
+            <Reveal key={`${item.name}-${item.role}`} delay={Math.min(index * 0.06, 0.24)} className="h-full">
+            <SpotlightCard className="flex h-full flex-col justify-between p-7 sm:p-8">
               <div>
                 <blockquote className="text-base leading-relaxed text-navy">
                   &ldquo;{item.quote}&rdquo;
@@ -79,6 +81,7 @@ export function Testimonials({
 
               <Attribution item={item} photo={item.attributed ? photos?.[item.attributed.slug] : undefined} />
             </SpotlightCard>
+            </Reveal>
           ))}
         </div>
         )}

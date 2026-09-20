@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/Container";
 import { ArrowDisc } from "@/components/ui/Button";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { HeroDeviceVisual } from "@/components/ui/DeviceMockup";
+import { Counter } from "@/components/ui/Counter";
 import { BookCallButton } from "@/components/conversion/BookCallButton";
 import { site } from "@/lib/site";
 
@@ -54,18 +55,21 @@ export function Hero() {
           </div>
 
           <dl className="rise-in rise-in-3 mt-10 grid w-full max-w-md grid-cols-3 gap-6 border-t border-black/8 pt-6">
-            <div>
-              <dt className="text-sm text-muted">Shipped</dt>
-              <dd className="text-2xl font-extrabold text-navy sm:text-3xl">{site.customers}</dd>
-            </div>
-            <div>
-              <dt className="text-sm text-muted">Delivery</dt>
-              <dd className="text-2xl font-extrabold text-navy sm:text-3xl">2 tracks</dd>
-            </div>
-            <div>
-              <dt className="text-sm text-muted">Reply SLA</dt>
-              <dd className="text-2xl font-extrabold text-navy sm:text-3xl">&lt;24h</dd>
-            </div>
+            {[
+              { label: "Shipped", value: site.customers },
+              { label: "Delivery", value: "2 tracks" },
+              { label: "Reply SLA", value: "<24h" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <dt className="text-sm text-muted">{stat.label}</dt>
+                <dd>
+                  <Counter
+                    value={stat.value}
+                    className="block text-2xl font-extrabold tabular-nums text-navy sm:text-3xl"
+                  />
+                </dd>
+              </div>
+            ))}
           </dl>
         </div>
 

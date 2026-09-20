@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { CaseStudyCover } from "@/components/ui/CaseStudyCover";
+import { Reveal } from "@/components/ui/Reveal";
 import { caseStudies } from "@/content/case-studies";
 import { resolveLocal } from "@/lib/media";
 
@@ -11,7 +12,7 @@ export function WorkProof() {
   return (
     <Section id="work" className="pb-8 sm:pb-10">
       <Container>
-        <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+        <Reveal className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
             <Eyebrow>Proof, not pitch decks</Eyebrow>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-5xl">
@@ -28,14 +29,14 @@ export function WorkProof() {
             All case studies
             <ArrowUpRight size={16} aria-hidden />
           </Link>
-        </div>
+        </Reveal>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
-          {featured.map((study) => (
+          {featured.map((study, index) => (
+            <Reveal key={study.slug} delay={Math.min(index * 0.07, 0.28)}>
             <Link
-              key={study.slug}
               href={`/work/${study.slug}`}
-              className="group overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-sm transition hover:border-navy/30 hover:shadow-lg"
+              className="group flex h-full flex-col overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-navy/30 hover:shadow-[0_18px_40px_rgba(9,6,26,0.10)]"
             >
               <CaseStudyCover
                 industry={study.industry}
@@ -52,6 +53,7 @@ export function WorkProof() {
                 </p>
               </div>
             </Link>
+            </Reveal>
           ))}
         </div>
       </Container>

@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, Lock, Sparkles, Zap } from "lucide-react";
 import { Container, Section } from "@/components/ui/Container";
 import { aiStats } from "@/content/ai";
+import { Reveal } from "@/components/ui/Reveal";
+import { Counter } from "@/components/ui/Counter";
 
 /**
  * Homepage version of the delivery story — roughly one screen.
@@ -44,7 +46,7 @@ export function AiDeliveryTeaser() {
       />
 
       <Container className="relative z-10">
-        <div className="max-w-2xl">
+        <Reveal className="max-w-2xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-accent-2 backdrop-blur-md">
             <Sparkles size={14} aria-hidden />
             Dual-track delivery
@@ -56,13 +58,14 @@ export function AiDeliveryTeaser() {
             Choose speed with senior review, or a fully hand-written track when policy forbids LLMs.
             Either way a named engineer signs off on every merge.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-10 grid gap-4 lg:grid-cols-2">
-          {tracks.map((track) => (
-            <div
+          {tracks.map((track, index) => (
+            <Reveal
               key={track.id}
-              className="rounded-[28px] border border-white/15 bg-white/[0.05] p-6 backdrop-blur-xl sm:p-7"
+              delay={index * 0.08}
+              className="rounded-[28px] border border-white/15 bg-white/[0.05] p-6 backdrop-blur-xl transition-colors duration-300 hover:border-white/25 sm:p-7"
             >
               <span
                 className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
@@ -86,19 +89,22 @@ export function AiDeliveryTeaser() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </Reveal>
           ))}
         </div>
 
         <dl className="mt-8 grid grid-cols-2 gap-4 border-t border-white/10 pt-8 lg:grid-cols-4">
-          {aiStats.map((stat) => (
-            <div key={stat.label}>
+          {aiStats.map((stat, index) => (
+            <Reveal key={stat.label} delay={index * 0.06}>
               <dt className="sr-only">{stat.label}</dt>
               <dd>
-                <span className="block text-3xl font-extrabold text-accent-2">{stat.value}</span>
+                <Counter
+                  value={stat.value}
+                  className="block text-3xl font-extrabold tabular-nums text-accent-2"
+                />
                 <span className="mt-1 block text-sm leading-snug text-white/75">{stat.label}</span>
               </dd>
-            </div>
+            </Reveal>
           ))}
         </dl>
 

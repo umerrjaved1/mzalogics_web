@@ -159,3 +159,74 @@ test("estimate capture is an accepted lead kind", () => {
   const src = readFileSync(join(root, "src/lib/forms.ts"), "utf8");
   assert.match(src, /"estimate"/);
 });
+
+/* ------------------------------------------------------------------ */
+/*  Stat counters must never misreport a number.                       */
+/* ------------------------------------------------------------------ */
+
+const { parseStat, formatStat } = await import(
+  pathToFileURL(join(root, "src/lib/stat-format.ts")).href
+);
+
+test("parses the decorated stats actually used on the site", () => {
+  const cases = [
+    ["50+", "", 50, "+"],
+    ["2 tracks", "", 2, " tracks"],
+    ["<24h", "<", 24, "h"],
+    ["~35%", "~", 35, "%"],
+    ["100%", "", 100, "%"],
+    ["12 wks", "", 12, " wks"],
+  ];
+  for (const [input, prefix, value, suffix] of cases) {
+    const parsed = parseStat(input);
+    assert.ok(parsed, `${input} should parse`);
+    assert.equal(parsed.prefix, prefix, input);
+    assert.equal(parsed.value, value, input);
+    assert.equal(parsed.suffix, suffix, input);
+  }
+});
+
+test("a decimal tail survives the count", () => {
+  const parsed = parseStat("99.5%");
+  assert.equal(parsed.value, 99);
+  assert.equal(formatStat(parsed, 99), "99.5%", "must land on the real figure");
+});
+
+test("a unicode minus stays a prefix, not a negative to count from", () => {
+  const parsed = parseStat("−38%");
+  assert.equal(parsed.value, 38);
+  assert.equal(formatStat(parsed, 38), "−38%");
+});
+
+test("thousands separators are preserved while counting", () => {
+  const parsed = parseStat("From $15,400");
+  assert.equal(parsed.grouped, true);
+  assert.equal(formatStat(parsed, 15400), "From $15,400");
+  assert.equal(formatStat(parsed, 1200), "From $1,200");
+});
+
+test("a stat with no number renders untouched", () => {
+  assert.equal(parseStat("SSO"), null);
+  assert.equal(parseStat("Dedicated"), null);
+});
+
+test("every stat formats back to its exact source string", () => {
+  for (const input of ["50+", "2 tracks", "<24h", "~35%", "100%", "0", "99.5%", "−38%", "From $15,400"]) {
+    const parsed = parseStat(input);
+    if (!parsed) continue;
+    assert.equal(formatStat(parsed, parsed.value), input, `${input} must round-trip`);
+  }
+});
+
+test("counters keep their real value when never scrolled into view", () => {
+  const src = readFileSync(join(root, "src/components/ui/Counter.tsx"), "utf8");
+  assert.match(src, /\{value\}/, "the real value is the server-rendered output");
+  assert.match(src, /if \(!animatable \|\| !parsed \|\| !inView \|\| !node\) return;/);
+});
+
+test("Reveal animates transform only, never opacity", () => {
+  const src = readFileSync(join(root, "src/components/ui/Reveal.tsx"), "utf8");
+  // Ignore comments: the file explains *why* it avoids opacity.
+  const code = src.split(String.fromCharCode(10)).filter((l) => { const t = l.trim(); return t.indexOf("*") !== 0 && t.indexOf("//") !== 0; }).join(String.fromCharCode(10));
+  assert.ok(code.indexOf("opacity") === -1, "content hidden by JS is content a client may never see");
+});
