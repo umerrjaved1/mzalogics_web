@@ -2,45 +2,45 @@ export const leadership = [
   {
     name: "Umer Javed",
     role: "CEO — MZA Logics",
-    bio: "Our mission is simple: build software that creates real value. We partner closely with clients to transform ideas into reliable, future-ready digital products.",
+    bio: "Umer scopes every project himself and joins the first call. 8+ years of Android engineering, now leading AI product work — you talk to an engineer from day one, never a salesperson.",
   },
 ] as const;
 
 export const foundation =
-  "MZA-Logics was established in 2021 by a team of senior engineers who shared a common vision: to make high-quality, custom software accessible to growing businesses. With combined experience across enterprise systems, startups, and product-focused environments, our founders built MZA-Logics on one core belief — every business deserves software designed specifically for how it operates.";
+  "MZA Logics was founded in 2021 in Lahore by senior engineers who kept watching growing businesses get forced into software built for someone else. The studio exists to do the opposite: software designed around how your business already operates, at rates a growing company can actually pay.";
 
 export const philosophy =
-  "At MZA-Logics, we believe that powerful software is not just about writing code — it is about understanding people, processes, and business goals. We start with your business goals, user needs, and the market, then deliver solutions that are meaningful, intuitive, and impactful.";
+  "We start with your workflow, your users, and your numbers — then pick the simplest technology that does the job. If a template or an off-the-shelf tool solves your problem better than custom code, we say so before you spend anything.";
 
 export const values = [
   {
-    title: "Excellence",
-    body: "We deliver scalable, secure, and high-performing solutions.",
+    title: "Written scope first",
+    body: "Every project starts with a written scope and a fixed price. Mid-project changes come with a written cost note before anyone starts work.",
   },
   {
-    title: "Transparency",
-    body: "Clear communication and honest expectations.",
+    title: "You own everything",
+    body: "Code lives in your repository from day one. Full IP transfers to you on final payment — on every engagement.",
   },
   {
-    title: "Innovation",
-    body: "We stay ahead of emerging technologies.",
+    title: "You talk to engineers",
+    body: "The person on your call writes code. No account managers relaying messages between you and the team.",
   },
   {
-    title: "Partnership",
-    body: "We work as an extension of your team.",
+    title: "We say no early",
+    body: "If a rules engine beats an AI feature, or a template beats custom code, we tell you before you pay for the wrong thing.",
   },
   {
-    title: "Reliability",
-    body: "On-time delivery and consistent support.",
+    title: "One business day",
+    body: "Every enquiry gets a reply within one business day, from a person who read it.",
   },
 ] as const;
 
 export const whyChoose = [
-  "We solve real business problems, not just technical tasks",
-  "We deliver software that is secure, scalable, and high-performing",
-  "We provide end-to-end development, from concept to deployment",
-  "We support digital transformation with technical expertise and business strategy",
-  "We treat your product like our own",
+  "Fixed written scope before work starts — no surprise invoices",
+  "Your repository, your cloud accounts, your IP — no lock-in to us",
+  "Weekly demos and a written status note, so you always know where the build is",
+  "Android depth few studios match: 35 published apps on Google Play",
+  "Two delivery tracks — AI-assisted for speed, fully hand-written when policy requires it",
 ] as const;
 
 export const expertise = [

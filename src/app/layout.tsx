@@ -19,7 +19,7 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | Custom Software, Mobile Apps & AI Development Company`,
+    default: `${site.name} | Apps, Web Platforms & AI — Built in Weeks`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "Next.js development studio",
   ],
   openGraph: {
-    title: `${site.name} | Custom Software, Mobile Apps & AI Development Company`,
+    title: `${site.name} | Apps, Web Platforms & AI — Built in Weeks`,
     description: site.description,
     url: site.url,
     siteName: site.name,
@@ -51,13 +51,13 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: `${site.name} - Apps & AI That Drive the Future`,
+        alt: `${site.name} — mobile apps, web platforms, and AI features`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} | Custom Software, Mobile Apps & AI Development Company`,
+    title: `${site.name} | Apps, Web Platforms & AI — Built in Weeks`,
     description: site.description,
     images: ["/opengraph-image"],
   },

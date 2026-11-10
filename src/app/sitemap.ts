@@ -21,7 +21,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/talent", priority: 0.8, changeFrequency: "monthly" },
     { path: "/rescue", priority: 0.8, changeFrequency: "monthly" },
     { path: "/about", priority: 0.8, changeFrequency: "monthly" },
-    { path: "/team", priority: 0.75, changeFrequency: "monthly" },
+    ...(site.showTeam
+      ? [{ path: "/team", priority: 0.75, changeFrequency: "monthly" } satisfies RouteConfig]
+      : []),
     { path: "/insights", priority: 0.8, changeFrequency: "weekly" },
     { path: "/faq", priority: 0.7, changeFrequency: "monthly" },
     { path: "/careers", priority: 0.6, changeFrequency: "monthly" },
@@ -54,7 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.75,
     })),
-    ...team.map((member) => ({
+    ...(site.showTeam ? team : []).map((member) => ({
       url: `${site.url}/team/${member.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,

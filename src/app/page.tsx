@@ -9,20 +9,25 @@ import { DealStrip } from "@/components/conversion/DealStrip";
 import { JsonLd } from "@/components/JsonLd";
 import { localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import { testimonials } from "@/content/testimonials";
-import { testimonialPhotos } from "@/lib/media";
+import { TeamStrip } from "@/components/home/TeamStrip";
+import { team } from "@/content/team";
+import { teamPhotos, testimonialPhotos } from "@/lib/media";
 import { site } from "@/lib/site";
 
+/** The person a homepage enquiry actually lands with. */
+const founder = team.find((member) => member.slug === "umer-javed") ?? team[0];
+
 export const metadata: Metadata = {
-  title: "MZA Logics | Custom Software, Mobile Apps & AI Engineering Studio",
+  title: "MZA Logics | Mobile Apps, Web Platforms & AI Studio",
   description:
-    "Senior-led software studio in Lahore building mobile apps, custom web platforms, and AI systems. AI-accelerated or fully hand-crafted delivery — same review gates.",
+    "Senior Lahore studio building mobile apps, web platforms, and AI features for teams worldwide. Fixed written scope, weekly demos, your code and IP from day one.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "MZA Logics | Custom Software, Mobile Apps & AI Engineering Studio",
+    title: "MZA Logics | Mobile Apps, Web Platforms & AI Studio",
     description:
-      "A Lahore software engineering studio building mobile apps, web platforms, and AI systems with dedicated engineering pods.",
+      "A senior software studio in Lahore building mobile apps, web platforms, and AI features — fixed written scope, your code and IP from day one.",
     url: site.url,
     siteName: site.name,
     images: [
@@ -30,7 +35,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "MZA Logics - Engineering Apps & AI That Drive the Future",
+        alt: "MZA Logics — mobile apps, web platforms, and AI features",
       },
     ],
     type: "website",
@@ -51,6 +56,7 @@ export default function Home() {
       <Solutions />
       <IndustryStrip />
       <WorkProof />
+      {site.showTeam && <TeamStrip />}
       <Testimonials
         photos={testimonialPhotos(
           testimonials.flatMap((item) => (item.attributed ? [item.attributed.slug] : [])),
@@ -64,6 +70,13 @@ export default function Home() {
         title="Get a written scope"
         intro={`Tell us what you want to build. WhatsApp ${site.phoneDisplay} if it is quicker — we reply within one business day.`}
         submitLabel="Send enquiry"
+        contactPerson={{
+          name: founder.name,
+          role: founder.role,
+          initials: founder.initials,
+          tone: founder.tone,
+          photo: teamPhotos([founder.slug])[founder.slug],
+        }}
       />
     </>
   );

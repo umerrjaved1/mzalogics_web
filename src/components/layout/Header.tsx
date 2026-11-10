@@ -31,13 +31,14 @@ export function Header() {
 
   const [menuPathname, setMenuPathname] = useState(pathname);
 
-  useEffect(() => {
-    if (pathname === menuPathname) return;
+  // Close every menu when the route changes. Done while rendering, so the new
+  // page never paints with the old menu still open.
+  if (pathname !== menuPathname) {
     setMenuPathname(pathname);
     setOpen(false);
     setOpenMenu(null);
     setMobileSubmenu(null);
-  }, [pathname, menuPathname]);
+  }
 
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);

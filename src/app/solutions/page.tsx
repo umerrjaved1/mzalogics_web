@@ -12,19 +12,20 @@ import { servicesJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 import { serviceCovers } from "@/content/visuals";
 import { MediaImg } from "@/components/ui/MediaImg";
+import { ServiceScene } from "@/components/ui/DeviceMockup";
 import { resolveLocal } from "@/lib/media";
 
 export const metadata: Metadata = {
-  title: "Software Engineering Solutions & Practices | Mobile, Web & AI",
+  title: "Solutions: Mobile Apps, Web Platforms & AI",
   description:
-    "Explore MZA Logics engineering capabilities: native & cross-platform mobile apps (Flutter, React Native), scalable web platforms (Next.js), AI/LLM integration, MVP prototyping, and cloud DevOps.",
+    "Mobile apps, web platforms, AI features, MVPs, and cloud — each scoped in writing and built by senior engineers. See what every practice delivers.",
   alternates: {
     canonical: "/solutions",
   },
   openGraph: {
-    title: "Software Engineering Solutions & Practices | MZA Logics",
+    title: "Solutions: Mobile Apps, Web Platforms & AI | MZA Logics",
     description:
-      "End-to-end software development services from concept to scale. Dual delivery tracks: AI-accelerated or 100% hand-crafted.",
+      "Mobile apps, web platforms, AI features, MVPs, and cloud — each scoped in writing and built by senior engineers.",
     url: `${site.url}/solutions`,
   },
 };
@@ -37,10 +38,11 @@ export default function SolutionsPage() {
         <Container>
           <Eyebrow>Solutions</Eyebrow>
           <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
-            End-to-end software development services
+            Tell us what you&apos;re building — we ship it
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            Pick a practice — mobile, web, AI, design, MVP, cloud, or CMS.
+            Mobile apps, web platforms, AI features, MVPs, and the cloud they run on. Every
+            engagement starts with a written scope and a fixed price.
           </p>
         </Container>
       </Section>
@@ -74,13 +76,15 @@ export default function SolutionsPage() {
               >
                 {resolveLocal((serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local) ? (
                   <MediaImg
-                    local={(serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local}
-                    fallback={(serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local}
+                    local={resolveLocal((serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local) ?? (serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local}
+                    fallback={resolveLocal((serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local) ?? (serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local}
                     alt=""
                     className="h-40 w-full"
                   />
                 ) : (
-                  <div className="grid h-40 place-items-center bg-navy text-sm font-semibold text-white/80">{service.title}</div>
+                  <div className="h-40 overflow-hidden">
+                    <ServiceScene slug={service.slug} />
+                  </div>
                 )}
                 <div className="p-6">
                   <p className="text-sm font-semibold text-navy">{service.number}</p>
@@ -92,7 +96,7 @@ export default function SolutionsPage() {
           </div>
           <div className="mt-10">
             <Button href="/contact" className="px-5 py-2.5 pr-5">
-              Contact us
+              Get a written scope
             </Button>
           </div>
         </Container>

@@ -6,7 +6,7 @@ import { ArrowUpRight, Star, ShieldCheck, Zap, UserPlus } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import type { TeamMember, SeniorityLevel, Department } from "@/content/team";
-import { seniorityLevels, departments } from "@/content/team";
+import { seniorityLevels, departments, hireHref } from "@/content/team";
 
 export function TeamCard({ member, photo }: { member: TeamMember; photo?: string }) {
   const isSenior = member.seniority === "Senior / Lead";
@@ -31,6 +31,7 @@ export function TeamCard({ member, photo }: { member: TeamMember; photo?: string
 
             <div className="text-right">
               {/* Seniority badge */}
+              {member.seniority && (
               <span
                 className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider ${
                   isSenior
@@ -42,12 +43,20 @@ export function TeamCard({ member, photo }: { member: TeamMember; photo?: string
               >
                 {member.seniority}
               </span>
+              )}
 
-              {/* Rates */}
-              <div className="mt-1.5 font-mono text-xs font-bold text-navy">
-                <span>{member.hourlyRate}</span>
-                <span className="text-xs font-normal text-muted"> / {member.monthlyRate}</span>
-              </div>
+              {/* Rates: shown only when a real rate is set */}
+              {member.hourlyRate && (
+                <div className="mt-1.5 font-mono text-xs font-bold text-navy">
+                  <span>{member.hourlyRate}</span>
+                  {member.monthlyRate && (
+                    <span className="text-xs font-normal text-muted"> / {member.monthlyRate}</span>
+                  )}
+                </div>
+              )}
+              {member.experience && (
+                <div className="mt-1.5 text-xs font-semibold text-muted">{member.experience}</div>
+              )}
             </div>
           </div>
 
@@ -70,8 +79,15 @@ export function TeamCard({ member, photo }: { member: TeamMember; photo?: string
             <span className="font-bold text-navy text-xs uppercase tracking-wider block mb-1">
               Why hire:
             </span>
-            <p className="line-clamp-2">{member.whyHire}</p>
+            <p className="line-clamp-3">{member.whyHire}</p>
           </div>
+
+          {member.previously && member.previously.length > 0 && (
+            <p className="mt-3 text-xs text-muted">
+              <span className="font-semibold text-navy">Previously at</span>{" "}
+              {member.previously.join(", ")}
+            </p>
+          )}
 
           {/* Skills Badges */}
           <div className="mt-3.5 flex flex-wrap gap-1">
@@ -94,18 +110,26 @@ export function TeamCard({ member, photo }: { member: TeamMember; photo?: string
         {/* Footer Actions: Availability + Hire Button */}
         <div className="mt-5 pt-4 border-t border-black/5 flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5 text-xs text-muted">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-medium text-navy/80">{member.availability}</span>
+            {member.availability ? (
+              <>
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="font-medium text-navy/80">{member.availability}</span>
+              </>
+            ) : (
+              <Link href={`/team/${member.slug}`} className="font-semibold text-navy hover:underline">
+                View profile
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center gap-2">
             <Link
-              href={`/contact?engineer=${member.slug}&seniority=${encodeURIComponent(member.seniority)}`}
+              href={hireHref(member)}
               className="inline-flex items-center gap-1 rounded-full bg-navy px-3 py-1.5 text-xs font-bold text-white transition hover:bg-navy-light shadow-sm"
               title={`Hire ${member.name} for your engineering pod`}
             >
               <UserPlus size={12} />
-              Hire Direct
+              Work with {member.name.split(" ")[0]}
             </Link>
           </div>
         </div>
@@ -113,6 +137,8 @@ export function TeamCard({ member, photo }: { member: TeamMember; photo?: string
     </div>
   );
 }
+
+const FILTER_THRESHOLD = 6;
 
 export function TeamGrid({
   members,
@@ -132,8 +158,9 @@ export function TeamGrid({
 
   return (
     <div>
-      {/* Interactive Filter Toolbar */}
-      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-black/8 bg-white p-4 shadow-sm">
+      {/* Filters earn their place only once there is a roster to sift. */}
+      <div className={members.length > FILTER_THRESHOLD ? "mb-8 flex" : "hidden"}>
+      <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-black/8 bg-white p-4 shadow-sm">
         {/* Seniority Filter */}
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-xs font-bold uppercase tracking-wider text-muted mr-1 hidden sm:inline">
@@ -181,6 +208,7 @@ export function TeamGrid({
             ))}
           </select>
         </div>
+      </div>
       </div>
 
       {/* Grid of Team Cards */}

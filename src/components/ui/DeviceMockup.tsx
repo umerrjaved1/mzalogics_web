@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useId } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/cn";
 
 /* ------------------------------------------------------------------ */
@@ -349,7 +350,7 @@ export function CloudMapScreen() {
           </div>
         ))}
       </div>
-      <div className="mt-3 text-sm font-semibold text-emerald-300">99.99% uptime</div>
+      <div className="mt-3 text-sm font-semibold text-white/80">Regions live. Rollback ready.</div>
     </div>
   );
 }
@@ -373,28 +374,350 @@ export function MvpStoryboard() {
   );
 }
 
+/** A Figma-style design-system board for the product-design practice */
+export function DesignSystemScreen() {
+  return (
+    <div className="flex h-full min-h-[220px] gap-3 bg-paper p-4">
+      {/* Swatches + type */}
+      <div className="flex w-2/5 flex-col gap-2.5">
+        <div className="rounded-xl border border-black/8 bg-white p-3">
+          <div className="text-[11px] font-semibold text-navy">Palette</div>
+          <div className="mt-2 flex gap-1.5">
+            {["#09061a", "#00f5a0", "#00d2ff", "#8a2be2", "#f8f9fc"].map((c) => (
+              <span key={c} className="h-6 w-6 rounded-md border border-black/10" style={{ background: c }} />
+            ))}
+          </div>
+        </div>
+        <div className="flex-1 rounded-xl border border-black/8 bg-white p-3">
+          <div className="text-[11px] font-semibold text-navy">Type scale</div>
+          <div className="mt-1.5 text-lg font-extrabold leading-tight text-navy">Aa</div>
+          <div className="text-xs font-semibold text-navy/80">Aa</div>
+          <div className="text-[10px] text-muted">Aa</div>
+        </div>
+      </div>
+      {/* Components */}
+      <div className="flex flex-1 flex-col gap-2.5">
+        <div className="rounded-xl border border-black/8 bg-white p-3">
+          <div className="text-[11px] font-semibold text-navy">Components</div>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-navy px-3 py-1.5 text-[10px] font-bold text-white">Button</span>
+            <span className="rounded-full border border-black/15 px-3 py-1.5 text-[10px] font-bold text-navy">Ghost</span>
+            <span className="inline-flex h-4 w-7 items-center rounded-full bg-emerald-500 px-0.5">
+              <span className="ml-auto h-3 w-3 rounded-full bg-white" />
+            </span>
+          </div>
+        </div>
+        <div className="flex-1 rounded-xl border border-black/8 bg-white p-3">
+          <div className="text-[11px] font-semibold text-navy">Input states</div>
+          <div className="mt-2 rounded-lg border border-black/15 px-2.5 py-1.5 text-[10px] text-muted">Placeholder</div>
+          <div className="mt-1.5 rounded-lg border-2 border-navy px-2.5 py-1.5 text-[10px] text-navy">Focused</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** A CMS editor for the CMS practice */
+export function CmsEditorScreen() {
+  return (
+    <div className="flex h-full min-h-[220px] bg-paper">
+      {/* Sidebar */}
+      <aside className="hidden w-28 shrink-0 flex-col gap-1.5 border-r border-black/8 bg-white p-3 sm:flex">
+        {["Posts", "Pages", "Media", "Users"].map((item, i) => (
+          <span
+            key={item}
+            className={cn(
+              "rounded-lg px-2.5 py-1.5 text-[11px] font-semibold",
+              i === 0 ? "bg-navy text-white" : "text-muted",
+            )}
+          >
+            {item}
+          </span>
+        ))}
+      </aside>
+      {/* Editor */}
+      <div className="flex-1 p-4">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-medium text-muted">Editing · Blog post</span>
+          <span className="rounded-full bg-navy px-3 py-1 text-[11px] font-bold text-white">Publish</span>
+        </div>
+        <div className="mt-3 rounded-xl border border-black/8 bg-white p-3">
+          <div className="text-sm font-bold text-navy">Launch notes: version 2.0</div>
+          <div className="mt-2 space-y-1.5">
+            <div className="h-2 w-full rounded bg-black/8" />
+            <div className="h-2 w-11/12 rounded bg-black/8" />
+            <div className="h-2 w-4/5 rounded bg-black/8" />
+          </div>
+        </div>
+        <div className="mt-2.5 flex gap-2">
+          <span className="rounded-full bg-accent-2/20 px-2.5 py-1 text-[10px] font-semibold text-navy">Draft saved</span>
+          <span className="rounded-full bg-black/5 px-2.5 py-1 text-[10px] font-semibold text-muted">Role: Editor</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Website mock screens for client-web covers without a real shot     */
+/* ------------------------------------------------------------------ */
+
+/** A Shopify-style storefront: header, hero banner, product grid. */
+export function StorefrontScreen() {
+  return (
+    <div className="flex h-full flex-col bg-white">
+      {/* Store header */}
+      <div className="flex items-center gap-3 border-b border-black/8 px-4 py-2.5">
+        <span className="h-5 w-5 rounded-md bg-gradient-to-br from-accent to-accent-2" />
+        <span className="h-2 w-16 rounded-full bg-navy/70" />
+        <span className="ml-auto hidden gap-3 sm:flex">
+          {[36, 28, 32].map((w, i) => (
+            <span key={i} className="h-1.5 rounded-full bg-navy/25" style={{ width: w }} />
+          ))}
+        </span>
+        <span className="ml-auto grid h-6 w-6 place-items-center rounded-full bg-navy/5 sm:ml-0">
+          <span className="h-2.5 w-2.5 rounded-sm border-[1.5px] border-navy/50" />
+        </span>
+      </div>
+      {/* Hero banner */}
+      <div className="mx-4 mt-3 flex items-center justify-between rounded-xl bg-gradient-to-r from-navy to-navy-2 px-4 py-3">
+        <div>
+          <span className="block h-2 w-24 rounded-full bg-white/85" />
+          <span className="mt-1.5 block h-1.5 w-16 rounded-full bg-white/40" />
+          <span className="mt-2 block h-4 w-14 rounded-full bg-accent" />
+        </div>
+        <span className="h-12 w-12 rounded-lg bg-white/10 ring-1 ring-white/20" />
+      </div>
+      {/* Product grid */}
+      <div className="mt-3 grid flex-1 grid-cols-4 gap-2.5 px-4 pb-3">
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} className="flex flex-col rounded-lg border border-black/6 bg-paper p-1.5">
+            <span className="block aspect-square rounded-md bg-gradient-to-br from-[#e8ebf3] to-[#dbe0ec]" />
+            <span className="mt-1.5 block h-1.5 w-4/5 rounded-full bg-navy/40" />
+            <span className="mt-1 block h-1.5 w-2/5 rounded-full bg-accent-2/70" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** A WordPress-style corporate site: nav, hero, service cards. */
+export function CorporateSiteScreen() {
+  return (
+    <div className="flex h-full flex-col bg-white">
+      {/* Nav */}
+      <div className="flex items-center gap-3 border-b border-black/8 px-4 py-2.5">
+        <span className="h-5 w-5 rounded-full bg-navy" />
+        <span className="ml-auto flex gap-3">
+          {[30, 26, 34, 24].map((w, i) => (
+            <span key={i} className="h-1.5 rounded-full bg-navy/25" style={{ width: w }} />
+          ))}
+        </span>
+        <span className="h-5 w-14 rounded-full bg-accent-2/80" />
+      </div>
+      {/* Hero */}
+      <div className="flex items-center gap-4 px-4 py-3">
+        <div className="flex-1">
+          <span className="block h-2.5 w-4/5 rounded-full bg-navy/80" />
+          <span className="mt-1.5 block h-2.5 w-3/5 rounded-full bg-navy/80" />
+          <span className="mt-2 block h-1.5 w-3/4 rounded-full bg-navy/30" />
+          <span className="mt-1 block h-1.5 w-1/2 rounded-full bg-navy/30" />
+          <span className="mt-2.5 block h-5 w-16 rounded-md bg-navy" />
+        </div>
+        <span className="h-20 w-28 rounded-xl bg-gradient-to-br from-[#e8ebf3] to-[#d4dbe9] ring-1 ring-black/5" />
+      </div>
+      {/* Service cards */}
+      <div className="mt-auto grid grid-cols-3 gap-2.5 px-4 pb-3">
+        {[0, 1, 2].map((i) => (
+          <div key={i} className="rounded-lg border border-black/6 bg-paper p-2">
+            <span className="block h-4 w-4 rounded-md bg-accent/30" />
+            <span className="mt-1.5 block h-1.5 w-4/5 rounded-full bg-navy/40" />
+            <span className="mt-1 block h-1 w-full rounded-full bg-navy/20" />
+            <span className="mt-1 block h-1 w-3/5 rounded-full bg-navy/20" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Cover art for client websites that have no real screenshot on disk: a
+ * browser frame with a storefront or corporate-site mock. Honest illustration
+ * in the brand palette — never presented as a screenshot.
+ */
+export function WebsiteScene({ industry, className }: { industry: string; className?: string }) {
+  const isStore = industry === "Shopify";
+  return (
+    <div
+      className={cn("flex h-full w-full items-center bg-gradient-to-br from-paper to-[#e9edf4] p-3 sm:p-4", className)}
+      role="img"
+      aria-label={isStore ? "Illustration of an online storefront" : "Illustration of a company website"}
+    >
+      <BrowserFrame url={isStore ? "store.client.com" : "www.client.com"} className="w-full">
+        <div className="aspect-[16/8]">{isStore ? <StorefrontScreen /> : <CorporateSiteScreen />}</div>
+      </BrowserFrame>
+    </div>
+  );
+}
+
 /* ------------------------------------------------------------------ */
 /*  Composite hero visual: phone + browser, staggered                  */
 /* ------------------------------------------------------------------ */
 
-export function HeroDeviceVisual({ className }: { className?: string }) {
+/* ------------------------------------------------------------------ */
+/*  Per-service scene: one coded visual that matches its subject       */
+/* ------------------------------------------------------------------ */
+
+const serviceSceneLabel: Record<string, string> = {
+  "app-development": "Illustration of a mobile banking app on a phone",
+  "web-platforms": "Illustration of a web operations dashboard",
+  "ai-development": "Illustration of an AI assistant answering with citations",
+  "product-design": "Illustration of a design system board with palette, type scale, and components",
+  "mvp-prototyping": "Illustration of a two-week MVP plan: spec, build, launch",
+  cloud: "Illustration of a multi-region cloud status view",
+  cms: "Illustration of a CMS editor with a publish button",
+};
+
+function SceneFrame({ url, children }: { url: string; children: React.ReactNode }) {
   return (
-    <div className={cn("relative mx-auto w-full max-w-[520px] overflow-hidden pb-4", className)}>
-      <div className="absolute right-3 top-4 z-20 hidden rounded-2xl border border-black/8 bg-white/95 px-3 py-1.5 text-xs font-semibold text-navy shadow-lg sm:flex sm:items-center sm:gap-2">
-        <span className="grid h-6 w-6 place-items-center rounded-lg bg-emerald-100 text-emerald-700">✓</span>
-        <span>99.5% Uptime SLA</span>
-      </div>
+    <div className="flex h-full items-center bg-gradient-to-br from-paper to-[#eceef5] p-3 sm:p-4">
+      <BrowserFrame url={url} className="w-full">
+        {children}
+      </BrowserFrame>
+    </div>
+  );
+}
 
-      <div className="relative z-10 ml-[28%] pt-6">
-        <BrowserFrame url="app.mzalogics.com/console" className="w-full">
+/**
+ * The visual for a practice when no cover photo exists on disk. Pure code in
+ * the brand palette — it can never 404 and never pretends to be a screenshot.
+ */
+export function ServiceScene({ slug, className }: { slug: string; className?: string }) {
+  return (
+    <div
+      className={cn("h-full w-full", className)}
+      role="img"
+      aria-label={serviceSceneLabel[slug] ?? "Illustration of a software product interface"}
+    >
+      {slug === "app-development" ? (
+        <div className="flex h-full items-start justify-center overflow-hidden bg-gradient-to-b from-[#eef0f6] to-paper px-4 pt-5">
+          <PhoneFrame className="max-w-[190px]">
+            <FinTechAppScreen />
+          </PhoneFrame>
+        </div>
+      ) : slug === "ai-development" ? (
+        <SceneFrame url="assistant.yourproduct.com">
+          <AiAgentScreen />
+        </SceneFrame>
+      ) : slug === "product-design" ? (
+        <SceneFrame url="figma.com/design-system">
+          <DesignSystemScreen />
+        </SceneFrame>
+      ) : slug === "mvp-prototyping" ? (
+        <SceneFrame url="pilot.yourproduct.com">
+          <MvpStoryboard />
+        </SceneFrame>
+      ) : slug === "cloud" ? (
+        <SceneFrame url="status.yourproduct.com">
+          <CloudMapScreen />
+        </SceneFrame>
+      ) : slug === "cms" ? (
+        <SceneFrame url="cms.yoursite.com">
+          <CmsEditorScreen />
+        </SceneFrame>
+      ) : (
+        <SceneFrame url="dashboard.yourproduct.com">
           <DashboardScreen />
-        </BrowserFrame>
-      </div>
+        </SceneFrame>
+      )}
+    </div>
+  );
+}
 
-      <div className="absolute bottom-2 left-0 z-20 w-[42%] max-w-[180px]">
+/**
+ * What we build, in one glance: a web dashboard with a phone app in front.
+ * Pure code — no stock imagery, no missing assets, readable at 375px.
+ */
+export function HeroProductVisual({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn("relative w-full px-2 pb-10 pt-2 sm:pb-12", className)}
+      role="img"
+      aria-label="Illustration of the two kinds of product MZA Logics builds: a web operations dashboard and a mobile banking app"
+    >
+      <BrowserFrame url="dashboard.yourproduct.com" className="w-[86%]">
+        <DashboardScreen />
+      </BrowserFrame>
+      <div className="absolute bottom-0 right-0 w-[34%] min-w-[118px]">
         <PhoneFrame className="max-w-none">
           <FinTechAppScreen />
         </PhoneFrame>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Hero: real Google Play feature graphics from our published apps,   */
+/*  fanned as a deck of store cards. Rendered only when the real files */
+/*  exist in public/media/work; otherwise the coded visual above runs. */
+/* ------------------------------------------------------------------ */
+
+export type HeroShot = { src: string; alt: string; href: string; eyebrow?: string };
+
+export function HeroFeatureGraphics({ shots, className }: { shots: HeroShot[]; className?: string }) {
+  if (shots.length === 0) return <HeroProductVisual className={className} />;
+  const deck = shots.slice(0, 3);
+  const poses = [
+    "left-5 top-20 z-10 w-[56%] -rotate-6",
+    "right-5 top-10 z-20 w-[60%] rotate-[4deg]",
+    "left-1/2 bottom-12 z-30 w-[66%] -translate-x-1/2 -rotate-1",
+  ];
+  return (
+    <div className={cn("relative w-full px-1 pb-6 pt-2 sm:px-3", className)}>
+      <div className="relative mx-auto min-h-[340px] w-full max-w-[640px] overflow-hidden rounded-[32px] border border-white/50 bg-navy p-4 shadow-[0_30px_80px_-35px_rgba(9,6,26,0.55)] sm:min-h-[500px] sm:rounded-[40px]">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:40px_40px]" />
+        <div className="pointer-events-none absolute -right-28 -top-32 h-80 w-80 rounded-full bg-accent-2/35 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-28 left-0 h-72 w-72 rounded-full bg-accent-cyan/25 blur-3xl" />
+        <div className="absolute left-5 top-5 z-40 rounded-full bg-white px-4 py-2 text-xs font-bold uppercase tracking-wide text-navy shadow-sm">
+          Published Work
+        </div>
+        <div className="absolute right-5 top-5 z-40 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold text-white backdrop-blur">
+          Apps · Web · AI
+        </div>
+
+        {deck.map((shot, i) => (
+          <Link
+            key={shot.src}
+            href={shot.href}
+            aria-label={`${shot.alt} — see the case study`}
+            className={cn(
+              "group absolute block overflow-hidden rounded-[26px] border border-white/70 bg-white p-1.5 shadow-[0_24px_60px_-22px_rgba(0,0,0,0.65)] transition-transform duration-300 hover:z-40 hover:scale-[1.03] hover:rotate-0",
+              poses[i],
+            )}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={shot.src}
+              alt={shot.alt}
+              loading={i === deck.length - 1 ? "eager" : "lazy"}
+              className="aspect-[16/9] w-full rounded-[20px] object-cover"
+            />
+            <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-navy shadow-sm">
+              {shot.eyebrow ?? "Project"}
+            </span>
+          </Link>
+        ))}
+
+        <div className="absolute inset-x-5 bottom-5 z-40 hidden gap-2 rounded-[26px] border border-white/15 bg-white/10 p-3 text-white shadow-2xl backdrop-blur-md sm:grid sm:grid-cols-3">
+          {["Fixed scope", "Weekly demos", "Your code + IP"].map((item) => (
+            <div key={item} className="rounded-2xl bg-white/10 px-3 py-2 text-center text-xs font-semibold">
+              {item}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -8,9 +8,9 @@ import { rescueFaqs } from "@/content/faqs";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Project Rescue & Legacy Code Modernization | Architecture Audits",
+  title: "Project Rescue & Code Audits",
   description:
-    "Stabilize broken codebases, fix architecture bottlenecks, and eliminate security flaws. Code audits, refactoring, and rescue execution from senior engineers in Lahore.",
+    "We stabilize stalled builds: a written audit of security, logic, and architecture, then a fixed quote to fix it. NDA first if you need it.",
   alternates: {
     canonical: "/rescue",
   },

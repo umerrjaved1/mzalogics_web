@@ -12,11 +12,13 @@ export function MediaImg({
   fallback,
   alt,
   className,
+  fit = "cover",
 }: {
   local?: string;
   fallback: string;
   alt: string;
   className?: string;
+  fit?: "cover" | "contain";
 }) {
   const [src, setSrc] = useState(local || fallback);
 
@@ -25,7 +27,7 @@ export function MediaImg({
     <img
       src={src}
       alt={alt}
-      className={cn("object-cover object-center", className)}
+      className={cn(fit === "contain" ? "object-contain" : "object-cover", "object-center", className)}
       onError={() => {
         if (src !== fallback) setSrc(fallback);
       }}

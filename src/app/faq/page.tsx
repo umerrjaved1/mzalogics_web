@@ -7,9 +7,9 @@ import { breadcrumbJsonLd, faqJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions (FAQ) | Pricing, Delivery & IP Ownership",
+  title: "FAQ: Pricing, Delivery & IP Ownership",
   description:
-    "Common questions about working with MZA Logics: AI-accelerated vs hand-crafted delivery, IP ownership, sprint pricing, contract terms, security, and post-launch maintenance.",
+    "Answers on AI vs hand-crafted delivery, fixed pricing, IP ownership, timelines, and support — straight from the team that does the work.",
   alternates: {
     canonical: "/faq",
   },

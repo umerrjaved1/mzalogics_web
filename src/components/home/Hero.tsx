@@ -4,11 +4,38 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { ArrowDisc } from "@/components/ui/Button";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { HeroDeviceVisual } from "@/components/ui/DeviceMockup";
+import { HeroFeatureGraphics, type HeroShot } from "@/components/ui/DeviceMockup";
 import { Counter } from "@/components/ui/Counter";
 import { Parallax } from "@/components/ui/Parallax";
 import { BookCallButton } from "@/components/conversion/BookCallButton";
 import { site } from "@/lib/site";
+import { resolveLocal } from "@/lib/media";
+
+/* Real project graphics. Ordered back-to-front, so the last card sits on top. */
+const heroApps = [
+  {
+    slug: "flight-tracker",
+    title: "Flight Tracker — Android app by MZA Logics",
+    eyebrow: "Android",
+  },
+  {
+    slug: "ecommerce-data-aggregator",
+    title: "E-commerce data aggregator — web platform by MZA Logics",
+    eyebrow: "Web platform",
+  },
+  {
+    slug: "picsgen-ai-art-photo-editor",
+    title: "PicsGen AI photo editor — Android app by MZA Logics",
+    eyebrow: "AI app",
+  },
+];
+
+function heroShots(): HeroShot[] {
+  return heroApps.flatMap((app) => {
+    const src = resolveLocal(`/media/work/${app.slug}.jpg`);
+    return src ? [{ src, alt: app.title, href: `/work/${app.slug}`, eyebrow: app.eyebrow }] : [];
+  });
+}
 
 export function Hero() {
   return (
@@ -21,19 +48,21 @@ export function Hero() {
         <div className="h-full w-full rounded-full bg-accent-2/15 blur-[120px]" aria-hidden="true" />
       </Parallax>
 
-      <Container className="relative z-10 grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">
+      <Container className="relative z-10 grid items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-12">
         <div className="relative z-20 flex flex-col items-start">
           <p className="rise-in text-sm font-semibold text-navy">
             <span className="mr-2 inline-flex h-2 w-2 rounded-full bg-emerald-500" aria-hidden />
             {site.availability} · {site.customers} products shipped
           </p>
 
-          <h1 className="rise-in mt-5 text-4xl font-extrabold tracking-[-0.04em] text-navy sm:text-6xl lg:text-[64px] lg:leading-[1.08]">
-            Apps your team will actually use
+          <h1 className="rise-in mt-5 max-w-3xl text-4xl font-extrabold tracking-[-0.045em] text-navy sm:text-6xl lg:text-[68px] lg:leading-[1.02]">
+            Ship your app, web platform, or AI feature in weeks
           </h1>
 
-          <p className="rise-in rise-in-1 mt-5 max-w-lg text-lg leading-relaxed text-muted sm:text-xl">
-            Mobile, web, and AI systems built around how you already work — for teams worldwide.
+          <p className="rise-in rise-in-1 mt-5 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+            MZA Logics is a software development agency building high-quality mobile apps, web
+            applications, and AI-powered solutions for businesses worldwide — with clearly defined
+            scopes, transparent delivery, and code ownership in your repository from day one.
           </p>
 
           <div className="rise-in rise-in-2 mt-8 flex flex-wrap items-center gap-4">
@@ -58,14 +87,22 @@ export function Hero() {
             </Link>
           </div>
 
-          <dl className="rise-in rise-in-3 mt-10 grid w-full max-w-md grid-cols-3 gap-6 border-t border-black/8 pt-6">
+          <div className="rise-in rise-in-3 mt-5 flex flex-wrap gap-2 text-sm font-semibold text-navy">
+            {["Fixed written scope", "NDA before details", "You own the code and IP", "Reply within one business day"].map((item) => (
+              <span key={item} className="rounded-full border border-black/8 bg-white px-3 py-1.5 shadow-sm">
+                {item}
+              </span>
+            ))}
+          </div>
+
+          <dl className="rise-in rise-in-3 mt-8 grid w-full max-w-xl grid-cols-3 gap-3 rounded-[28px] border border-black/8 bg-white/80 p-3 shadow-sm backdrop-blur">
             {[
-              { label: "Shipped", value: site.customers },
-              { label: "Delivery", value: "2 tracks" },
-              { label: "Reply SLA", value: "<24h" },
+              { label: "Products shipped", value: site.customers },
+              { label: "Building since", value: site.founded },
+              { label: "Reply within", value: "24h" },
             ].map((stat) => (
-              <div key={stat.label}>
-                <dt className="text-sm text-muted">{stat.label}</dt>
+              <div key={stat.label} className="rounded-2xl bg-paper px-4 py-3">
+                <dt className="text-xs font-semibold uppercase tracking-wide text-muted">{stat.label}</dt>
                 <dd>
                   <Counter
                     value={stat.value}
@@ -78,7 +115,7 @@ export function Hero() {
         </div>
 
         <Parallax distance={28} className="rise-in rise-in-2 relative z-10 w-full min-w-0 overflow-hidden">
-          <HeroDeviceVisual />
+          <HeroFeatureGraphics shots={heroShots()} />
         </Parallax>
       </Container>
     </section>

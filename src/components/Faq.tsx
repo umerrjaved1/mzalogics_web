@@ -15,12 +15,10 @@ export function Faq({ items = homeFaqs }: { items?: FaqItem[] }) {
         <div>
           <Eyebrow>FAQ</Eyebrow>
           <h2 className="mt-3 text-4xl font-bold tracking-tight text-navy sm:text-5xl">
-            Got Questions?
-            <br />
-            We Got Answers
+            Straight answers before you sign
           </h2>
           <p className="mt-4 max-w-sm text-muted">
-            Straightforward, no-fluff answers to help you feel confident about working with us.
+            The questions every buyer asks us — on cost, ownership, and how the work actually runs.
           </p>
         </div>
         <div className="divide-y divide-line">

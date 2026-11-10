@@ -22,7 +22,7 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "How do you run a project?",
     answer:
-      "Planning and strategy, design and prototype, then development and testing. You get open communication, regular updates, and collaborative reviews. We treat your product like our own.",
+      "Written scope first, then design and prototype, then build and test. You get a weekly demo, a written status note, and access to the board and the repository — so you always know exactly where the build is.",
   },
   {
     question: "How fast can we launch an MVP?",

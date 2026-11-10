@@ -42,3 +42,6 @@ next-env.d.ts
 
 # keep the template so new devs know which keys to set
 !.env.example
+
+# raw CVs and personal details used to write team content — never commit
+/Data/

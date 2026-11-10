@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MessageCircle, Send, ShieldCheck, CheckCircle2, Zap } from "lucide-react";
 import { bookingHref } from "@/lib/booking";
 import { checkUpload, UPLOAD_ACCEPT, UPLOAD_HINT } from "@/lib/uploads";
 import { EstimateCapture } from "@/components/conversion/EstimateCapture";
+import { Avatar } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import type { FormKind } from "@/lib/forms";
@@ -16,6 +17,9 @@ import { site, whatsappHref } from "@/lib/site";
 type ProjectType = LeadScope;
 type TrackType = "undecided" | "ai" | "manual";
 
+/** Never resubscribes; the snapshot only has to differ between server and client. */
+const neverChanges = () => () => {};
+
 export function LeadForm({
   kind,
   title,
@@ -23,6 +27,7 @@ export function LeadForm({
   submitLabel = "Send Enquiry",
   eyebrow = "Book a call",
   extraFields,
+  contactPerson,
 }: {
   kind: FormKind;
   title: string;
@@ -30,6 +35,15 @@ export function LeadForm({
   submitLabel?: string;
   eyebrow?: string;
   extraFields?: "talent" | "rescue" | "career";
+  /** A real person beside the form, so the enquiry goes to someone, not a box. */
+  contactPerson?: {
+    name: string;
+    role: string;
+    initials: string;
+    tone: string;
+    /** Resolved on the server; initials show when there is no portrait yet. */
+    photo?: string;
+  };
 }) {
   const router = useRouter();
   const formId = useId();
@@ -64,26 +78,41 @@ export function LeadForm({
   const dealRef = useRef<HTMLInputElement>(null);
   const trackRef = useRef<HTMLSelectElement>(null);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const plan = params.get("plan") ?? "";
-    const deal = params.get("deal") ?? "";
-    const engineer = params.get("engineer") ?? "";
-    const seniority = params.get("seniority") ?? "";
+  // The query string pre-fills the form (?plan=, ?deal=, ?engineer=). It is
+  // empty on the server and read once the browser takes over.
+  const search = useSyncExternalStore(
+    neverChanges,
+    () => window.location.search,
+    () => "",
+  );
 
-    if (planRef.current) planRef.current.value = plan;
-    if (dealRef.current) dealRef.current.value = deal;
-    if (trackRef.current && plan) {
-      const isManual = plan.startsWith("manual");
-      trackRef.current.value = isManual ? "manual" : "ai";
-      setSelectedTrack(isManual ? "manual" : "ai");
-    }
+  // Apply it to state while rendering, once per distinct query string, rather
+  // than in an effect: an effect would paint the defaults first and then
+  // re-render with the pre-fill.
+  const [appliedSearch, setAppliedSearch] = useState("");
+  if (search !== appliedSearch) {
+    setAppliedSearch(search);
+    const params = new URLSearchParams(search);
+    const plan = params.get("plan") ?? "";
+    const engineer = params.get("engineer") ?? "";
+    if (plan) setSelectedTrack(plan.startsWith("manual") ? "manual" : "ai");
     if (engineer) {
       setSelectedEngineer(engineer);
-      setSelectedSeniority(seniority);
+      setSelectedSeniority(params.get("seniority") ?? "");
       setProjectType("pod");
     }
-  }, []);
+  }
+
+  // The uncontrolled inputs are DOM nodes, so they are filled after mount.
+  useEffect(() => {
+    const params = new URLSearchParams(search);
+    const plan = params.get("plan") ?? "";
+    if (planRef.current) planRef.current.value = plan;
+    if (dealRef.current) dealRef.current.value = params.get("deal") ?? "";
+    if (trackRef.current && plan) {
+      trackRef.current.value = plan.startsWith("manual") ? "manual" : "ai";
+    }
+  }, [search]);
 
   // Sync internal track with selector
   function handleTrackSelect(t: TrackType) {
@@ -142,6 +171,26 @@ export function LeadForm({
               <h2 className="mt-3 text-2xl font-bold tracking-tight text-navy sm:text-3xl">{title}</h2>
               <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">{intro}</p>
 
+              {contactPerson && (
+                <figure className="mt-8 flex items-center gap-4 rounded-2xl border border-black/8 bg-paper p-4">
+                  <Avatar
+                    initials={contactPerson.initials}
+                    tone={contactPerson.tone}
+                    local={contactPerson.photo}
+                    alt={contactPerson.name}
+                    size="lg"
+                    showStatus
+                  />
+                  <figcaption>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-muted">
+                      You will hear back from
+                    </div>
+                    <div className="mt-1 text-base font-bold text-navy">{contactPerson.name}</div>
+                    <div className="text-sm text-muted">{contactPerson.role}</div>
+                  </figcaption>
+                </figure>
+              )}
+
               {/* Direct WhatsApp Quick-Connect Box */}
               <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50/50 p-5">
                 <div className="flex items-center gap-3">
@@ -150,7 +199,7 @@ export function LeadForm({
                   </span>
                   <div>
                     <div className="font-bold text-navy text-sm">Need an immediate answer?</div>
-                    <div className="text-xs text-muted">Chat directly with our Technical Director on WhatsApp.</div>
+                    <div className="text-xs text-muted">Message us directly on WhatsApp.</div>
                   </div>
                 </div>
                 <a
@@ -164,16 +213,19 @@ export function LeadForm({
                 </a>
               </div>
 
-              {/* Trust assurances */}
+              {/* Trust assurances — the four worries a buyer has before hitting send */}
               <div className="mt-8 space-y-3 border-t border-black/5 pt-6 text-xs text-navy/70">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-emerald-700 shrink-0" />
-                  <span>NDA signed before detailed architecture discussions</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-emerald-700 shrink-0" />
-                  <span>You keep full IP from day one</span>
-                </div>
+                {[
+                  "Fixed written scope and price before work starts",
+                  "NDA signed before any project details",
+                  "Code in your repository from day one — you keep full IP",
+                  "You talk to the engineers, not a salesperson",
+                ].map((assurance) => (
+                  <div key={assurance} className="flex items-center gap-2">
+                    <CheckCircle2 size={16} className="shrink-0 text-emerald-700" />
+                    <span>{assurance}</span>
+                  </div>
+                ))}
               </div>
             </div>
 

@@ -60,6 +60,29 @@ body {
   background-size: 100% 100%, 48px 48px, 48px 48px;
 }
 
+/* Soft tinted band with gently angled edges, to break up the page rhythm.
+   Use on at most two sections or it stops reading as a change of pace. */
+.section-tint {
+  position: relative;
+  isolation: isolate;
+}
+.section-tint::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(0, 245, 160, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 80%, rgba(138, 43, 226, 0.07) 0%, transparent 55%),
+    linear-gradient(180deg, #eef7f4 0%, #f1f0fb 100%);
+  clip-path: polygon(0 2.5rem, 100% 0, 100% calc(100% - 2.5rem), 0 100%);
+}
+@media (max-width: 639px) {
+  .section-tint::before {
+    clip-path: polygon(0 1.25rem, 100% 0, 100% calc(100% - 1.25rem), 0 100%);
+  }
+}
+
 /* Dark mode grid */
 .dark-grid {
   background-color: #070514;

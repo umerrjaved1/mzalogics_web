@@ -22,3 +22,11 @@ JPG/WebP/PNG/SVG. Prefer 1600px+ wide for heroes.
 Naming a client or quoting someone by name also needs a content change, not
 just a file. See CONTENT.md in the repo root for the exact fields and the
 permission wording to send the client.
+
+SAMPLE IMAGES
+The _sample folder holds generated stand-in images, each stamped "SAMPLE
+IMAGE", for previewing the site before real assets exist. They show only while
+developing (npm run dev). A production build ignores them unless
+NEXT_PUBLIC_SAMPLE_MEDIA=1 is set; set NEXT_PUBLIC_SAMPLE_MEDIA=0 to hide them
+in development too. A real file dropped in the folders above replaces its
+sample automatically. Regenerate with: python scripts/make-sample-media.py

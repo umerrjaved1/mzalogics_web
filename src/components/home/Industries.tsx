@@ -18,7 +18,7 @@ export function Industries() {
           {industries.map((industry) => (
             <article key={industry.title} className="overflow-hidden rounded-[28px] border border-black/8 bg-white">
               {resolveLocal(industry.local) ? (
-                <MediaImg local={industry.local} fallback={industry.local} alt="" className="h-44 w-full" />
+                <MediaImg local={resolveLocal(industry.local) ?? industry.local} fallback={resolveLocal(industry.local) ?? industry.local} alt="" className="h-44 w-full" />
               ) : (
                 <div className="grid h-44 place-items-center bg-navy text-sm font-semibold text-white/80">{industry.title}</div>
               )}

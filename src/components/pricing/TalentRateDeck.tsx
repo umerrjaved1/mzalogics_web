@@ -20,6 +20,7 @@ import { Avatar } from "@/components/ui/Avatar";
 import { team, TeamMember } from "@/content/team";
 import { promo, isPromoActive, promoNote } from "@/content/promo";
 import { cn } from "@/lib/cn";
+import { site } from "@/lib/site";
 
 export function TalentRateDeck() {
   const [billingPeriod, setBillingPeriod] = useState<"hourly" | "monthly">("hourly");
@@ -45,13 +46,13 @@ export function TalentRateDeck() {
       accentBorder: "border-accent-2/40 hover:border-accent-2",
       badgeClass: "bg-accent-2/15 text-accent-2 border-accent-2/30",
       spotlightColor: "rgba(0, 245, 160, 0.15)",
-      experience: "6–10+ Years Pedigree",
+      experience: "6+ years",
       summary:
-        "Senior architects and principal leads who own system design, enforce strict code review gates, and mentor your existing team.",
+        "Senior engineers who own system design, review every pull request, and work alongside your existing team.",
       specialists: seniors,
       features: [
         "Architectural autonomy & high-stakes decisions",
-        "Mobile leads (Flutter/iOS), Next.js 16, AI/LLMs",
+        "Android (Kotlin, Java), AI and LLM integration",
         "Direct daily strategic syncs & sprint governance",
         "100% code review & pull request gatekeeping",
       ],
@@ -74,7 +75,7 @@ export function TalentRateDeck() {
       spotlightColor: "rgba(34, 211, 238, 0.15)",
       experience: "3–5 Years Experience",
       summary:
-        "Independent, autonomous engineers who hit the ground running on day one, shipping polished features in reliable 2-week sprints.",
+        "Independent engineers for feature work and API integrations, in two-week sprints.",
       specialists: mids,
       features: [
         "Autonomous feature shipping & API integrations",
@@ -101,7 +102,7 @@ export function TalentRateDeck() {
       spotlightColor: "rgba(52, 211, 153, 0.15)",
       experience: "1–2 Years Experience",
       summary:
-        "High-aptitude university graduates vetted and supervised by our senior technical leads. Unbeatable ROI for styling, QA, and rapid bug triage.",
+        "For styling, QA and bug triage, supervised by a senior lead.",
       specialists: juniors,
       features: [
         "Directly supervised by Senior Technical Lead",
@@ -144,7 +145,7 @@ export function TalentRateDeck() {
           </h2>
 
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">
-            Prefer embedding individual engineers into your existing rituals instead of a managed pod? Pick vetted talent directly with transparent, seniority-based pricing.
+            Prefer adding individual engineers to your existing team instead of a managed pod? Work with our engineers directly, with transparent pricing by level.
           </p>
         </div>
 
@@ -243,40 +244,42 @@ export function TalentRateDeck() {
               {/* Summary */}
               <p className="mt-4 text-xs leading-relaxed text-white/70">{tier.summary}</p>
 
-              {/* Featured Specialists Avatars & Names */}
-              <div className="mt-6 border-t border-white/10 pt-4">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-white/70">
-                  Available in this Tier
-                </span>
-                <div className="mt-3 space-y-2.5">
-                  {tier.specialists.map((member) => (
-                    <Link
-                      key={member.slug}
-                      href={`/team/${member.slug}`}
-                      className="group flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.03] p-2 transition hover:border-white/20 hover:bg-white/[0.08]"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <Avatar
-                          initials={member.initials}
-                          tone={member.tone}
-                          alt={member.name}
-                          size="sm"
-                          showStatus={true}
-                        />
-                        <div>
-                          <div className="text-xs font-bold text-white group-hover:text-accent-cyan transition">
-                            {member.name}
+              {/* Real team members at this level. Hidden when nobody is listed at it. */}
+              {site.showTeam && tier.specialists.length > 0 && (
+                <div className="mt-6 border-t border-white/10 pt-4">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-white/70">
+                    On the team at this level
+                  </span>
+                  <div className="mt-3 space-y-2.5">
+                    {tier.specialists.map((member) => (
+                      <Link
+                        key={member.slug}
+                        href={`/team/${member.slug}`}
+                        className="group flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.03] p-2 transition hover:border-white/20 hover:bg-white/[0.08]"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <Avatar
+                            initials={member.initials}
+                            tone={member.tone}
+                            alt={member.name}
+                            size="sm"
+                            showStatus={true}
+                          />
+                          <div>
+                            <div className="text-xs font-bold text-white group-hover:text-accent-cyan transition">
+                              {member.name}
+                            </div>
+                            <div className="text-[10px] text-white/70">{member.role}</div>
                           </div>
-                          <div className="text-[10px] text-white/70">{member.role}</div>
                         </div>
-                      </div>
-                      <span className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] font-semibold text-accent-2 opacity-80 group-hover:opacity-100">
-                        View Hero →
-                      </span>
-                    </Link>
-                  ))}
+                        <span className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] font-semibold text-accent-2 opacity-80 group-hover:opacity-100">
+                          Profile →
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Features List */}
               <ul className="mt-6 space-y-2.5 border-t border-white/10 pt-4 text-xs text-white/80">
@@ -313,11 +316,11 @@ export function TalentRateDeck() {
         <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-white/60 sm:justify-start">
           <div className="flex items-center gap-1.5">
             <Clock size={14} className="text-accent-cyan" />
-            <span>48-Hour Matching SLA</span>
+            <span>Reply within one business day</span>
           </div>
           <div className="flex items-center gap-1.5">
             <ShieldCheck size={14} className="text-accent-2" />
-            <span>100% Replacement Guarantee</span>
+            <span>No lock-in</span>
           </div>
           <div className="flex items-center gap-1.5">
             <Award size={14} className="text-amber-400" />
@@ -325,13 +328,15 @@ export function TalentRateDeck() {
           </div>
         </div>
 
-        <Link
-          href="/team"
-          className="inline-flex items-center gap-2 text-xs font-bold text-accent-2 hover:underline"
-        >
-          <span>Browse All {team.length} Team Members &amp; Shipped Portfolios</span>
-          <ArrowRight size={14} />
-        </Link>
+        {site.showTeam && (
+          <Link
+            href="/team"
+            className="inline-flex items-center gap-2 text-xs font-bold text-accent-2 hover:underline"
+          >
+            <span>Meet the team</span>
+            <ArrowRight size={14} />
+          </Link>
+        )}
       </div>
     </div>
   );

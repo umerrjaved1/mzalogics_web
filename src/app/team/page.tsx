@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ShieldCheck, Zap, Sparkles, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { CtaBand } from "@/components/CtaBand";
@@ -10,26 +11,23 @@ import { team, teamPortfolio } from "@/content/team";
 import { breadcrumbJsonLd, personJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 import { teamPhotos } from "@/lib/media";
-import { promo, isPromoActive } from "@/content/promo";
 
 export const metadata: Metadata = {
-  title: "Hire Vetted Developers & Engineers | Transparent Rates in Lahore",
+  title: "Team: Android, AI & Design Specialists",
   description:
-    isPromoActive()
-      ? `Choose your engineers from MZA Logics in Lahore. ${promo.eyebrow} rates: Senior/Lead ($26-$39/hr), Mid-Level ($18-$26/hr), or Junior ($11-$15/hr). Vetted, trusted, and ready in 48 hours.`
-      : "Choose your engineers from MZA Logics in Lahore. Senior/Lead, Mid-Level, and Junior specialists with transparent hourly and monthly rates. Vetted, trusted, and ready in 48 hours.",
+    "Meet the MZA Logics team in Lahore: Android and AI engineers and a designer. See each person's skills, background and published apps.",
   alternates: {
     canonical: "/team",
   },
   openGraph: {
-    title: "Hire Vetted Developers & Engineers | MZA Logics",
-    description:
-      "Pick your developers directly: transparent hourly and monthly rates, verified portfolio builds, and 100% IP ownership.",
+    title: "The MZA Logics Team",
+    description: "Meet the people who scope, build and ship your product.",
     url: `${site.url}/team`,
   },
 };
 
 export default function TeamPage() {
+  if (!site.showTeam) notFound();
   const portfolio = teamPortfolio();
 
   return (
@@ -45,55 +43,24 @@ export default function TeamPage() {
       {/* Hero Section */}
       <Section className="pb-8 sm:pb-10">
         <Container>
-          <Eyebrow>People-Powered Delivery</Eyebrow>
+          <Eyebrow>The team</Eyebrow>
           <h1 className="mt-3 max-w-4xl text-4xl font-extrabold tracking-tight text-navy sm:text-6xl">
-            Pick Your Team. Set Your Scope. <br />
+            A small senior team. <br />
             <span className="bg-gradient-to-r from-navy via-navy-light to-accent-cyan bg-clip-text text-transparent">
-              Software Built Around You.
+              You work with us directly.
             </span>
           </h1>
           <p className="mt-4 max-w-2xl text-base text-muted sm:text-lg">
-            Every business operates differently. Scale your pod with senior architects, mid-level problem solvers, or high-energy junior developers — all vetted, transparently priced, and ready to deploy in 48 hours.
+            Engineers and a designer in Lahore. The people on this page are the ones who scope, build
+            and ship your product, with no account managers in between.
           </p>
-
-          {/* Rate Tier Summary Cards */}
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-2xl border border-black/8 bg-white p-5 shadow-sm">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-accent-cyan bg-navy px-2 py-0.5 rounded-md">
-                  Senior &amp; Leads
-                </span>
-                <span className="text-xs font-mono font-bold text-navy">$26–$39/hr</span>
-              </div>
-              <p className="mt-3 text-xs text-muted leading-relaxed">
-                Veteran architects with 7–14 years experience. Best for technical discovery, high-scale system design, and security audits.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-black/8 bg-white p-5 shadow-sm">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-navy bg-paper px-2 py-0.5 rounded-md border border-black/10">
-                  Mid-Level Developers
-                </span>
-                <span className="text-xs font-mono font-bold text-navy">$18–$26/hr</span>
-              </div>
-              <p className="mt-3 text-xs text-muted leading-relaxed">
-                Independent engineers with 4–6 years experience. Best for core feature velocity, API integrations, and mobile screens.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-black/8 bg-white p-5 shadow-sm">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
-                  Junior / Associates
-                </span>
-                <span className="text-xs font-mono font-bold text-navy">$11–$15/hr</span>
-              </div>
-              <p className="mt-3 text-xs text-muted leading-relaxed">
-                Fast, cost-effective developers with 2+ years experience. Best for responsive layouts, test automation, and rapid UI builds.
-              </p>
-            </div>
-          </div>
+          <p className="mt-4 text-sm text-muted">
+            Rates are on the{" "}
+            <Link href="/pricing" className="font-semibold text-navy underline">
+              pricing page
+            </Link>
+            .
+          </p>
         </Container>
       </Section>
 
@@ -102,9 +69,9 @@ export default function TeamPage() {
         <Container>
           <div className="mb-6 flex items-baseline justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-bold text-navy sm:text-3xl">Available Engineers</h2>
+              <h2 className="text-2xl font-bold text-navy sm:text-3xl">The team</h2>
               <p className="text-xs text-muted mt-1">
-                Filter by seniority tier or department. Click on any profile for complete portfolio and code history.
+                Open a profile for skills, background and published apps.
               </p>
             </div>
           </div>
@@ -113,7 +80,8 @@ export default function TeamPage() {
         </Container>
       </Section>
 
-      {/* Shipped Team Portfolio Grid */}
+      {/* Shipped team portfolio: hidden until there is MZA client work to credit. */}
+      {portfolio.length > 0 && (
       <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2">
@@ -172,7 +140,9 @@ export default function TeamPage() {
                     className="font-bold text-navy hover:text-navy-light flex items-center gap-1"
                   >
                     <span>{project.member.name}</span>
-                    <span className="text-muted font-normal">({project.member.seniority.split(" ")[0]})</span>
+                    {project.member.seniority && (
+                      <span className="text-muted font-normal">({project.member.seniority.split(" ")[0]})</span>
+                    )}
                   </Link>
 
                   {project.caseStudy && (
@@ -189,10 +159,11 @@ export default function TeamPage() {
           </div>
         </Container>
       </Section>
+      )}
 
       <CtaBand
-        title="Ready to assemble your custom pod?"
-        body="Tell us what you want to build and your target velocity. We will match the exact blend of senior leads and mid/junior developers within 48 hours."
+        title="Ready to start?"
+        body="Tell us what you want to build. We reply within one business day with next steps."
       />
     </>
   );

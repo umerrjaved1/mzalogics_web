@@ -16,11 +16,13 @@ export function LeadDock() {
   const reduced = useReducedMotion();
   const [visible, setVisible] = useState(false);
 
+  // Pages where a floating offer would get in the way. Derived, not stored:
+  // the dock is simply not rendered there.
+  const suppressed =
+    pathname.startsWith("/contact") || pathname.startsWith("/privacy") || pathname.startsWith("/terms");
+
   useEffect(() => {
-    if (pathname.startsWith("/contact") || pathname.startsWith("/privacy") || pathname.startsWith("/terms")) {
-      setVisible(false);
-      return;
-    }
+    if (suppressed) return;
     if (sessionStorage.getItem(STORAGE_KEY) === "1") return;
 
     const reveal = () => setVisible(true);
@@ -36,9 +38,9 @@ export function LeadDock() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("mza-lead-engage", reveal);
     };
-  }, [pathname, reduced]);
+  }, [suppressed, reduced]);
 
-  if (!visible) return null;
+  if (!visible || suppressed) return null;
 
   return (
     <div className="fixed bottom-6 right-6 z-40 hidden w-[360px] md:block">

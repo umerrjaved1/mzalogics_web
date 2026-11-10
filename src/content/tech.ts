@@ -31,9 +31,9 @@ export const techStack = [
 
 /** Milestones for the About page timeline. */
 export const timeline = [
-  { year: "2021", title: "MZA Logics founded", body: "Four senior engineers start the studio in Lahore with a first logistics client." },
+  { year: "2021", title: "MZA Logics founded", body: "Senior engineers start the studio in Lahore, building custom software for growing businesses." },
   { year: "2022", title: "Mobile practice", body: "Flutter and React Native become a standing capability; first apps ship to both stores." },
-  { year: "2023", title: "Enterprise platforms", body: "Multi-entity finance and healthcare operations work takes the team past 15 people." },
+  { year: "2023", title: "Enterprise platforms", body: "Multi-entity finance and healthcare operations work becomes a standing practice." },
   { year: "2024", title: "Cloud & DevOps in-house", body: "Dedicated platform engineering, observability, and zero-downtime rollouts as standard." },
   { year: "2025", title: "AI practice", body: "AI-driven delivery pipeline and client AI features launch, with the hand-crafted track kept as a first-class option." },
 ];

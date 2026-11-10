@@ -14,13 +14,49 @@ import { pricingFaqs } from "@/content/faqs";
 import { breadcrumbJsonLd, faqJsonLd, pricingJsonLd } from "@/lib/jsonld";
 
 import { site } from "@/lib/site";
-import { HeroDeviceVisual } from "@/components/ui/DeviceMockup";
+
+/** What every engagement starts with: a written scope and a fixed price. */
+function WrittenScopeVisual() {
+  return (
+    <div
+      className="mx-auto w-full max-w-[520px] rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_24px_60px_rgba(9,6,26,0.10)] sm:p-8"
+      role="img"
+      aria-label="Illustration of the written scope every project starts with: named deliverables, a timeline, and one fixed price"
+    >
+      <div className="flex items-center justify-between border-b border-black/8 pb-4">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wider text-muted">Before any work starts</p>
+          <p className="mt-1 text-lg font-extrabold text-navy">Your written scope</p>
+        </div>
+        <span className="rounded-full bg-accent-2/20 px-3 py-1 text-xs font-bold text-navy">Fixed price</span>
+      </div>
+      <ul className="mt-4 space-y-3 text-sm text-navy">
+        {[
+          "Named deliverables, screen by screen",
+          "Timeline with weekly demos",
+          "One fixed number — no hourly drift",
+          "Changes quoted in writing first",
+        ].map((line) => (
+          <li key={line} className="flex items-center gap-3">
+            <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-emerald-700 text-white">
+              <Check size={13} strokeWidth={3} aria-hidden />
+            </span>
+            {line}
+          </li>
+        ))}
+      </ul>
+      <div className="mt-5 rounded-2xl bg-paper px-4 py-3 text-sm text-muted">
+        Signed by both sides — then the build starts.
+      </div>
+    </div>
+  );
+}
 
 export const metadata: Metadata = {
-  title: "Pricing & Sprint Plans | AI-Driven vs Hand-Crafted Pods",
+  title: "Pricing: Plans, Pods & Sprint Rates",
   description: isPromoActive()
-    ? `${promo.eyebrow}: ${promo.discountLabel} studio rates. AI-accelerated delivery from $2,150, hand-crafted from $3,250, dedicated engineers from $2,290/mo. ${promo.endsLabel}.`
-    : "Transparent studio rates. AI-accelerated delivery from $3,900, hand-crafted from $5,900, dedicated engineers from $4,160/mo. Fixed quote after a free discovery call.",
+    ? `${promo.discountLabel} studio rates while the Q4 offer runs. AI-track builds from $2,150, hand-crafted from $3,250, engineers from $2,290/mo. ${promo.endsLabel}.`
+    : "Transparent studio rates. AI-track builds from $3,900, hand-crafted from $5,900, dedicated engineers from $4,160/mo. Fixed quote after a free call.",
   alternates: {
     canonical: "/pricing",
   },
@@ -64,7 +100,7 @@ export default function PricingPage() {
                 You get a fixed quote against a written scope after a free discovery call.
               </p>
             </div>
-            <HeroDeviceVisual className="mx-auto w-full max-w-[520px]" />
+            <WrittenScopeVisual />
           </div>
         </Container>
       </Section>

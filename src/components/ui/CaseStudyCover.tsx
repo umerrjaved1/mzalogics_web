@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/cn";
 import { MediaImg } from "@/components/ui/MediaImg";
+import { WebsiteScene } from "@/components/ui/DeviceMockup";
 
 /* Deterministic abstract cover art for case studies — no real screenshots needed.
    Each industry maps to a palette + motif so every card looks distinct. */
@@ -102,18 +103,22 @@ export function CaseStudyCover({
 }) {
   const p = paletteByIndustry[industry] ?? fallback;
   const photo = local ?? image;
+  const webMock = !photo && (industry === "Shopify" || industry === "WordPress");
   return (
     <div
       className={cn("relative overflow-hidden", className)}
-      style={{ background: `linear-gradient(135deg, ${p.from} 0%, ${p.to} 100%)` }}
+      style={photo || webMock ? { background: "#f4f6f8" } : { background: `linear-gradient(135deg, ${p.from} 0%, ${p.to} 100%)` }}
     >
       {photo ? (
         <MediaImg
           local={local}
           fallback={image ?? local ?? ""}
-          alt=""
+          alt={title}
+          fit="contain"
           className="absolute inset-0 h-full w-full"
         />
+      ) : webMock ? (
+        <WebsiteScene industry={industry} className="absolute inset-0" />
       ) : (
         <>
           <div
@@ -125,22 +130,26 @@ export function CaseStudyCover({
         </>
       )}
 
-      <div
-        className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 via-black/25 to-transparent"
-        aria-hidden="true"
-      />
-
-      {/* label */}
-      <div className="absolute inset-0 flex flex-col justify-end p-5">
-        <span className="w-fit rounded-full bg-white/15 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+      {photo || webMock ? (
+        <span className="absolute left-3 top-3 z-10 rounded-full bg-navy/80 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white">
           {industry}
         </span>
-        {!compact && (
-          <span className="mt-2 line-clamp-2 text-lg font-extrabold leading-snug text-white">
-            {title}
-          </span>
-        )}
-      </div>
+      ) : (
+        <>
+          <div
+            className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 via-black/25 to-transparent"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 flex flex-col justify-end p-5">
+            <span className="w-fit rounded-full bg-white/15 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+              {industry}
+            </span>
+            {!compact && (
+              <span className="mt-2 line-clamp-2 text-lg font-extrabold leading-snug text-white">{title}</span>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }

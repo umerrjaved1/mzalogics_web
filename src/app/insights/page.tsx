@@ -6,9 +6,9 @@ import { getInsights } from "@/lib/insights";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Engineering Insights & Articles | Production Software & AI Architecture",
+  title: "Insights: Engineering & AI in Production",
   description:
-    "Practical architectural notes from our software engineering pods on enterprise delivery, production AI, mobile performance, and scalable systems.",
+    "Practical notes from our engineers on delivery, production AI, mobile performance, and systems that scale.",
   alternates: {
     canonical: "/insights",
   },

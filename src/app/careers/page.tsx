@@ -5,7 +5,7 @@ import { breadcrumbJsonLd, jobJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Careers & Open Engineering Roles | Join Our Lahore Studio",
+  title: "Careers: Engineering Roles in Lahore",
   description:
     "Open engineering, design, QA, and delivery roles at MZA Logics in Lahore. Work on production software and AI systems with senior engineers, clear review gates, and no bait-and-switch staffing.",
   alternates: {

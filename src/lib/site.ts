@@ -1,24 +1,34 @@
+import { team } from "@/content/team";
+
 export const site = {
   name: "MZA Logics",
   legalName: "MZA Logics",
-  tagline: "Software Built Around You — Not the Other Way Around",
+  tagline: "Mobile apps, web platforms, and AI features — built by senior engineers in Lahore.",
   headline: "Custom Software, Built for the Way You Work",
   description:
-    "MZA Logics is a senior-led software engineering studio in Lahore. We build custom mobile apps, web platforms, and AI systems tailored around your business — not the other way around.",
+    "Senior software studio in Lahore building mobile apps, web platforms, and AI features. Fixed written scope; your code and IP from day one.",
   shortDescription:
     "Software studio in Lahore engineering mobile apps, web platforms, and AI systems built around your business.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mzalogics.com",
   email: "mzalogics@gmail.com",
   careersEmail: "mzalogics@gmail.com",
-  phoneDisplay: "0300 3600188",
+  phoneDisplay: "+92 3003600188",
   phoneHref: "+923003600188",
   whatsapp: "923003600188",
   linkedin: "https://www.linkedin.com/company/mza-logics",
   calendarUrl: process.env.NEXT_PUBLIC_CALENDAR_URL ?? "",
   founded: "2021",
-  teamSize: "16",
+  /**
+   * One switch for everything about the team: the nav and footer links, the
+   * homepage strip, /team and its profiles, the team blocks on About, Talent
+   * and Pricing, and the sitemap entries. Off until there are real portraits.
+   * Set to true to bring it all back; the content in @/content/team is kept.
+   */
+  showTeam: false as boolean,
+  /** Counted from the real roster, so the claim can never drift from the profiles. */
+  teamSize: String(team.length),
   customers: "50+",
-  availability: "Booking Q4 2026 pods",
+  availability: "Now booking new product builds",
   responseTime: "We reply to new enquiries within one business day.",
   hours: "Mon-Fri, 9:00-18:00 PKT (UTC+5)",
   geo: {
@@ -70,14 +80,14 @@ export const nav: readonly NavItem[] = [
   { href: "/work", label: "Work" },
   { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
-  { href: "/team", label: "Team" },
+  ...(site.showTeam ? [{ href: "/team", label: "Team" }] : []),
   { href: "/contact", label: "Contact" },
-] as const;
+];
 
 export const footerNav = {
   company: [
     { href: "/about", label: "About" },
-    { href: "/team", label: "Team" },
+    ...(site.showTeam ? [{ href: "/team", label: "Team" }] : []),
     { href: "/work", label: "Work" },
     { href: "/pricing", label: "Pricing" },
     { href: "/careers", label: "Careers" },
@@ -105,7 +115,7 @@ export const footerNav = {
 
 export const metrics = [
   { value: site.customers, label: "Products shipped" },
-  { value: site.teamSize, label: "Named specialists" },
+  ...(site.showTeam ? [{ value: site.teamSize, label: "Named specialists" }] : []),
   { value: site.founded, label: "Established" },
   { value: "2 tracks", label: "AI-driven or hand-crafted" },
 ] as const;

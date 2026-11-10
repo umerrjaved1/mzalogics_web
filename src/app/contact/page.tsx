@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { LeadForm } from "@/components/LeadForm";
 import { BookingPanel } from "@/components/conversion/BookingPanel";
+import { TrustPoints } from "@/components/conversion/TrustPoints";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact Us & Book a Discovery Call | Lahore Software Studio",
+  title: "Book a Discovery Call",
   description:
-    "Get in touch with MZA Logics. Direct WhatsApp chat (+92 300 3600188), email, or book a free technical architecture discovery call with our Lahore leadership.",
+    "Book a free 20-minute call, message us on WhatsApp, or send a short brief. NDA before project details; reply within one business day.",
   alternates: {
     canonical: "/contact",
   },
@@ -26,13 +27,14 @@ export default function ContactPage() {
         <Container>
           <Eyebrow>Contact</Eyebrow>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
-            Contact us
+            Book a discovery call
           </h1>
           <p className="mt-4 max-w-xl text-muted">
             Pick a slot below, message us on WhatsApp {site.phoneDisplay}, or send a brief with the
-            form. We reply within one business day.
+            form. You talk to an engineer, and we reply within one business day.
           </p>
-          <p className="mt-4 text-sm text-muted">
+          <TrustPoints className="mt-6 justify-start" />
+          <p className="mt-6 text-sm text-muted">
             {site.locations[0].address}, {site.locations[0].detail}
           </p>
         </Container>
@@ -42,7 +44,7 @@ export default function ContactPage() {
         kind="contact"
         title="Prefer to send a brief?"
         intro="A short note is enough. We will read it and come back with a written scope."
-        submitLabel="Request a call"
+        submitLabel="Send the brief"
         eyebrow="Send a brief"
       />
     </>

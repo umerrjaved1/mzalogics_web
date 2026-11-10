@@ -13,62 +13,68 @@ import { aboutHero, studioPhotos } from "@/content/visuals";
 import { resolveLocal, teamPhotos } from "@/lib/media";
 
 export const metadata: Metadata = {
-  title: "About Us | Software Engineering Studio & Team in Lahore",
+  title: "About: A Senior Software Studio in Lahore",
   description:
-    `Learn how MZA Logics builds software for operators worldwide. ${site.teamSize} named specialists in DHA Lahore, Pakistan.`,
+    "Founded 2021 in Lahore. Senior engineers building mobile apps, web platforms, and AI features for clients worldwide — written scope, your IP.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title: "About MZA Logics | Software Engineering Studio in Lahore",
     description:
-      `${site.teamSize} engineers, architects, and delivery leads building products since 2021.`,
+      "A small senior team in Lahore, building products since 2021.",
     url: `${site.url}/about`,
   },
 };
 
 export default function AboutPage() {
+  // Photographs are optional. Without them the hero is text only and the
+  // strip is omitted; a visitor never sees an empty frame or a note to us.
+  const heroPhoto = resolveLocal(aboutHero.local);
+  const studioTiles = studioPhotos
+    .slice(1)
+    .flatMap((tile) => {
+      const src = resolveLocal(tile.local);
+      return src ? [{ ...tile, src }] : [];
+    });
+
   return (
     <>
       <Section className="pb-8 sm:pb-8">
         <Container>
-          <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div className={heroPhoto ? "grid items-center gap-10 lg:grid-cols-2" : "max-w-4xl"}>
             <div>
-              <Eyebrow>Our Story &amp; Vision</Eyebrow>
+              <Eyebrow>About</Eyebrow>
               <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy sm:text-5xl lg:text-6xl">
-                Software Built Around You — <span className="bg-gradient-to-r from-navy to-accent-2 bg-clip-text text-transparent">Not the Other Way Around</span>
+                A senior software studio in Lahore, shipping worldwide since 2021
               </h1>
               <p className="mt-4 max-w-2xl text-lg text-muted leading-relaxed">
-                Founded in 2021 by senior engineers in Lahore with a shared conviction: growing businesses deserve software made specifically for how they operate, not forced into cookie-cutter templates.
+                We build mobile apps, web platforms, and AI features for growing businesses — designed
+                around how your company already operates, not forced into a template. You work with the
+                engineers directly, and you own everything we make.
               </p>
             </div>
-            <div className="overflow-hidden rounded-[28px] border border-black/8 bg-navy shadow-lg">
-              {resolveLocal(aboutHero.local) ? (
+            {heroPhoto && (
+              <div className="overflow-hidden rounded-[28px] border border-black/8 bg-navy shadow-lg">
                 <MediaImg
-                  local={aboutHero.local}
-                  fallback={aboutHero.local}
+                  local={heroPhoto}
+                  fallback={heroPhoto}
                   alt="MZA Logics studio in DHA Lahore"
                   className="h-64 w-full sm:h-80"
                 />
-              ) : (
-                <div className="grid h-64 place-items-center px-6 text-center sm:h-80">
-                  <p className="text-sm font-semibold text-white/80">Studio photography — drop studio.jpg in public/media/studio</p>
-                </div>
-              )}
+              </div>
+            )}
+          </div>
+          {studioTiles.length > 0 && (
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {studioTiles.map((tile) => (
+                <figure key={tile.title} className="overflow-hidden rounded-2xl border border-black/8 bg-paper">
+                  <MediaImg local={tile.src} fallback={tile.src} alt={tile.alt} className="h-28 w-full sm:h-32" />
+                  <figcaption className="bg-navy px-3 py-2 text-sm font-semibold text-white">{tile.title}</figcaption>
+                </figure>
+              ))}
             </div>
-          </div>
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {studioPhotos.slice(1).map((tile) => (
-              <figure key={tile.title} className="overflow-hidden rounded-2xl border border-black/8 bg-paper">
-                {resolveLocal(tile.local) ? (
-                  <MediaImg local={tile.local} fallback={tile.local} alt={tile.alt} className="h-28 w-full sm:h-32" />
-                ) : (
-                  <div className="h-28 w-full bg-navy/10 sm:h-32" aria-hidden />
-                )}
-                <figcaption className="bg-navy px-3 py-2 text-sm font-semibold text-white">{tile.title}</figcaption>
-              </figure>
-            ))}
-          </div>
+          )}
           <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
             {metrics.map((item) => (
               <div key={item.label} className="rounded-2xl border border-black/8 bg-white p-5 shadow-sm">
@@ -84,44 +90,44 @@ export default function AboutPage() {
       <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <div className="rounded-[28px] border border-black/8 bg-gradient-to-br from-white via-paper to-white p-8 sm:p-12 shadow-sm">
-            <Eyebrow>Our Guiding Pillars</Eyebrow>
+            <Eyebrow>How we work</Eyebrow>
             <h2 className="mt-3 text-3xl font-extrabold text-navy sm:text-4xl">
-              The Four Foundations of How We Build
+              Four commitments every project runs on
             </h2>
             <p className="mt-3 max-w-2xl text-muted">
-              Every system architecture, pod sprint, and technical decision is measured against these four principles.
+              These are written into every scope we sign — not aspirations, but terms you can hold us to.
             </p>
 
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-sm">
-                <div className="text-xs font-bold uppercase tracking-widest text-emerald-700">Pillar 01</div>
-                <h3 className="mt-2 font-bold text-navy text-lg">Accessibility First</h3>
+                <div className="text-xs font-bold uppercase tracking-widest text-emerald-700">01</div>
+                <h3 className="mt-2 font-bold text-navy text-lg">Senior engineers only</h3>
                 <p className="mt-2 text-base text-muted leading-relaxed">
-                  Enterprise-grade software shouldn&apos;t be a luxury reserved for Fortune 500s. We bridge the gap so ambitious, growing companies can access elite engineering at transparent rates.
+                  The person who scopes your project writes code. No juniors learning on your budget, no salespeople relaying messages.
                 </p>
               </div>
 
               <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-sm">
-                <div className="text-xs font-bold uppercase tracking-widest text-accent-cyan">Pillar 02</div>
-                <h3 className="mt-2 font-bold text-navy text-lg">Craftsmanship &amp; Trust</h3>
+                <div className="text-xs font-bold uppercase tracking-widest text-accent-cyan">02</div>
+                <h3 className="mt-2 font-bold text-navy text-lg">Transparent by default</h3>
                 <p className="mt-2 text-base text-muted leading-relaxed">
-                  Founded by senior engineers with 10+ years of battle-tested enterprise experience. No hype, no junior-only blind spots—just clean code, rigorous review gates, and zero compromise.
+                  Published rates, a written scope before work starts, and a demo every week. You always know what you are paying for.
                 </p>
               </div>
 
               <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-sm">
-                <div className="text-xs font-bold uppercase tracking-widest text-accent-purple">Pillar 03</div>
-                <h3 className="mt-2 font-bold text-navy text-lg">People-Powered Delivery</h3>
+                <div className="text-xs font-bold uppercase tracking-widest text-accent-purple">03</div>
+                <h3 className="mt-2 font-bold text-navy text-lg">You own everything</h3>
                 <p className="mt-2 text-base text-muted leading-relaxed">
-                  Our deep industry network lets you scale flexibly—from principal architects to mid-level specialists and junior builders, each with clear rate cards and vetted portfolios.
+                  Your repository, your cloud accounts, your IP from day one. Walking away from us costs you nothing.
                 </p>
               </div>
 
               <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-sm">
-                <div className="text-xs font-bold uppercase tracking-widest text-emerald-700">Pillar 04</div>
-                <h3 className="mt-2 font-bold text-navy text-lg">Tailored, Not Templated</h3>
+                <div className="text-xs font-bold uppercase tracking-widest text-emerald-700">04</div>
+                <h3 className="mt-2 font-bold text-navy text-lg">Built around your workflow</h3>
                 <p className="mt-2 text-base text-muted leading-relaxed">
-                  Every business operates uniquely. We reject off-the-shelf one-size-fits-all clones and celebrate software sculpted precisely around your users, workflows, and growth targets.
+                  We design around how your business already operates — and say so when an off-the-shelf tool would serve you better.
                 </p>
               </div>
             </div>
@@ -131,24 +137,24 @@ export default function AboutPage() {
 
       <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container className="max-w-3xl">
-          <h2 className="text-2xl font-bold text-navy">Our Foundation &amp; Belief</h2>
+          <h2 className="text-2xl font-bold text-navy">Why we exist</h2>
           <p className="mt-3 text-sm leading-7 text-muted">{foundation}</p>
-          <h2 className="mt-12 text-2xl font-bold text-navy">Our Philosophy</h2>
+          <h2 className="mt-12 text-2xl font-bold text-navy">How we decide</h2>
           <p className="mt-3 text-sm leading-7 text-muted">{philosophy}</p>
-          <h2 className="mt-12 text-2xl font-bold text-navy">Our Core Expertise</h2>
+          <h2 className="mt-12 text-2xl font-bold text-navy">What we build with</h2>
           <ul className="mt-4 grid gap-2 text-sm text-navy sm:grid-cols-2">
             {expertise.map((item) => (
               <li key={item}>• {item}</li>
             ))}
           </ul>
           <p className="mt-4 text-sm text-muted">
-            We are technology-agnostic and pick the right stack that best fits your product needs.
+            We pick the stack that fits your product and your team&apos;s skills — never the other way around.
           </p>
         </Container>
       </Section>
       <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
-          <h2 className="text-2xl font-bold text-navy">Our values</h2>
+          <h2 className="text-2xl font-bold text-navy">What you can hold us to</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {values.map((value) => (
               <article key={value.title} className="rounded-[28px] border border-line bg-white p-6">
@@ -157,9 +163,9 @@ export default function AboutPage() {
               </article>
             ))}
           </div>
-          <h2 className="mt-14 text-2xl font-bold text-navy">Why choose MZA Logics?</h2>
+          <h2 className="mt-14 text-2xl font-bold text-navy">Why teams choose MZA Logics</h2>
           <p className="mt-3 max-w-2xl text-sm text-muted">
-            We are not just a software company — we are your technology growth partner.
+            The practical reasons buyers give us when they sign:
           </p>
           <ul className="mt-4 max-w-2xl space-y-2 text-sm text-navy">
             {whyChoose.map((item) => (
@@ -177,15 +183,19 @@ export default function AboutPage() {
             ))}
           </div>
 
-          <div className="mt-14 flex flex-wrap items-end justify-between gap-4">
-            <h2 className="text-2xl font-bold text-navy">The team</h2>
-            <Link href="/team" className="text-sm font-medium text-navy hover:underline">
-              See all {team.length} profiles and their portfolios →
-            </Link>
-          </div>
-          <div className="mt-6">
-            <TeamGrid members={team.slice(0, 6)} photos={teamPhotos(team.map((member) => member.slug))} />
-          </div>
+          {site.showTeam && (
+            <>
+              <div className="mt-14 flex flex-wrap items-end justify-between gap-4">
+                <h2 className="text-2xl font-bold text-navy">The team</h2>
+                <Link href="/team" className="text-sm font-medium text-navy hover:underline">
+                  See the full team →
+                </Link>
+              </div>
+              <div className="mt-6">
+                <TeamGrid members={team.slice(0, 6)} photos={teamPhotos(team.map((member) => member.slug))} />
+              </div>
+            </>
+          )}
           <h2 className="mt-14 text-2xl font-bold text-navy">How we got here</h2>
           <ol className="mt-6 space-y-4 border-l border-line pl-6">
             {timeline.map((entry) => (

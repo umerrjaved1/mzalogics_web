@@ -11,9 +11,28 @@ export function hasPublicFile(local: string | undefined) {
   return existsSync(publicPath(local));
 }
 
+/**
+ * Sample media: generated stand-in images, each stamped "SAMPLE IMAGE", so the
+ * site can be previewed with pictures before the real assets exist. They live
+ * in /public/media/_sample and are made by scripts/make-sample-media.py.
+ *
+ * On in development. Off in a production build unless
+ * NEXT_PUBLIC_SAMPLE_MEDIA=1 is set, so a sample can never reach the live
+ * site by accident. A real file in /public/media always wins over its sample.
+ */
+export const sampleMediaEnabled =
+  process.env.NEXT_PUBLIC_SAMPLE_MEDIA === "1" ||
+  (process.env.NODE_ENV !== "production" && process.env.NEXT_PUBLIC_SAMPLE_MEDIA !== "0");
+
+function sampleFor(local: string) {
+  const sample = local.replace(/^\/media\//, "/media/_sample/");
+  return sample !== local && hasPublicFile(sample) ? sample : undefined;
+}
+
 /** Only return a /public path when the file is on disk. */
 export function resolveLocal(local: string | undefined) {
-  return hasPublicFile(local) ? local : undefined;
+  if (hasPublicFile(local)) return local;
+  return local && sampleMediaEnabled ? sampleFor(local) : undefined;
 }
 
 /** Use a /public file when it exists; otherwise keep the fallback URL. */
