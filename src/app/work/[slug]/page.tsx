@@ -5,13 +5,22 @@ import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { CtaBand } from "@/components/CtaBand";
 import { TrustPoints } from "@/components/conversion/TrustPoints";
-import { caseStudies, getCaseStudy } from "@/content/case-studies";
+import { caseStudies, getCaseStudy, type CaseStudy } from "@/content/case-studies";
 import { CaseStudyCover } from "@/components/ui/CaseStudyCover";
 import { resolveLocal } from "@/lib/media";
 
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
+
+/** Search snippets cut off near 160 characters, and most summaries alone ran
+ * 25-70, so the summary, what was built, and who built it are combined. */
+function caseStudyDescription(study: CaseStudy) {
+  const kind = study.storeUrl ? "Android app published on Google Play" : "Client project";
+  const full = `${study.summary} ${study.approach} ${kind}, built by ${site.name}.`;
+  if (full.length <= 160) return full;
+  return `${full.slice(0, 157).replace(/\s+\S*$/, "")}...`;
+}
 
 export function generateStaticParams() {
   return caseStudies.map((study) => ({ slug: study.slug }));
@@ -25,15 +34,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const study = getCaseStudy(slug);
   if (!study) return {};
+  const description = caseStudyDescription(study);
   return {
     title: study.title,
-    description: study.challenge,
+    description,
     alternates: {
       canonical: `/work/${slug}`,
     },
     openGraph: {
       title: `${study.title} | MZA Logics Case Study`,
-      description: study.challenge,
+      description,
       url: `${site.url}/work/${slug}`,
     },
   };
@@ -61,7 +71,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <Section className="pb-8 sm:pb-10">
         <Container className="max-w-4xl">
           <Eyebrow>{study.industry}</Eyebrow>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-navy sm:text-5xl">{study.title}</h1>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy sm:text-5xl">{study.title}</h1>
           <p className="mt-3 text-base text-muted">
             {study.namedClient ? (
               study.namedClient.href ? (
@@ -89,7 +99,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             />
           </div>
           {study.metrics.length > 0 ? (
-            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            <div className="mt-8 grid gap-4 sm:grid-cols-3 reveal-kids">
               {study.metrics.map((metric) => (
                 <div key={metric.label} className="rounded-2xl border border-line p-4">
                   <p className="text-lg font-semibold text-navy">{metric.value}</p>
@@ -98,11 +108,11 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               ))}
             </div>
           ) : null}
-          <h2 className="mt-10 text-lg font-semibold text-navy">Challenge</h2>
+          <h2 className="mt-10 text-lg font-bold text-navy">Challenge</h2>
           <p className="mt-2 text-base leading-relaxed text-muted">{study.challenge}</p>
-          <h2 className="mt-8 text-lg font-semibold text-navy">Approach</h2>
+          <h2 className="mt-8 text-lg font-bold text-navy">Approach</h2>
           <p className="mt-2 text-base leading-relaxed text-muted">{study.approach}</p>
-          <h2 className="mt-8 text-lg font-semibold text-navy">Outcome</h2>
+          <h2 className="mt-8 text-lg font-bold text-navy">Outcome</h2>
           <p className="mt-2 text-base leading-relaxed text-muted">{study.outcome}</p>
           <div className="mt-8 flex flex-wrap gap-2">
             {study.stack.map((item) => (
@@ -123,7 +133,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <TrustPoints className="mt-6 justify-start" />
           {related.length > 0 ? (
             <div className="mt-12 border-t border-line pt-8">
-              <h2 className="text-lg font-semibold text-navy">More {study.storeUrl ? "apps on Google Play" : "client sites"}</h2>
+              <h2 className="text-lg font-bold text-navy">More {study.storeUrl ? "apps on Google Play" : "client sites"}</h2>
               <ul className="mt-4 grid gap-3 sm:grid-cols-3">
                 {related.map((item) => (
                   <li key={item.slug}>

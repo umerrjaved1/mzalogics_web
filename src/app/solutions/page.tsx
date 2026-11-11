@@ -37,7 +37,7 @@ export default function SolutionsPage() {
       <Section className="dot-grid pb-8 sm:pb-8">
         <Container>
           <Eyebrow>Solutions</Eyebrow>
-          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
+          <h1 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight text-navy sm:text-5xl">
             Tell us what you&apos;re building — we ship it
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
@@ -48,10 +48,10 @@ export default function SolutionsPage() {
       </Section>
       <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
-          <div className="grid gap-4 lg:grid-cols-3">
+          <div className="grid gap-4 lg:grid-cols-3 reveal-kids">
             {engagementModels.map((model) => (
-              <article key={model.title} className="rounded-[28px] border border-line p-6">
-                <h2 className="text-lg font-semibold text-navy">{model.title}</h2>
+              <article key={model.title} className="card-lift rounded-[28px] border border-line bg-white p-6 shadow-sm">
+                <h2 className="text-lg font-bold text-navy">{model.title}</h2>
                 <p className="mt-2 text-base leading-relaxed text-muted">{model.body}</p>
                 <ul className="mt-4 space-y-1 text-base text-navy">
                   {model.points.map((point) => (
@@ -63,16 +63,16 @@ export default function SolutionsPage() {
           </div>
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <p className="max-w-2xl text-sm text-muted">{engagementNote}</p>
-            <Link href="/pricing" className="text-sm font-medium text-navy hover:underline">
+            <Link href="/pricing" className="inline-flex min-h-11 items-center text-sm font-medium text-navy hover:underline">
               See full pricing for both tracks →
             </Link>
           </div>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 reveal-kids">
             {services.map((service) => (
               <Link
                 key={service.slug}
                 href={`/solutions/${service.slug}`}
-                className="overflow-hidden rounded-[28px] border border-line bg-white hover:border-navy"
+                className="card-lift overflow-hidden rounded-[28px] border border-line bg-white"
               >
                 {resolveLocal((serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local) ? (
                   <MediaImg
@@ -88,7 +88,7 @@ export default function SolutionsPage() {
                 )}
                 <div className="p-6">
                   <p className="text-sm font-semibold text-navy">{service.number}</p>
-                  <h2 className="mt-2 text-xl font-semibold text-navy">{service.title}</h2>
+                  <h2 className="mt-2 text-xl font-bold text-navy">{service.title}</h2>
                   <p className="mt-2 text-base leading-relaxed text-muted">{service.summary}</p>
                 </div>
               </Link>

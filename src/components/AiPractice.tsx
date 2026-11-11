@@ -18,13 +18,13 @@ export function AiPractice() {
           <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-4xl">
             Six stages, each with a human gate
           </h2>
-          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3 reveal-kids">
             {aiPipeline.map((step) => (
               <article key={step.number} className="rounded-[28px] border border-black/8 bg-white p-6">
                 <p className="text-sm font-semibold text-muted">{step.number}</p>
                 <h3 className="mt-6 text-lg font-bold text-navy">{step.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-muted">{step.body}</p>
-                <p className="mt-5 inline-flex rounded-full bg-paper px-3 py-1 text-[11px] font-medium text-navy/70">
+                <p className="mt-5 inline-flex rounded-full bg-paper px-3 py-1 text-xs font-medium text-navy/70">
                   Gate: {step.gate}
                 </p>
               </article>
@@ -39,7 +39,7 @@ export function AiPractice() {
           <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-4xl">
             What we commit to in writing
           </h2>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 reveal-kids">
             {aiGuardrails.map((item) => (
               <article key={item.title} className="rounded-[28px] border border-black/8 bg-white p-6">
                 <ShieldCheck size={20} className="text-navy" />
@@ -57,14 +57,14 @@ export function AiPractice() {
           <h2 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-4xl">
             Capabilities we build for clients
           </h2>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-kids">
             {aiCapabilities.map((item) => (
               <article key={item.title} className="rounded-[28px] border border-black/8 bg-white p-6">
                 <h3 className="font-bold text-navy">{item.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-muted">{item.body}</p>
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {item.tags.map((tag) => (
-                    <span key={tag} className="rounded-full bg-paper px-2.5 py-1 text-[11px] text-muted">
+                    <span key={tag} className="rounded-full bg-paper px-2.5 py-1 text-xs text-muted">
                       {tag}
                     </span>
                   ))}
@@ -121,7 +121,7 @@ export function AiPractice() {
           <Container>
             <Eyebrow>Who you work with</Eyebrow>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">The AI practice</h2>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-kids">
               {aiTeam.map((member) => (
                 <Link
                   key={member.slug}
@@ -145,11 +145,29 @@ export function AiPractice() {
 
 export function TrackComparisonTable() {
   return (
+    <>
+      <div className="mt-8 grid gap-3 md:hidden">
+        {trackComparison.map((row) => (
+          <article key={row.dimension} className="rounded-2xl border border-black/8 bg-white p-4">
+            <h3 className="text-sm font-bold text-navy">{row.dimension}</h3>
+            <dl className="mt-3 grid gap-3">
+              <div>
+                <dt className="text-xs font-bold uppercase tracking-wide text-navy">With AI</dt>
+                <dd className="mt-1 text-sm leading-6 text-muted">{row.ai}</dd>
+              </div>
+              <div>
+                <dt className="text-xs font-bold uppercase tracking-wide text-navy">Without AI</dt>
+                <dd className="mt-1 text-sm leading-6 text-muted">{row.manual}</dd>
+              </div>
+            </dl>
+          </article>
+        ))}
+      </div>
     <div
       tabIndex={0}
       role="region"
       aria-label="AI-assisted versus hand-crafted delivery comparison"
-      className="mt-8 overflow-x-auto rounded-[28px] border border-black/8 bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+      className="mt-8 hidden overflow-x-auto rounded-[28px] border border-black/8 bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy md:block"
     >
       <table className="w-full min-w-[720px] border-collapse text-left text-sm">
         <thead>
@@ -181,5 +199,6 @@ export function TrackComparisonTable() {
         </tbody>
       </table>
     </div>
+    </>
   );
 }

@@ -21,12 +21,12 @@ export function WorkProof() {
   const androidCount = caseStudies.filter((study) => study.storeUrl).length;
 
   return (
-    <Section id="work" className="pb-8 sm:pb-10">
+    <Section id="work" className="pb-12 sm:pb-20">
       <Container>
         <Reveal className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
             <Eyebrow>Proof, not pitch decks</Eyebrow>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">
               Published work you can open right now
             </h2>
             <p className="mt-3 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
@@ -50,16 +50,26 @@ export function WorkProof() {
               href={`/work/${study.slug}`}
               className="group flex h-full flex-col overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-navy/30 hover:shadow-[0_18px_40px_rgba(9,6,26,0.10)]"
             >
-              <CaseStudyCover
-                industry={study.industry}
-                title={study.title}
-                local={resolveLocal(`/media/work/${study.slug}.jpg`)}
-                compact
-                className="aspect-video w-full"
-              />
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-navy">{study.title}</h3>
-                <p className="mt-2 text-base text-muted">{study.summary}</p>
+              <div className="media-zoom">
+                <CaseStudyCover
+                  industry={study.industry}
+                  title={study.title}
+                  local={resolveLocal(`/media/work/${study.slug}.jpg`)}
+                  compact
+                  className="aspect-video w-full"
+                />
+              </div>
+              <div className="flex flex-1 items-center justify-between gap-4 p-6">
+                <div className="min-w-0">
+                  <h3 className="text-lg font-bold text-navy">{study.title}</h3>
+                  <p className="mt-2 text-base text-muted">{study.summary}</p>
+                </div>
+                <span
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-black/5 text-navy transition duration-300 group-hover:bg-navy group-hover:text-white"
+                  aria-hidden
+                >
+                  <ArrowUpRight size={16} />
+                </span>
               </div>
             </Link>
             </Reveal>

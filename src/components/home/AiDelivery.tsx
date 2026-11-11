@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Sparkles, Wrench, ShieldCheck, Zap, CheckCircle2, ArrowRight, Lock, Gauge } from "lucide-react";
+import { Sparkles, ShieldCheck, Zap, CheckCircle2, ArrowRight, Lock } from "lucide-react";
 import { Container, Section } from "@/components/ui/Container";
 import { aiStats, aiPipeline } from "@/content/ai";
 import { promoNote } from "@/content/promo";
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
+
 
 export function AiDelivery() {
   const [selectedTrack, setSelectedTrack] = useState<"ai" | "handcrafted">("ai");
@@ -206,7 +206,7 @@ export function AiDelivery() {
           <h4 className="text-center text-xs font-semibold tracking-widest text-white/70 uppercase">
             Our Automated Quality Gates
           </h4>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <div className="mt-6 grid gap-4 md:grid-cols-3 reveal-kids">
             {aiPipeline.map((step) => (
               <div
                 key={step.number}

@@ -16,6 +16,9 @@ export function goToLead() {
     }, 400);
     return;
   }
+  // Plain helper called from many click handlers with no router in reach;
+  // a full navigation to /contact is the intended fallback.
+  // eslint-disable-next-line @next/next/no-location-assign-relative-destination
   window.location.assign("/contact");
 }
 

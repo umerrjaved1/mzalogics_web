@@ -121,7 +121,7 @@ export default function PricingPage() {
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">
             Never a line item, always in the box
           </h2>
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 reveal-kids">
             {everyEngagementIncludes.map((item) => (
               <li
                 key={item}
@@ -151,7 +151,7 @@ export default function PricingPage() {
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">
             Ongoing capacity, priced monthly
           </h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-kids">
             {addOns.map((item) => {
               const deal = effectivePrice(item.price, item.compareAt);
               return (

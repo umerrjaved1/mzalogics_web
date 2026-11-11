@@ -335,22 +335,22 @@ export function AiAgentScreen() {
 /** Simple multi-region status map */
 export function CloudMapScreen() {
   return (
-    <div className="flex h-full min-h-[220px] flex-col bg-gradient-to-br from-navy to-navy-2 p-4 text-white">
+    <div className="flex h-full min-h-[180px] flex-col bg-gradient-to-br from-navy to-navy-2 p-3 text-white sm:min-h-[220px] sm:p-4">
       <div className="text-xs font-semibold text-white/80">Global cluster</div>
-      <div className="mt-4 grid flex-1 grid-cols-3 gap-2">
+      <div className="mt-3 grid flex-1 grid-cols-3 gap-1.5 sm:mt-4 sm:gap-2">
         {[
           { r: "Virginia", ms: "18ms" },
           { r: "Frankfurt", ms: "24ms" },
           { r: "Dubai", ms: "32ms" },
         ].map((n) => (
-          <div key={n.r} className="rounded-xl border border-white/10 bg-white/5 p-3">
+          <div key={n.r} className="min-w-0 rounded-xl border border-white/10 bg-white/5 px-1.5 py-2 sm:p-3">
             <span className="mb-2 block h-2 w-2 rounded-full bg-emerald-400" />
-            <div className="text-sm font-bold">{n.r}</div>
-            <div className="text-xs text-emerald-300">{n.ms}</div>
+            <div className="truncate text-[11px] font-bold leading-tight sm:text-sm">{n.r}</div>
+            <div className="text-[11px] text-emerald-300 sm:text-xs">{n.ms}</div>
           </div>
         ))}
       </div>
-      <div className="mt-3 text-sm font-semibold text-white/80">Regions live. Rollback ready.</div>
+      <div className="mt-3 text-xs font-semibold text-white/80 sm:text-sm">Regions live. Rollback ready.</div>
     </div>
   );
 }
@@ -362,11 +362,11 @@ export function MvpStoryboard() {
     { d: "Day 14", l: "Launch" },
   ];
   return (
-    <div className="grid h-full min-h-[160px] grid-cols-3 gap-2 bg-paper p-3">
+    <div className="grid h-full min-h-[140px] grid-cols-3 gap-1.5 bg-paper p-2 sm:min-h-[160px] sm:gap-2 sm:p-3">
       {days.map((step) => (
-        <div key={step.d} className="flex flex-col rounded-xl border border-black/8 bg-white p-3">
-          <span className="text-xs font-semibold text-muted">{step.d}</span>
-          <span className="mt-auto text-base font-bold text-navy">{step.l}</span>
+        <div key={step.d} className="flex min-w-0 flex-col rounded-xl border border-black/8 bg-white px-1.5 py-2 sm:p-3">
+          <span className="text-[11px] font-semibold text-muted sm:text-xs">{step.d}</span>
+          <span className="mt-auto text-sm font-bold text-navy sm:text-base">{step.l}</span>
           <span className="mt-2 h-1.5 rounded-full bg-navy/80" />
         </div>
       ))}
@@ -650,7 +650,7 @@ export function HeroProductVisual({ className }: { className?: string }) {
       <BrowserFrame url="dashboard.yourproduct.com" className="w-[86%]">
         <DashboardScreen />
       </BrowserFrame>
-      <div className="absolute bottom-0 right-0 w-[34%] min-w-[118px]">
+      <div className="absolute bottom-0 right-0 w-[38%] max-w-[150px]">
         <PhoneFrame className="max-w-none">
           <FinTechAppScreen />
         </PhoneFrame>
@@ -667,20 +667,68 @@ export function HeroProductVisual({ className }: { className?: string }) {
 
 export type HeroShot = { src: string; alt: string; href: string; eyebrow?: string };
 
+function ShotTile({ shot, eager = false }: { shot: HeroShot; eager?: boolean }) {
+  return (
+    <Link
+      href={shot.href}
+      aria-label={`${shot.alt} — see the case study`}
+      className="group relative block overflow-hidden rounded-2xl border border-white/70 bg-white p-1 shadow-lg"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={shot.src}
+        alt={shot.alt}
+        loading={eager ? "eager" : "lazy"}
+        className="aspect-[16/10] w-full rounded-xl object-cover"
+      />
+      <span className="absolute left-2.5 top-2.5 max-w-[calc(100%-1.25rem)] truncate rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-navy shadow-sm">
+        {shot.eyebrow ?? "Project"}
+      </span>
+    </Link>
+  );
+}
+
 export function HeroFeatureGraphics({ shots, className }: { shots: HeroShot[]; className?: string }) {
   if (shots.length === 0) return <HeroProductVisual className={className} />;
   const deck = shots.slice(0, 3);
+  const lead = deck[deck.length - 1];
+  const thumbs = deck.slice(0, -1);
   const poses = [
-    "left-5 top-20 z-10 w-[56%] -rotate-6",
-    "right-5 top-10 z-20 w-[60%] rotate-[4deg]",
-    "left-1/2 bottom-12 z-30 w-[66%] -translate-x-1/2 -rotate-1",
+    "left-5 top-24 z-10 w-[56%] -rotate-2",
+    "right-5 top-16 z-20 w-[60%] rotate-[1.5deg]",
+    "left-1/2 bottom-24 z-30 w-[66%] -translate-x-1/2",
   ];
   return (
-    <div className={cn("relative w-full px-1 pb-6 pt-2 sm:px-3", className)}>
-      <div className="relative mx-auto min-h-[340px] w-full max-w-[640px] overflow-hidden rounded-[32px] border border-white/50 bg-navy p-4 shadow-[0_30px_80px_-35px_rgba(9,6,26,0.55)] sm:min-h-[500px] sm:rounded-[40px]">
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:40px_40px]" />
-        <div className="pointer-events-none absolute -right-28 -top-32 h-80 w-80 rounded-full bg-accent-2/35 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-28 left-0 h-72 w-72 rounded-full bg-accent-cyan/25 blur-3xl" />
+    <div className={cn("relative w-full px-0 pb-2 pt-1 sm:px-3 sm:pb-6 sm:pt-2", className)}>
+      {/* A fanned deck only has room once the column is wide. On a phone the
+          same cards overlap the labels and each other, so show one lead shot
+          and two thumbs instead. */}
+      <div className="overflow-hidden rounded-[28px] border border-white/40 bg-navy p-3 shadow-[0_24px_60px_-28px_rgba(9,6,26,0.55)] sm:hidden">
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <span className="rounded-full bg-white px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-navy">
+            Published work
+          </span>
+          <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white">
+            Apps · Web · AI
+          </span>
+        </div>
+        <ShotTile shot={lead} eager />
+        {thumbs.length > 0 ? (
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            {thumbs.map((shot) => (
+              <ShotTile key={shot.src} shot={shot} />
+            ))}
+          </div>
+        ) : null}
+        <p className="mt-3 text-center text-xs font-semibold text-white/80">
+          Fixed scope · Weekly demos · Your code + IP
+        </p>
+      </div>
+
+      <div className="relative mx-auto hidden min-h-[500px] w-full max-w-[640px] overflow-hidden rounded-[40px] border border-white/50 bg-navy p-4 shadow-[0_30px_80px_-35px_rgba(9,6,26,0.55)] sm:block">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:40px_40px]" />
+        <div className="pointer-events-none absolute -right-28 -top-32 h-80 w-80 rounded-full bg-accent-2/20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-28 left-0 h-72 w-72 rounded-full bg-accent-cyan/12 blur-3xl" />
         <div className="absolute left-5 top-5 z-40 rounded-full bg-white px-4 py-2 text-xs font-bold uppercase tracking-wide text-navy shadow-sm">
           Published Work
         </div>
@@ -705,7 +753,7 @@ export function HeroFeatureGraphics({ shots, className }: { shots: HeroShot[]; c
               loading={i === deck.length - 1 ? "eager" : "lazy"}
               className="aspect-[16/9] w-full rounded-[20px] object-cover"
             />
-            <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-navy shadow-sm">
+            <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wide text-navy shadow-sm">
               {shot.eyebrow ?? "Project"}
             </span>
           </Link>

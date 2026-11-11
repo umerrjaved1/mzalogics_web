@@ -15,16 +15,22 @@ const points = [
  */
 export function TrustPoints({
   tone = "light",
+  layout = "row",
   className,
 }: {
   /** "dark" for navy bands such as CtaBand variants and the deal strip. */
   tone?: "light" | "dark";
+  /** "grid" keeps every point on its own row pair, so the last one is not left alone. */
+  layout?: "row" | "grid";
   className?: string;
 }) {
   return (
     <ul
       className={cn(
-        "flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-semibold",
+        layout === "grid"
+          ? "grid grid-cols-2 gap-x-3 gap-y-2"
+          : "flex flex-wrap items-center justify-center gap-x-5 gap-y-2",
+        "text-xs font-semibold",
         tone === "dark" ? "text-white/80" : "text-navy/70",
         className,
       )}

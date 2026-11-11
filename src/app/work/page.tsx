@@ -70,7 +70,7 @@ export default function WorkPage() {
       <Section className="pb-8 sm:pb-8">
         <Container>
           <Eyebrow>Work</Eyebrow>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy sm:text-5xl">
             Published work you can check
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">

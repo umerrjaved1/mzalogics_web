@@ -70,7 +70,7 @@ export default function ThankYouPage() {
 
       <Section className="pt-0 sm:pt-0">
         <Container>
-          <ol className="grid gap-4 sm:grid-cols-3">
+          <ol className="grid gap-4 sm:grid-cols-3 reveal-kids">
             {nextSteps.map((step, index) => (
               <li key={step.title} className="rounded-[28px] border border-black/8 bg-white p-6">
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-navy text-xs font-bold text-white">

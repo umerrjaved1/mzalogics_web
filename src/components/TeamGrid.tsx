@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Star, ShieldCheck, Zap, UserPlus } from "lucide-react";
+import { ArrowUpRight, UserPlus } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
-import type { TeamMember, SeniorityLevel, Department } from "@/content/team";
+import type { TeamMember } from "@/content/team";
 import { seniorityLevels, departments, hireHref } from "@/content/team";
 
 export function TeamCard({ member, photo }: { member: TeamMember; photo?: string }) {
@@ -213,7 +213,7 @@ export function TeamGrid({
 
       {/* Grid of Team Cards */}
       {filteredMembers.length > 0 ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 reveal-kids">
           {filteredMembers.map((member) => (
             <TeamCard key={member.slug} member={member} photo={photos?.[member.slug]} />
           ))}

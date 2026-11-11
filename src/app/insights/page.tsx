@@ -27,7 +27,7 @@ export default function InsightsPage() {
     <Section className="dot-grid">
       <Container>
         <Eyebrow>Insights</Eyebrow>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
+        <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy sm:text-5xl">
           Software that has to survive Monday
         </h1>
         <p className="mt-4 max-w-2xl text-muted">
@@ -43,7 +43,7 @@ export default function InsightsPage() {
               <p className="text-xs font-semibold uppercase tracking-wider text-accent">
                 {post.category} · {post.date} · {post.minutes} min
               </p>
-              <h2 className="mt-2 text-xl font-semibold text-navy">{post.title}</h2>
+              <h2 className="mt-2 text-xl font-bold text-navy">{post.title}</h2>
               <p className="mt-2 text-sm text-muted">{post.description}</p>
               <p className="mt-3 text-xs text-muted">By {post.author}</p>
             </Link>

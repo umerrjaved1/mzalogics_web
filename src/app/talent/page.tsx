@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 import Link from "next/link";
-import { ArrowRight, Check, Sparkles, Shield, Clock } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { TeamGrid } from "@/components/TeamGrid";
 import { team } from "@/content/team";
 import { teamPhotos } from "@/lib/media";
@@ -57,7 +57,7 @@ export default function TalentPage() {
       <Section className="dot-grid pb-8 sm:pb-8">
         <Container>
           <Eyebrow>Dedicated engineers</Eyebrow>
-          <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy sm:text-5xl lg:text-6xl">
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy sm:text-5xl lg:text-6xl">
             Hire Dedicated Specialists &amp; Engineering Pods
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-muted leading-relaxed">
@@ -67,7 +67,7 @@ export default function TalentPage() {
           </p>
 
           {/* Quick Rate Overview Pill Cards */}
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 reveal-kids">
             <div className="rounded-2xl border border-black/8 bg-white p-4 shadow-sm">
               <div className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Senior / Lead</div>
               <p className="mt-1 text-xs text-muted line-through">$50 – $70</p>
@@ -95,7 +95,7 @@ export default function TalentPage() {
         <Container>
           <Eyebrow>Time-to-Ship</Eyebrow>
           <h2 className="mt-2 text-2xl font-bold text-navy sm:text-3xl">How working with us starts</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 reveal-kids">
             {steps.map((step, index) => (
               <article key={step.title} className="rounded-[28px] border border-black/8 bg-white p-6 shadow-sm">
                 <p className="text-xs font-bold tracking-widest uppercase text-emerald-700">
@@ -113,7 +113,7 @@ export default function TalentPage() {
           <div className="mt-16 flex flex-wrap items-end justify-between gap-4">
             <div>
               <Eyebrow>The team</Eyebrow>
-              <h2 className="mt-2 text-3xl font-extrabold text-navy sm:text-4xl">
+              <h2 className="mt-2 text-3xl font-bold text-navy sm:text-4xl">
                 Who you would work with
               </h2>
               <p className="mt-1 text-sm text-muted max-w-xl">

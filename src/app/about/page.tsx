@@ -45,7 +45,7 @@ export default function AboutPage() {
           <div className={heroPhoto ? "grid items-center gap-10 lg:grid-cols-2" : "max-w-4xl"}>
             <div>
               <Eyebrow>About</Eyebrow>
-              <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy sm:text-5xl lg:text-6xl">
+              <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy sm:text-5xl lg:text-6xl">
                 A senior software studio in Lahore, shipping worldwide since 2021
               </h1>
               <p className="mt-4 max-w-2xl text-lg text-muted leading-relaxed">
@@ -75,7 +75,7 @@ export default function AboutPage() {
               ))}
             </div>
           )}
-          <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4 reveal-kids">
             {metrics.map((item) => (
               <div key={item.label} className="rounded-2xl border border-black/8 bg-white p-5 shadow-sm">
                 <dt className="text-xs font-semibold uppercase tracking-wider text-muted">{item.label}</dt>
@@ -91,14 +91,14 @@ export default function AboutPage() {
         <Container>
           <div className="rounded-[28px] border border-black/8 bg-gradient-to-br from-white via-paper to-white p-8 sm:p-12 shadow-sm">
             <Eyebrow>How we work</Eyebrow>
-            <h2 className="mt-3 text-3xl font-extrabold text-navy sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-bold text-navy sm:text-4xl">
               Four commitments every project runs on
             </h2>
             <p className="mt-3 max-w-2xl text-muted">
               These are written into every scope we sign — not aspirations, but terms you can hold us to.
             </p>
 
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 reveal-kids">
               <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-sm">
                 <div className="text-xs font-bold uppercase tracking-widest text-emerald-700">01</div>
                 <h3 className="mt-2 font-bold text-navy text-lg">Senior engineers only</h3>
@@ -155,7 +155,7 @@ export default function AboutPage() {
       <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
           <h2 className="text-2xl font-bold text-navy">What you can hold us to</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-kids">
             {values.map((value) => (
               <article key={value.title} className="rounded-[28px] border border-line bg-white p-6">
                 <h3 className="font-semibold text-navy">{value.title}</h3>
@@ -173,7 +173,7 @@ export default function AboutPage() {
             ))}
           </ul>
           <h2 className="mt-14 text-2xl font-bold text-navy">Leadership</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <div className="mt-6 grid gap-4 md:grid-cols-2 reveal-kids">
             {leadership.map((person) => (
               <article key={person.role} className="rounded-[28px] border border-line p-6">
                 <h3 className="font-semibold text-navy">{person.name}</h3>
@@ -213,13 +213,13 @@ export default function AboutPage() {
             We are technology-agnostic and pick the stack that fits the product — this is what is already in
             the building.
           </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-kids">
             {techStack.map((group) => (
               <article key={group.group} className="rounded-[28px] border border-line bg-white p-6">
                 <h3 className="text-sm font-semibold text-navy">{group.group}</h3>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {group.items.map((item) => (
-                    <span key={item} className="rounded-full bg-paper px-2.5 py-1 text-[11px] text-muted">
+                    <span key={item} className="rounded-full bg-paper px-2.5 py-1 text-xs text-muted">
                       {item}
                     </span>
                   ))}
@@ -229,7 +229,7 @@ export default function AboutPage() {
           </div>
 
           <h2 className="mt-14 text-2xl font-bold text-navy">Working with us</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 reveal-kids">
             {trustSignals.map((item) => (
               <article key={item.title} className="rounded-[28px] border border-line bg-white p-6">
                 <h3 className="font-semibold text-navy">{item.title}</h3>
@@ -245,7 +245,7 @@ export default function AboutPage() {
           </div>
 
           <h2 className="mt-14 text-2xl font-bold text-navy">Studio</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 reveal-kids">
             {site.locations.map((location) => (
               <article key={location.label} className="rounded-[28px] border border-line p-6">
                 <h3 className="font-semibold text-navy">{location.label}</h3>

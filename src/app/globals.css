@@ -36,6 +36,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6.5rem;
 }
 
 body {
@@ -244,6 +245,161 @@ body {
   animation: shimmer 6s linear infinite;
 }
 
+/* ---------------------------------------------------------------------------
+   Inner-page hero.
+   Every page opens with the same quiet aurora behind its headline, so the
+   inner pages share an identity with the homepage instead of opening on a
+   bare grid. Keyed on position, not a class, so a new page gets it for free.
+   The homepage hero opts out — it carries its own parallax glow.
+--------------------------------------------------------------------------- */
+main > section:first-of-type:not(.home-hero) {
+  position: relative;
+  isolation: isolate;
+}
+main > section:first-of-type:not(.home-hero)::before {
+  content: "";
+  position: absolute;
+  /* Reach up behind the floating header. */
+  inset: -88px 0 0 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(46rem 24rem at 10% 0%, rgba(0, 245, 160, 0.17), transparent 70%),
+    radial-gradient(40rem 22rem at 92% 6%, rgba(138, 43, 226, 0.11), transparent 70%),
+    radial-gradient(30rem 16rem at 55% -10%, rgba(0, 210, 255, 0.10), transparent 70%);
+  background-size: 130% 100%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
+  animation: auroraDrift 16s ease-in-out infinite alternate;
+}
+@keyframes auroraDrift {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 100% 0%;
+  }
+}
+
+/* Page headlines arrive the same way the homepage hero does. CSS, so it runs
+   on first paint and never waits for hydration. */
+main h1 {
+  animation: riseIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+main h1 + p {
+  animation: riseIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+/* The one accented phrase in the homepage headline: gradient ink plus an
+   underline that draws itself once. */
+.hero-accent {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  background: linear-gradient(100deg, #047857 0%, #059669 50%, #0e7490 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-accent svg {
+  position: absolute;
+  left: -2%;
+  bottom: -0.16em;
+  width: 104%;
+  height: 0.32em;
+  overflow: visible;
+}
+.hero-accent path {
+  fill: none;
+  stroke: #00d68f;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: drawLine 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.55s forwards;
+}
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Scroll reveal for the inner pages — `reveal-kids` on a grid.
+   Driven by the scroll position itself (animation-timeline), not by JS: where
+   the browser lacks support the cards are simply visible, and nothing can be
+   left hidden by a failed hydration. `backwards` only, so once a card has
+   arrived the animation lets go and hover transforms work normally.
+--------------------------------------------------------------------------- */
+@keyframes scrollRise {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal-kids > * {
+      animation: scrollRise linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+    /* Neighbours land a beat apart, so a row reads left to right. */
+    .reveal-kids > *:nth-child(2n) {
+      animation-range: entry 8% cover 25%;
+    }
+    .reveal-kids > *:nth-child(3n) {
+      animation-range: entry 16% cover 28%;
+    }
+  }
+}
+
+/* Cards: lift on hover, and let the cover image breathe a little. */
+.card-lift {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  border-color: rgba(9, 6, 26, 0.22);
+  box-shadow: 0 18px 40px rgba(9, 6, 26, 0.1);
+}
+.media-zoom {
+  overflow: hidden;
+}
+.media-zoom > * {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .media-zoom > * {
+  transform: scale(1.035);
+}
+
+/* Dark closing panel (CtaBand) and the footer share this backdrop. */
+.night-panel {
+  position: relative;
+  isolation: isolate;
+  background-color: #070514;
+}
+.night-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40rem 20rem at 15% 0%, rgba(0, 245, 160, 0.16), transparent 70%),
+    radial-gradient(36rem 20rem at 90% 100%, rgba(138, 43, 226, 0.22), transparent 70%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+}
+
 .hide-scroll {
   scrollbar-width: none;
 }
@@ -254,6 +410,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .hero-accent path {
+    animation: none;
+    stroke-dashoffset: 0;
   }
 
   .marquee-track,

@@ -19,7 +19,9 @@ export async function generateMetadata({
   const post = await getInsight(slug);
   if (!post) return {};
   return {
-    title: `${post.meta.title} | Engineering Insights`,
+    // The root layout's template appends "| MZA Logics"; a section name on
+    // top pushed these past Google's ~60-character cut-off.
+    title: post.meta.title,
     description: post.meta.description,
     authors: [{ name: post.meta.author }],
     alternates: {
@@ -74,7 +76,7 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
           <Eyebrow>
             {post.meta.category} · {post.meta.date}
           </Eyebrow>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-navy sm:text-5xl">{post.meta.title}</h1>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy sm:text-5xl">{post.meta.title}</h1>
           <p className="mt-3 text-sm text-muted">
             {post.meta.author} · {post.meta.minutes} min read
           </p>

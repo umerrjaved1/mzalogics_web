@@ -13,11 +13,11 @@ export function DealStrip({ className }: { className?: string } = {}) {
   return (
     <section className={cn("py-6 sm:py-8", className)}>
       <Container>
-        <div className="overflow-hidden rounded-[28px] border border-emerald-700/20 bg-navy px-6 py-7 text-white sm:px-10 sm:py-8">
+        <div className="night-panel overflow-hidden rounded-[28px] border border-emerald-700/20 px-6 py-7 text-white shadow-[0_24px_60px_rgba(9,6,26,0.18)] sm:px-10 sm:py-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent-2">{activeDeal.eyebrow}</p>
-              <h2 className="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl">{activeDeal.title}</h2>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">{activeDeal.title}</h2>
               <p className="mt-3 text-sm leading-relaxed text-white/80 sm:text-base">{activeDeal.body}</p>
               <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/90">
                 {activeDeal.extras.map((extra) => (

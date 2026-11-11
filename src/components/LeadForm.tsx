@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
-import { MessageCircle, Send, ShieldCheck, CheckCircle2, Zap } from "lucide-react";
-import { bookingHref } from "@/lib/booking";
+import { MessageCircle, Send, CheckCircle2 } from "lucide-react";
+
 import { checkUpload, UPLOAD_ACCEPT, UPLOAD_HINT } from "@/lib/uploads";
 import { EstimateCapture } from "@/components/conversion/EstimateCapture";
 import { Avatar } from "@/components/ui/Avatar";
@@ -114,14 +114,6 @@ export function LeadForm({
     }
   }, [search]);
 
-  // Sync internal track with selector
-  function handleTrackSelect(t: TrackType) {
-    setSelectedTrack(t);
-    if (trackRef.current) {
-      trackRef.current.value = t;
-    }
-  }
-
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("loading");
@@ -161,14 +153,14 @@ export function LeadForm({
   }
 
   return (
-    <Section id="book" className="relative pt-10 pb-10 sm:pt-12 sm:pb-12">
+    <Section id="book" className="relative pt-14 pb-14 sm:pt-20 sm:pb-20">
       <Container>
-        <div className="overflow-hidden rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_16px_50px_rgba(9,6,26,0.04)] sm:p-10 lg:p-12">
+        <div className="overflow-hidden rounded-[28px] border border-black/8 bg-white p-4 shadow-[0_16px_50px_rgba(9,6,26,0.04)] sm:p-10 lg:p-12">
           <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.15fr]">
             {/* Left Column: Heading & Value Prop */}
             <div>
               <Eyebrow>{eyebrow}</Eyebrow>
-              <h2 className="mt-3 text-2xl font-bold tracking-tight text-navy sm:text-3xl">{title}</h2>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">{title}</h2>
               <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">{intro}</p>
 
               {contactPerson && (
@@ -230,7 +222,7 @@ export function LeadForm({
             </div>
 
             {/* Right Column: Interactive Estimator + Form */}
-            <div className="rounded-[28px] bg-paper p-6 sm:p-8">
+            <div className="rounded-[28px] bg-paper p-4 sm:p-8">
               {selectedEngineer && (
                 <div className="mb-6 rounded-2xl border border-accent-2/40 bg-accent-2/10 p-4 flex items-center justify-between">
                   <div className="flex items-center gap-2 text-xs font-bold text-navy">
@@ -247,7 +239,7 @@ export function LeadForm({
                       setSelectedEngineer("");
                       setSelectedSeniority("");
                     }}
-                    className="text-[11px] font-semibold text-muted hover:text-navy underline"
+                    className="text-xs font-semibold text-muted hover:text-navy underline"
                   >
                     Change
                   </button>
@@ -281,7 +273,6 @@ export function LeadForm({
                       </button>
                     ))}
                   </div>
-
 
                   {(() => {
                     const estimate = estimateForScope(projectType, selectedTrack);

@@ -68,7 +68,7 @@ export function PricingTables({
           </div>
         </div>
 
-        <div className="mt-6 grid items-start gap-5 lg:grid-cols-3">
+        <div className="mt-6 grid items-start gap-5 lg:grid-cols-3 reveal-kids">
           {track.tiers.map((tier) => {
             // Deal price while the offer runs; standard rate once it lapses.
             const deal = effectivePrice(tier.price, tier.compareAt);

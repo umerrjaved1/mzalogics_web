@@ -5,13 +5,8 @@ import {
   ArrowLeft,
   ArrowUpRight,
   CheckCircle2,
-  Sparkles,
   ShieldCheck,
   Star,
-  Zap,
-  Calendar,
-  DollarSign,
-  MessageSquare,
   ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -147,7 +142,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
                   )}
                 </div>
 
-                <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-navy sm:text-5xl">
+                <h1 className="mt-4 text-3xl font-bold tracking-tight text-navy sm:text-5xl">
                   {member.name}
                 </h1>
                 <p className="mt-1 text-lg font-semibold text-accent-cyan/90 bg-navy text-white px-3 py-1 rounded-lg inline-block">
@@ -310,7 +305,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
               their publishers and are not MZA Logics client projects.
             </p>
 
-            <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 reveal-kids">
               {apps.map((app) => (
                 <li key={app.name}>
                   <SpotlightCard className="flex h-full flex-col justify-between p-6">
@@ -345,7 +340,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
             <h2 className="mt-2 text-2xl font-bold tracking-tight text-navy sm:text-3xl">
               Who else you will work with
             </h2>
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 reveal-kids">
               {colleagues.slice(0, 3).map((colleague) => (
                 <TeamCard
                   key={colleague.slug}

@@ -78,7 +78,7 @@ export function WorkCatalog({ items }: { items: WorkCard[] }) {
         role="tabpanel"
         id={`work-panel-${tab}`}
         aria-labelledby={`work-tab-${tab}`}
-        className="mt-6 grid gap-5 md:grid-cols-2"
+        className="mt-6 grid gap-5 md:grid-cols-2 reveal-kids"
       >
         {visible.map((study) => (
           <Link
@@ -95,7 +95,7 @@ export function WorkCatalog({ items }: { items: WorkCard[] }) {
             />
             <div className="p-6">
               <p className="text-sm font-semibold uppercase tracking-wide text-navy">{study.industry}</p>
-              <h2 className="mt-2 text-xl font-semibold text-navy">{study.title}</h2>
+              <h2 className="mt-2 text-xl font-bold text-navy">{study.title}</h2>
               <p className="mt-3 text-base leading-relaxed text-muted">{study.summary}</p>
               <p className="mt-4 text-sm font-semibold text-navy">{study.label}</p>
             </div>

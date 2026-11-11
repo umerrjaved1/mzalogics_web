@@ -2,22 +2,18 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+
 import {
   Check,
   ArrowRight,
   ShieldCheck,
   Clock,
-  Zap,
   Award,
-  Sparkles,
-  Users,
-  ExternalLink,
 } from "lucide-react";
-import { Container, Eyebrow } from "@/components/ui/Container";
+
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Avatar } from "@/components/ui/Avatar";
-import { team, TeamMember } from "@/content/team";
+import { team } from "@/content/team";
 import { promo, isPromoActive, promoNote } from "@/content/promo";
 import { cn } from "@/lib/cn";
 import { site } from "@/lib/site";
@@ -129,7 +125,7 @@ export function TalentRateDeck() {
       {/* Header section with title and billing toggle */}
       <div className="relative z-10 flex flex-col items-start justify-between gap-6 border-b border-white/10 pb-8 lg:flex-row lg:items-end">
         <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-accent-cyan backdrop-blur-md">
+          <div className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-accent-cyan backdrop-blur-md">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-2 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-2" />
@@ -137,7 +133,7 @@ export function TalentRateDeck() {
             <span>People-Powered Delivery • Direct Talent Hire</span>
           </div>
 
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
             Pick &amp; Hire Specialists{" "}
             <span className="bg-gradient-to-r from-accent-2 via-accent-cyan to-white bg-clip-text text-transparent">
               by Seniority
@@ -152,11 +148,11 @@ export function TalentRateDeck() {
         {/* Interactive Billing Toggle */}
         <div className="flex flex-col items-start gap-2 sm:items-end">
           <span className="text-xs font-medium text-white/60">Choose Billing Mode</span>
-          <div className="inline-flex items-center rounded-full border border-white/15 bg-white/5 p-1 backdrop-blur-md">
+          <div className="flex w-full flex-col gap-1 rounded-[20px] border border-white/15 bg-white/5 p-1 backdrop-blur-md sm:w-auto sm:flex-row sm:rounded-full">
             <button
               onClick={() => setBillingPeriod("hourly")}
               className={cn(
-                "rounded-full px-4 py-1.5 text-xs font-semibold transition-all",
+                "rounded-full px-4 py-2 text-xs font-semibold transition-all sm:py-1.5",
                 billingPeriod === "hourly"
                   ? "bg-white text-navy shadow-md"
                   : "text-white/75 hover:text-white"
@@ -167,7 +163,7 @@ export function TalentRateDeck() {
             <button
               onClick={() => setBillingPeriod("monthly")}
               className={cn(
-                "flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold transition-all",
+                "flex items-center justify-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all sm:py-1.5",
                 billingPeriod === "monthly"
                   ? "bg-gradient-to-r from-accent-2 to-accent-cyan text-navy font-bold shadow-md"
                   : "text-white/75 hover:text-white"

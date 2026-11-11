@@ -18,7 +18,7 @@ export function CareersClient() {
       <Section className="dot-grid pb-8 sm:pb-8">
         <Container>
           <Eyebrow>We&apos;re hiring</Eyebrow>
-          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
+          <h1 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight text-navy sm:text-5xl">
             Build software with people who care about craft
           </h1>
           <p className="mt-4 max-w-2xl text-muted">
@@ -28,8 +28,8 @@ export function CareersClient() {
       </Section>
       <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
         <Container>
-          <h2 className="text-2xl font-semibold text-navy">How we work</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <h2 className="text-2xl font-bold text-navy">How we work</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 reveal-kids">
             {[
               { title: "Ship with confidence", body: "Named stages, weekly truth, and a production checklist." },
               { title: "Craft over volume", body: "One system operators can run beats ten demos." },
@@ -42,7 +42,7 @@ export function CareersClient() {
               </article>
             ))}
           </div>
-          <h2 className="mt-14 text-2xl font-semibold text-navy">Open roles</h2>
+          <h2 className="mt-14 text-2xl font-bold text-navy">Open roles</h2>
           <div className="mt-4 flex flex-wrap gap-2">
             {jobTeams.map((item) => (
               <button
@@ -67,7 +67,7 @@ export function CareersClient() {
                       {job.team} · {job.type} · {job.location} · {job.experience}
                     </p>
                   </div>
-                  <a href="#apply" className="text-sm font-medium text-accent">
+                  <a href="#apply" className="inline-flex min-h-11 items-center text-sm font-medium text-accent">
                     Apply
                   </a>
                 </div>

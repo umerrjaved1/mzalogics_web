@@ -26,7 +26,7 @@ export default function ContactPage() {
       <Section className="dot-grid pb-0 sm:pb-0">
         <Container>
           <Eyebrow>Contact</Eyebrow>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-navy sm:text-5xl">
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy sm:text-5xl">
             Book a discovery call
           </h1>
           <p className="mt-4 max-w-xl text-muted">

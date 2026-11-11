@@ -2,13 +2,13 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2, ShieldCheck, UserCheck, Users, Sparkles, Zap } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { Button, ArrowDisc } from "@/components/ui/Button";
 import { TeamCard } from "@/components/TeamGrid";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
-import { team, teamPortfolio, seniorityLevels } from "@/content/team";
-import type { SeniorityLevel } from "@/content/team";
+import { team, teamPortfolio } from "@/content/team";
+
 import { site } from "@/lib/site";
 
 export function TeamSection() {
@@ -28,7 +28,7 @@ export function TeamSection() {
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
           <div className="max-w-2xl">
             <Eyebrow>People-Powered Delivery</Eyebrow>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-5xl">
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-5xl">
               Meet Your Dedicated Engineering Pod
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">

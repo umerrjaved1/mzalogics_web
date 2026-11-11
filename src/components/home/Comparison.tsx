@@ -10,9 +10,6 @@ import {
   CheckCircle2,
   XCircle,
   ArrowRight,
-  Layers,
-  HeartHandshake,
-  Zap,
 } from "lucide-react";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
@@ -102,7 +99,7 @@ export function Comparison() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto">
           <Eyebrow>Why MZA Logics</Eyebrow>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-5xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-5xl">
             Software Built Around You — <br />
             <span className="bg-gradient-to-r from-navy via-navy-light to-accent-cyan bg-clip-text text-transparent">
               Not the Other Way Around.

@@ -19,12 +19,12 @@ export function TeamStrip() {
   const photos = teamPhotos(people.map((member) => member.slug));
 
   return (
-    <Section id="people" className="section-tint pt-12 pb-12 sm:pt-16 sm:pb-16">
+    <Section id="people" className="section-tint pt-16 pb-16 sm:pt-24 sm:pb-24">
       <Container>
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <Reveal className="max-w-2xl">
             <Eyebrow>The people</Eyebrow>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight text-navy sm:text-3xl">
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">
               The people you will actually work with
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">

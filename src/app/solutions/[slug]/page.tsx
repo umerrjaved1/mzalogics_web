@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Button } from "@/components/ui/Button";
+import { ArrowDisc, Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
@@ -17,6 +17,9 @@ import { ServiceScene } from "@/components/ui/DeviceMockup";
 import { TrustPoints } from "@/components/conversion/TrustPoints";
 import { caseStudies, type CaseStudy } from "@/content/case-studies";
 import { resolveLocal } from "@/lib/media";
+import { ArrowUpRight, Check } from "lucide-react";
+import { PracticeShowcase } from "@/components/solutions/PracticeShowcase";
+import { CaseStudyCover } from "@/components/ui/CaseStudyCover";
 
 /** Which published work best proves each practice. Numbers come from the
  *  case-studies content itself, so the claim never drifts from the data. */
@@ -26,6 +29,62 @@ const proofFilter: Record<string, (study: CaseStudy) => boolean> = {
   "web-platforms": (study) => Boolean(study.siteUrl) || study.stack.includes("WordPress"),
   cms: (study) => study.stack.includes("WordPress"),
   "mvp-prototyping": (study) => Boolean(study.storeUrl),
+};
+
+/** The strongest projects for each practice, in the order they should show.
+ *  Hand-picked rather than "first N matches", which surfaced minor utilities.
+ *  Maintenance & DevOps has none on purpose: no case study documents ops work. */
+const topProjects: Record<string, string[]> = {
+  "app-development": [
+    "flight-tracker",
+    "picsgen-ai-art-photo-editor",
+    "live-earth-map",
+    "translate-all",
+    "screen-mirroring-tv",
+    "wallbox-live-wallpapers",
+  ],
+  "ai-development": [
+    "picsgen-ai-art-photo-editor",
+    "pixnova-ai-photo-editor",
+    "ai-voice-changer",
+    "beauty-cam-ai-generation",
+    "aspireai-art-video-generator",
+    "inro",
+  ],
+  "web-platforms": [
+    "real-chemistry",
+    "logisnext-americas",
+    "laugh-factory",
+    "grace-bay-resorts",
+    "sellio",
+    "voice-actor-studio",
+  ],
+  "product-design": [
+    "grace-bay-resorts",
+    "laugh-factory",
+    "picsgen-ai-art-photo-editor",
+    "afzalmart",
+    "wallbox-live-wallpapers",
+    "glore-sense",
+  ],
+  "mvp-prototyping": ["sellio", "inro", "digsup", "voice-actor-studio", "flight-tracker", "translate-all"],
+  cms: [
+    "ecommerce-data-aggregator",
+    "caredox",
+    "ic-legal",
+    "educon-international",
+    "marqon",
+    "dynamic-growth",
+  ],
+};
+
+const topHeadings: Record<string, string> = {
+  "app-development": "Top apps we have shipped",
+  "ai-development": "Top AI products we have shipped",
+  "web-platforms": "Top web platforms we have built",
+  "product-design": "Top products we have designed and built",
+  "mvp-prototyping": "Products we took from idea to launch",
+  cms: "Top CMS sites we have built",
 };
 
 export function generateStaticParams() {
@@ -63,8 +122,18 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   const filter = proofFilter[service.slug];
   const matches = filter ? caseStudies.filter(filter) : [];
-  const proof = matches.slice(0, 3);
+  const picked = (topProjects[service.slug] ?? [])
+    .map((projectSlug) => caseStudies.find((study) => study.slug === projectSlug))
+    .filter((study): study is CaseStudy => Boolean(study));
+  const proof = picked.length > 0 ? picked : matches.slice(0, 6);
   const proofTotal = matches.length;
+  const showcase = proof.flatMap((study) => {
+    const src = resolveLocal(`/media/work/${study.slug}.jpg`);
+    if (!src) return [];
+    return [{ href: `/work/${study.slug}`, src, title: study.title, alt: `${study.title} — ${study.summary}` }];
+  }).slice(0, 3);
+  const cover = serviceCovers[service.slug] ?? serviceCovers["web-platforms"];
+  const coverSrc = resolveLocal(cover.local);
 
   return (
     <>
@@ -83,30 +152,40 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <Eyebrow>
                 {service.number} · Solutions
               </Eyebrow>
-              <h1 className="mt-3 text-4xl font-semibold tracking-tight text-navy sm:text-5xl">{service.title}</h1>
-              <p className="mt-4 text-lg leading-relaxed text-muted">{service.description}</p>
-              <div className="mt-8 flex flex-wrap gap-2">
+              <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy sm:text-5xl">{service.title}</h1>
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-muted sm:text-lg">{service.description}</p>
+              <div className="mt-6 flex flex-wrap gap-2">
                 {service.tags.map((tag) => (
-                  <span key={tag} className="rounded-full border border-line px-3 py-1 text-sm text-muted">
+                  <span key={tag} className="rounded-full border border-black/10 bg-white px-3 py-1 text-sm font-semibold text-navy">
                     {tag}
                   </span>
                 ))}
               </div>
-              <ul className="mt-8 space-y-2 text-base text-navy">
+              <ul className="mt-6 space-y-2.5 text-base text-navy">
                 {service.outcomes.map((outcome) => (
-                  <li key={outcome}>• {outcome}</li>
+                  <li key={outcome} className="flex gap-2.5">
+                    <Check size={16} strokeWidth={3} aria-hidden className="mt-1 shrink-0 text-emerald-700" />
+                    <span>{outcome}</span>
+                  </li>
                 ))}
               </ul>
               <Button href="/contact" className="mt-8">
                 Get a written scope
+                <ArrowDisc />
               </Button>
-              <TrustPoints className="mt-6 justify-start" />
+              <TrustPoints layout="grid" className="mt-6" />
             </div>
+            {showcase.length > 0 ? (
+              <PracticeShowcase
+                shots={showcase}
+                label={service.slug === "app-development" && proofTotal > 0 ? `${proofTotal} on Google Play` : "Published work"}
+              />
+            ) : (
             <div className="overflow-hidden rounded-[28px] border border-black/8 bg-paper shadow-lg">
-              {resolveLocal((serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local) ? (
+              {coverSrc ? (
                 <MediaImg
-                  local={resolveLocal((serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local) ?? (serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local}
-                  fallback={resolveLocal((serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local) ?? (serviceCovers[service.slug] ?? serviceCovers["web-platforms"]).local}
+                  local={coverSrc}
+                  fallback={coverSrc}
                   alt=""
                   fit="contain"
                   className="h-64 w-full sm:h-[360px]"
@@ -117,33 +196,55 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 </div>
               )}
             </div>
+            )}
           </div>
         </Container>
       </Section>
       {proof.length > 0 ? (
-        <Section className="pt-0 sm:pt-0 pb-8 sm:pb-10">
+        <Section className="pt-4 pb-12 sm:pt-6 sm:pb-16">
           <Container>
-            <h2 className="text-2xl font-bold tracking-tight text-navy sm:text-3xl">
-              Proof from published work
-            </h2>
-            <p className="mt-3 max-w-2xl text-base text-muted">
-              {service.slug === "app-development"
-                ? `${proofTotal} of our apps are live on Google Play. A few of them:`
-                : "Live projects you can open right now:"}
-            </p>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+              <div>
+                <Eyebrow>Top projects</Eyebrow>
+                <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">
+                  {topHeadings[service.slug] ?? "Projects we have shipped"}
+                </h2>
+                <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+                  {service.slug === "app-development"
+                    ? `${proofTotal} of our apps are live on Google Play. These are the ones to open first.`
+                    : "Real, published projects. Open one for the details."}
+                </p>
+              </div>
+              <Link
+                href="/work"
+                className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-5 py-2.5 text-base font-semibold text-navy shadow-sm"
+              >
+                All work
+                <ArrowUpRight size={16} aria-hidden />
+              </Link>
+            </div>
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 reveal-kids">
               {proof.map((study) => (
                 <Link
                   key={study.slug}
                   href={`/work/${study.slug}`}
-                  className="rounded-[28px] border border-black/8 bg-white p-5 shadow-sm transition hover:border-navy/30 hover:shadow-md"
+                  className="group flex h-full flex-col overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-navy/30 hover:shadow-[0_18px_40px_rgba(9,6,26,0.10)]"
                 >
-                  <p className="text-xs font-bold uppercase tracking-wider text-muted">{study.industry}</p>
-                  <h3 className="mt-1.5 font-bold text-navy">{study.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{study.summary}</p>
-                  <p className="mt-3 text-sm font-semibold text-navy">
-                    {study.storeUrl ? "On Google Play" : study.siteUrl ? "Live site" : "Case study"} →
-                  </p>
+                  <CaseStudyCover
+                    industry={study.industry}
+                    title={study.title}
+                    local={resolveLocal(`/media/work/${study.slug}.jpg`)}
+                    compact
+                    className="aspect-video w-full"
+                  />
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="text-lg font-bold text-navy">{study.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">{study.summary}</p>
+                    <p className="mt-auto pt-4 text-sm font-semibold text-navy">
+                      {study.storeUrl ? "On Google Play" : study.siteUrl ? "Live site" : "Case study"}{" "}
+                      <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+                    </p>
+                  </div>
                 </Link>
               ))}
             </div>

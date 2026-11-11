@@ -20,11 +20,11 @@ export function Testimonials({
   const anyAttributed = testimonials.some((item) => item.attributed);
 
   return (
-    <Section id="testimonials" className="pt-10 pb-10 sm:pt-12 sm:pb-12">
+    <Section id="testimonials" className="pt-14 pb-14 sm:pt-20 sm:pb-20">
       <Container>
         <Reveal className="max-w-2xl">
           <Eyebrow>Client stories</Eyebrow>
-          <h2 className="mt-3 text-2xl font-bold tracking-tight text-navy sm:text-3xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">
             People who shipped with us
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
@@ -42,9 +42,17 @@ export function Testimonials({
               className="h-full"
             >
               <SpotlightCard className="flex h-full flex-col justify-between p-7 sm:p-8">
-                <blockquote className="text-base leading-relaxed text-navy">
-                  &ldquo;{item.quote}&rdquo;
-                </blockquote>
+                <div>
+                  <span
+                    aria-hidden
+                    className="block h-8 select-none text-6xl font-bold leading-none text-emerald-600/70"
+                  >
+                    &ldquo;
+                  </span>
+                  <blockquote className="mt-3 text-base leading-relaxed text-navy">
+                    {item.quote}
+                  </blockquote>
+                </div>
                 <Attribution
                   item={item}
                   photo={item.attributed ? photos?.[item.attributed.slug] : undefined}

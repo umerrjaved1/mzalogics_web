@@ -70,7 +70,7 @@ export function EstimateCapture({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-navy underline underline-offset-4 hover:text-navy-2"
+        className="mt-2 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-navy underline underline-offset-4 hover:text-navy-2"
       >
         <Mail size={15} aria-hidden />
         Email me this estimate

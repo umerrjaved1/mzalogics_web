@@ -27,7 +27,8 @@ test("organization schema does not claim fake reviews", () => {
 test("published team size is not the old 25+ claim", () => {
   const src = readFileSync(join(root, "src/lib/site.ts"), "utf8");
   assert.equal(src.includes('teamSize: "25+"'), false);
-  assert.match(src, /teamSize: "16"/);
+  // Counted from the roster now, so the claim cannot drift from the profiles.
+  assert.match(src, /teamSize: String\(team\.length\)/);
 });
 
 /* ------------------------------------------------------------------ */

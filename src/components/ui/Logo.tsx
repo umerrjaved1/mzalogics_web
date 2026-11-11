@@ -46,7 +46,7 @@ export function Logo({
       {!compact && (
         <span className="flex flex-col leading-none">
           <span className="text-[19px] font-extrabold tracking-[-0.03em]">MZA</span>
-          <span className="mt-[3px] text-[9px] font-semibold uppercase tracking-[0.34em] opacity-60">
+          <span className="mt-[3px] text-[10px] font-semibold uppercase tracking-[0.3em] opacity-60">
             Logics
           </span>
         </span>

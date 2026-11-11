@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ShieldCheck, Zap, Sparkles, ArrowUpRight, CheckCircle2 } from "lucide-react";
+
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
@@ -44,7 +44,7 @@ export default function TeamPage() {
       <Section className="pb-8 sm:pb-10">
         <Container>
           <Eyebrow>The team</Eyebrow>
-          <h1 className="mt-3 max-w-4xl text-4xl font-extrabold tracking-tight text-navy sm:text-6xl">
+          <h1 className="mt-3 max-w-4xl text-4xl font-bold tracking-tight text-navy sm:text-6xl">
             A small senior team. <br />
             <span className="bg-gradient-to-r from-navy via-navy-light to-accent-cyan bg-clip-text text-transparent">
               You work with us directly.
@@ -96,7 +96,7 @@ export default function TeamPage() {
             </span>
           </div>
 
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 reveal-kids">
             {portfolio.map((project) => (
               <SpotlightCard
                 key={`${project.member.slug}-${project.title}`}
