@@ -10,8 +10,9 @@ import { JsonLd } from "@/components/JsonLd";
 import { localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import { testimonials } from "@/content/testimonials";
 import { TeamStrip } from "@/components/home/TeamStrip";
+import { FounderNote } from "@/components/home/FounderNote";
 import { team } from "@/content/team";
-import { teamPhotos, testimonialPhotos } from "@/lib/media";
+import { testimonialPhotos } from "@/lib/media";
 import { site } from "@/lib/site";
 
 /** The person a homepage enquiry actually lands with. */
@@ -63,6 +64,9 @@ export default function Home() {
         )}
       />
       <DealStrip />
+      {/* Who the enquiry lands with, then the form. They used to share one
+          section, which shrank the founder to a thumbnail beside the form. */}
+      <FounderNote founder={founder} />
       {/* The form is the only close. CtaBand used to follow it asking the same
           thing in different words, so the page ended three times. */}
       <LeadForm
@@ -70,13 +74,6 @@ export default function Home() {
         title="Get a written scope"
         intro={`Tell us what you want to build. WhatsApp ${site.phoneDisplay} if it is quicker — we reply within one business day.`}
         submitLabel="Send enquiry"
-        contactPerson={{
-          name: founder.name,
-          role: founder.role,
-          initials: founder.initials,
-          tone: founder.tone,
-          photo: teamPhotos([founder.slug])[founder.slug],
-        }}
       />
     </>
   );

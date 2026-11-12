@@ -7,7 +7,6 @@ import { MessageCircle, Send, CheckCircle2 } from "lucide-react";
 
 import { checkUpload, UPLOAD_ACCEPT, UPLOAD_HINT } from "@/lib/uploads";
 import { EstimateCapture } from "@/components/conversion/EstimateCapture";
-import { Avatar } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import type { FormKind } from "@/lib/forms";
@@ -27,7 +26,6 @@ export function LeadForm({
   submitLabel = "Send Enquiry",
   eyebrow = "Book a call",
   extraFields,
-  contactPerson,
 }: {
   kind: FormKind;
   title: string;
@@ -35,15 +33,6 @@ export function LeadForm({
   submitLabel?: string;
   eyebrow?: string;
   extraFields?: "talent" | "rescue" | "career";
-  /** A real person beside the form, so the enquiry goes to someone, not a box. */
-  contactPerson?: {
-    name: string;
-    role: string;
-    initials: string;
-    tone: string;
-    /** Resolved on the server; initials show when there is no portrait yet. */
-    photo?: string;
-  };
 }) {
   const router = useRouter();
   const formId = useId();
@@ -155,33 +144,15 @@ export function LeadForm({
   return (
     <Section id="book" className="relative pt-14 pb-14 sm:pt-20 sm:pb-20">
       <Container>
-        <div className="overflow-hidden rounded-[28px] border border-black/8 bg-white p-4 shadow-[0_16px_50px_rgba(9,6,26,0.04)] sm:p-10 lg:p-12">
+        <div className="overflow-clip rounded-[28px] border border-black/8 bg-white p-4 shadow-[0_16px_50px_rgba(9,6,26,0.04)] sm:p-10 lg:p-12">
           <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.15fr]">
             {/* Left Column: Heading & Value Prop */}
-            <div>
+            {/* Sticky on desktop, so the WhatsApp option and the promises stay beside
+                the form while someone works down its three steps. */}
+            <div className="lg:sticky lg:top-28">
               <Eyebrow>{eyebrow}</Eyebrow>
               <h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-4xl">{title}</h2>
               <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">{intro}</p>
-
-              {contactPerson && (
-                <figure className="mt-8 flex items-center gap-4 rounded-2xl border border-black/8 bg-paper p-4">
-                  <Avatar
-                    initials={contactPerson.initials}
-                    tone={contactPerson.tone}
-                    local={contactPerson.photo}
-                    alt={contactPerson.name}
-                    size="lg"
-                    showStatus
-                  />
-                  <figcaption>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-muted">
-                      You will hear back from
-                    </div>
-                    <div className="mt-1 text-base font-bold text-navy">{contactPerson.name}</div>
-                    <div className="text-sm text-muted">{contactPerson.role}</div>
-                  </figcaption>
-                </figure>
-              )}
 
               {/* Direct WhatsApp Quick-Connect Box */}
               <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50/50 p-5">
@@ -221,12 +192,13 @@ export function LeadForm({
               </div>
             </div>
 
-            {/* Right Column: Interactive Estimator + Form */}
+            {/* Right Column: one form in three short, numbered steps, so a
+                long enquiry reads as a sequence instead of a wall of boxes. */}
             <div className="rounded-[28px] bg-paper p-4 sm:p-8">
               {selectedEngineer && (
-                <div className="mb-6 rounded-2xl border border-accent-2/40 bg-accent-2/10 p-4 flex items-center justify-between">
+                <div className="mb-6 flex items-center justify-between gap-3 rounded-2xl border border-accent-2/40 bg-accent-2/10 p-4">
                   <div className="flex items-center gap-2 text-xs font-bold text-navy">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
                     <span>
                       Selected Pod Specialist:{" "}
                       <span className="capitalize underline">{selectedEngineer.replace(/-/g, " ")}</span>{" "}
@@ -239,37 +211,30 @@ export function LeadForm({
                       setSelectedEngineer("");
                       setSelectedSeniority("");
                     }}
-                    className="text-xs font-semibold text-muted hover:text-navy underline"
+                    className="text-xs font-semibold text-muted underline hover:text-navy"
                   >
                     Change
                   </button>
                 </div>
               )}
+
               {kind === "contact" && (
                 <div className="mb-8 border-b border-black/8 pb-8">
-                  <span className="text-xs font-bold uppercase tracking-wider text-navy">
-                    What are you building?
-                  </span>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {[
-                      { id: "mobile" as ProjectType, label: "Mobile App" },
-                      { id: "web" as ProjectType, label: "Web / SaaS" },
-                      { id: "ai" as ProjectType, label: "AI Integration" },
-                      { id: "mvp" as ProjectType, label: "MVP" },
-                      { id: "pod" as ProjectType, label: "Dedicated Pod" },
-                    ].map((btn) => (
+                  <StepTitle number={1} title="What are you building?" hint="Pick the closest — you can explain below." />
+                  <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Project type">
+                    {PROJECT_TYPES.map((option) => (
                       <button
-                        key={btn.id}
+                        key={option.id}
                         type="button"
-                        aria-pressed={projectType === btn.id}
-                        onClick={() => setProjectType(btn.id)}
-                        className={`rounded-xl px-3.5 py-2 text-sm font-semibold transition ${
-                          projectType === btn.id
+                        aria-pressed={projectType === option.id}
+                        onClick={() => setProjectType(option.id)}
+                        className={`min-h-11 rounded-xl px-4 py-2 text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy ${
+                          projectType === option.id
                             ? "bg-navy text-white shadow-sm"
-                            : "border border-black/8 bg-white text-navy hover:bg-black/5"
+                            : "border border-black/10 bg-white text-navy hover:border-navy/30"
                         }`}
                       >
-                        {btn.label}
+                        {option.label}
                       </button>
                     ))}
                   </div>
@@ -278,13 +243,19 @@ export function LeadForm({
                     const estimate = estimateForScope(projectType, selectedTrack);
                     return (
                       <>
-                        <p className="mt-5 rounded-2xl border border-navy/10 bg-white px-4 py-3 text-sm text-navy">
-                          {estimate.compareAt ? (
-                            <span className="mr-2 text-muted line-through">{estimate.compareAt}</span>
-                          ) : null}
-                          <span className="font-bold">{estimate.price}</span>
-                          <span className="text-muted"> · {estimate.timeline} · {estimate.note}</span>
-                        </p>
+                        <div className="mt-5 rounded-2xl border border-navy/10 bg-white px-4 py-3.5">
+                          <div className="text-xs font-semibold uppercase tracking-wider text-muted">
+                            Typical starting point
+                          </div>
+                          <div className="mt-1 flex flex-wrap items-baseline gap-x-2 text-navy">
+                            {estimate.compareAt ? (
+                              <span className="text-sm text-muted line-through">{estimate.compareAt}</span>
+                            ) : null}
+                            <span className="text-xl font-bold">{estimate.price}</span>
+                            <span className="text-sm text-muted">· {estimate.timeline}</span>
+                          </div>
+                          <p className="mt-1 text-xs leading-relaxed text-muted">{estimate.note}</p>
+                        </div>
                         <EstimateCapture
                           estimate={`${estimate.price} · ${estimate.timeline}`}
                           projectType={projectType}
@@ -296,7 +267,6 @@ export function LeadForm({
                 </div>
               )}
 
-              {/* Main Contact Form */}
               <form onSubmit={onSubmit} className="relative">
                 <input
                   type="text"
@@ -309,194 +279,189 @@ export function LeadForm({
                 <input type="hidden" name="plan" ref={planRef} />
                 <input type="hidden" name="deal" ref={dealRef} />
                 <input type="hidden" name="projectType" value={projectType} />
+                <div className="hidden">
+                  <select name="track" ref={trackRef} defaultValue={selectedTrack} tabIndex={-1} aria-hidden>
+                    <option value="undecided">undecided</option>
+                    <option value="ai">ai</option>
+                    <option value="manual">manual</option>
+                  </select>
+                </div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="text-sm font-semibold text-navy">
-                    Full Name *
-                    <input
-                      name="name"
-                      required
-                      placeholder="e.g. Alex Mercer"
-                      className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
-                    />
+                <StepTitle number={kind === "contact" ? 2 : 1} title="How do we reach you?" />
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <label className={labelClass}>
+                    Your name
+                    <input name="name" required autoComplete="name" placeholder="e.g. Alex Mercer" className={fieldClass} />
                   </label>
 
-                  <label className="text-sm font-semibold text-navy">
-                    Work Email *
+                  <label className={labelClass}>
+                    Email
                     <input
                       name="email"
                       type="email"
                       required
+                      autoComplete="email"
+                      inputMode="email"
                       placeholder="alex@company.com"
-                      className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                      className={fieldClass}
                     />
                   </label>
 
-                  <label className="text-sm font-semibold text-navy">
-                    Phone
+                  <label className={labelClass}>
+                    <span>
+                      Phone or WhatsApp <Optional />
+                    </span>
                     <input
                       name="phone"
                       type="tel"
+                      autoComplete="tel"
+                      inputMode="tel"
                       placeholder="+92 300 0000000"
-                      className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                      className={fieldClass}
                     />
                   </label>
 
-                  <label className="text-sm font-semibold text-navy">
-                    Company / Organization
-                    <input
-                      name="company"
-                      placeholder="e.g. your company"
-                      className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
-                    />
-                  </label>
-
-                  {kind === "contact" || kind === "talent" ? (
-                    <>
-                      <label className="text-sm font-semibold text-navy">
-                        Indicative budget
-                        <select
-                          name="budget"
-                          defaultValue=""
-                          className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
-                        >
-                          <option value="">Not sure yet</option>
-                          <option value="under-5k">Under $5,000</option>
-                          <option value="5k-15k">$5,000 – $15,000</option>
-                          <option value="15k-40k">$15,000 – $40,000</option>
-                          <option value="40k-plus">$40,000+</option>
-                          <option value="retainer">Monthly retainer</option>
-                        </select>
-                      </label>
-
-                      <label className="text-sm font-semibold text-navy">
-                        Target timeline
-                        <select
-                          name="timeline"
-                          defaultValue=""
-                          className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
-                        >
-                          <option value="">Flexible</option>
-                          <option value="asap">As soon as possible</option>
-                          <option value="1-3-months">In 1–3 months</option>
-                          <option value="3-6-months">In 3–6 months</option>
-                          <option value="exploring">Just exploring</option>
-                        </select>
-                      </label>
-                    </>
-                  ) : null}
-
-                  {/* Hidden or visible track select for form submission */}
-                  <div className="hidden">
-                    <select name="track" ref={trackRef} defaultValue={selectedTrack}>
-                      <option value="undecided">undecided</option>
-                      <option value="ai">ai</option>
-                      <option value="manual">manual</option>
-                    </select>
-                  </div>
-
-                  {extraFields === "talent" ? (
-                    <label className="text-xs font-semibold text-navy sm:col-span-2">
-                      Stack / Roles Needed
-                      <input
-                        name="stack"
-                        placeholder="e.g. 2× Next.js, 1× Flutter, 1× Python AI"
-                        className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
-                      />
-                    </label>
-                  ) : null}
-
-                  {extraFields === "rescue" ? (
-                    <>
-                      <label className="text-xs font-semibold text-navy">
-                        Current Tech Stack
-                        <input
-                          name="stack"
-                          placeholder="e.g. React Native + Node"
-                          className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
-                        />
-                      </label>
-                      <label className="text-xs font-semibold text-navy">
-                        Service Needed
-                        <select
-                          name="role"
-                          className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
-                        >
-                          <option>Codebase Audit &amp; Health Report</option>
-                          <option>Urgent Bug Fixes &amp; Stability</option>
-                          <option>Complete Legacy Modernization</option>
-                        </select>
-                      </label>
-                    </>
-                  ) : null}
-
-                  {extraFields === "career" ? (
-                    <label className="text-xs font-semibold text-navy sm:col-span-2">
-                      Position Applying For
-                      <input
-                        name="role"
-                        placeholder="e.g. Senior Flutter Engineer"
-                        className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
-                      />
-                    </label>
-                  ) : null}
-
-                  <div className="sm:col-span-2">
-                    <label htmlFor={`${formId}-attachment`} className="text-sm font-semibold text-navy">
-                      Attach a brief or RFP{" "}
-                      <span className="font-normal text-muted">(optional)</span>
-                    </label>
-                    <input
-                      id={`${formId}-attachment`}
-                      ref={fileRef}
-                      type="file"
-                      name="attachment"
-                      accept={UPLOAD_ACCEPT}
-                      onChange={onFileChange}
-                      aria-describedby={`${formId}-attachment-hint`}
-                      className="mt-1.5 w-full cursor-pointer rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none file:mr-3 file:rounded-lg file:border-0 file:bg-navy file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-white hover:file:bg-navy-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
-                    />
-                    <p
-                      id={`${formId}-attachment-hint`}
-                      className={`mt-1.5 text-xs ${fileError ? "font-semibold text-red-700" : "text-muted"}`}
-                    >
-                      {fileError ?? UPLOAD_HINT}
-                    </p>
-                  </div>
-
-                  <label className="text-sm font-semibold text-navy sm:col-span-2">
-                    {extraFields === "rescue" ? "What issues is the project facing?" : "Project Overview & Goals *"}
-                    <textarea
-                      name="message"
-                      required
-                      minLength={8}
-                      rows={4}
-                      placeholder="Briefly describe your vision, timeline, or current technical bottlenecks..."
-                      className="mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-navy outline-none focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
-                    />
+                  <label className={labelClass}>
+                    <span>
+                      Company <Optional />
+                    </span>
+                    <input name="company" autoComplete="organization" placeholder="Your company" className={fieldClass} />
                   </label>
                 </div>
 
-                <div className="mt-6 flex flex-wrap items-center gap-4">
+                <div className="mt-8 border-t border-black/8 pt-8">
+                  <StepTitle
+                    number={kind === "contact" ? 3 : 2}
+                    title={extraFields === "career" ? "About you" : "About the project"}
+                  />
+                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                    {extraFields === "talent" ? (
+                      <label className={`${labelClass} sm:col-span-2`}>
+                        Stack / roles needed
+                        <input name="stack" placeholder="e.g. 2× Next.js, 1× Flutter, 1× Python AI" className={fieldClass} />
+                      </label>
+                    ) : null}
+
+                    {extraFields === "rescue" ? (
+                      <>
+                        <label className={labelClass}>
+                          Current tech stack
+                          <input name="stack" placeholder="e.g. React Native + Node" className={fieldClass} />
+                        </label>
+                        <label className={labelClass}>
+                          Service needed
+                          <select name="role" className={fieldClass}>
+                            <option>Codebase Audit &amp; Health Report</option>
+                            <option>Urgent Bug Fixes &amp; Stability</option>
+                            <option>Complete Legacy Modernization</option>
+                          </select>
+                        </label>
+                      </>
+                    ) : null}
+
+                    {extraFields === "career" ? (
+                      <label className={`${labelClass} sm:col-span-2`}>
+                        Position applying for
+                        <input name="role" placeholder="e.g. Senior Flutter Engineer" className={fieldClass} />
+                      </label>
+                    ) : null}
+
+                    {kind === "contact" || kind === "talent" ? (
+                      <>
+                        <label className={labelClass}>
+                          Budget
+                          <select name="budget" defaultValue="" className={fieldClass}>
+                            <option value="">Not sure yet</option>
+                            <option value="under-5k">Under $5,000</option>
+                            <option value="5k-15k">$5,000 – $15,000</option>
+                            <option value="15k-40k">$15,000 – $40,000</option>
+                            <option value="40k-plus">$40,000+</option>
+                            <option value="retainer">Monthly retainer</option>
+                          </select>
+                        </label>
+
+                        <label className={labelClass}>
+                          Timeline
+                          <select name="timeline" defaultValue="" className={fieldClass}>
+                            <option value="">Flexible</option>
+                            <option value="asap">As soon as possible</option>
+                            <option value="1-3-months">In 1–3 months</option>
+                            <option value="3-6-months">In 3–6 months</option>
+                            <option value="exploring">Just exploring</option>
+                          </select>
+                        </label>
+                      </>
+                    ) : null}
+
+                    <label className={`${labelClass} sm:col-span-2`}>
+                      {extraFields === "rescue"
+                        ? "What is going wrong?"
+                        : extraFields === "career"
+                          ? "A few lines about you"
+                          : "Tell us about it"}
+                      <textarea
+                        name="message"
+                        required
+                        minLength={8}
+                        rows={5}
+                        placeholder={
+                          extraFields === "rescue"
+                            ? "What is breaking, since when, and what you have tried."
+                            : extraFields === "career"
+                              ? "What you have built and what you want to work on next."
+                              : "What it should do, who it is for, and any deadline. A few lines is plenty."
+                        }
+                        className={`${fieldClass} resize-y`}
+                      />
+                    </label>
+
+                    <div className="sm:col-span-2">
+                      <label htmlFor={`${formId}-attachment`} className={labelClass}>
+                        {extraFields === "career" ? "CV or portfolio" : "Attach a brief or RFP"} <Optional />
+                      </label>
+                      <input
+                        id={`${formId}-attachment`}
+                        ref={fileRef}
+                        type="file"
+                        name="attachment"
+                        accept={UPLOAD_ACCEPT}
+                        onChange={onFileChange}
+                        aria-describedby={`${formId}-attachment-hint`}
+                        className="mt-1.5 w-full cursor-pointer rounded-xl border border-dashed border-navy/20 bg-white px-3.5 py-3 text-sm text-muted outline-none transition file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-navy/5 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-navy hover:border-navy/40 hover:file:bg-navy/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
+                      />
+                      <p
+                        id={`${formId}-attachment-hint`}
+                        className={`mt-1.5 text-xs ${fileError ? "font-semibold text-red-700" : "text-muted"}`}
+                      >
+                        {fileError ?? UPLOAD_HINT}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
                   <Button
                     type="submit"
                     disabled={status === "loading"}
-                    className="h-12 px-7 text-sm font-bold shadow-lg shadow-navy/15"
+                    className="h-12 w-full shrink-0 whitespace-nowrap px-7 text-[15px] font-semibold shadow-lg shadow-navy/15 sm:w-auto"
                   >
-                    {status === "loading" ? "Submitting…" : submitLabel}
+                    {status === "loading" ? "Sending…" : submitLabel}
                     <Send size={15} />
                   </Button>
+                  <p className="text-sm text-muted">A real person replies within one business day.</p>
+                </div>
 
-                  <div role="status" aria-live="polite" className="min-w-0">
-                    {status === "ok" ? (
-                      <p className="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
-                        <CheckCircle2 size={15} /> Received! We will review and reply within 24 hours.
-                      </p>
-                    ) : null}
-                    {status === "error" ? (
-                      <p className="text-xs font-bold text-red-700">{error}</p>
-                    ) : null}
-                  </div>
+                <div role="status" aria-live="polite" className="min-w-0">
+                  {status === "ok" ? (
+                    <p className="mt-4 flex items-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3.5 py-2.5 text-sm font-semibold text-emerald-800">
+                      <CheckCircle2 size={16} /> Received. We will reply within one business day.
+                    </p>
+                  ) : null}
+                  {status === "error" ? (
+                    <p className="mt-4 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm font-semibold text-red-700">
+                      {error}
+                    </p>
+                  ) : null}
                 </div>
               </form>
             </div>
@@ -505,4 +470,39 @@ export function LeadForm({
       </Container>
     </Section>
   );
+}
+
+const PROJECT_TYPES: { id: ProjectType; label: string }[] = [
+  { id: "mobile", label: "Mobile app" },
+  { id: "web", label: "Web / SaaS" },
+  { id: "ai", label: "AI feature" },
+  { id: "mvp", label: "MVP" },
+  { id: "pod", label: "Dedicated team" },
+];
+
+const labelClass = "block text-sm font-semibold text-navy";
+
+/** 16px on phones so iOS Safari does not zoom the page when a field gets focus. */
+const fieldClass =
+  "mt-1.5 w-full rounded-xl border border-line bg-white px-3.5 py-3 text-base text-navy outline-none transition placeholder:text-navy/35 hover:border-navy/30 focus:border-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy sm:text-sm";
+
+function StepTitle({ number, title, hint }: { number: number; title: string; hint?: string }) {
+  return (
+    <div className="flex items-start gap-3">
+      <span
+        aria-hidden
+        className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy text-xs font-bold text-white"
+      >
+        {number}
+      </span>
+      <div>
+        <h3 className="text-base font-bold text-navy">{title}</h3>
+        {hint ? <p className="mt-0.5 text-sm text-muted">{hint}</p> : null}
+      </div>
+    </div>
+  );
+}
+
+function Optional() {
+  return <span className="font-normal text-muted">(optional)</span>;
 }
