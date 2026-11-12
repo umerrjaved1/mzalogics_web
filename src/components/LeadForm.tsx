@@ -10,7 +10,7 @@ import { EstimateCapture } from "@/components/conversion/EstimateCapture";
 import { Button } from "@/components/ui/Button";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import type { FormKind } from "@/lib/forms";
-import { estimateForScope, type LeadScope } from "@/content/pricing";
+import { estimateForScope, starterSprint, type LeadScope } from "@/content/pricing";
 import { site, whatsappHref } from "@/lib/site";
 
 type ProjectType = LeadScope;
@@ -180,6 +180,7 @@ export function LeadForm({
               <div className="mt-8 space-y-3 border-t border-black/5 pt-6 text-xs text-navy/70">
                 {[
                   "Fixed written scope and price before work starts",
+                  "Only 20% to start — refunded if the first milestone misses the scope",
                   "NDA signed before any project details",
                   "Code in your repository from day one — you keep full IP",
                   "You talk to the engineers, not a salesperson",
@@ -256,6 +257,12 @@ export function LeadForm({
                           </div>
                           <p className="mt-1 text-xs leading-relaxed text-muted">{estimate.note}</p>
                         </div>
+                        <p className="mt-3 text-sm leading-relaxed text-navy">
+                          Not ready for a full build? Start with a {starterSprint.durationLabel}{" "}
+                          {starterSprint.title.toLowerCase()} for{" "}
+                          <span className="font-bold">{starterSprint.price}</span> —{" "}
+                          {starterSprint.credit.charAt(0).toLowerCase() + starterSprint.credit.slice(1)}
+                        </p>
                         <EstimateCapture
                           estimate={`${estimate.price} · ${estimate.timeline}`}
                           projectType={projectType}

@@ -161,7 +161,7 @@ export function PricingTables({
                     : "bg-navy text-white hover:bg-navy-2",
                 )}
               >
-                {deal.discounted ? "Lock this Q4 rate" : "Start this plan"}
+                {deal.discounted ? "Lock this rate" : "Start this plan"}
               </Link>
             </article>
             );

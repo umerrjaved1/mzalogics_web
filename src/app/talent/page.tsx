@@ -27,7 +27,6 @@ import { ArrowRight } from "lucide-react";
 import { TeamGrid } from "@/components/TeamGrid";
 import { team } from "@/content/team";
 import { teamPhotos } from "@/lib/media";
-import { isPromoActive, promo } from "@/content/promo";
 
 const steps = [
   {
@@ -50,7 +49,6 @@ const steps = [
 
 export default function TalentPage() {
   // Rate cards only advertise the discount while the offer is live.
-  const promoSuffix = isPromoActive() ? ` · ${promo.discountLabel}` : "";
 
   return (
     <>
@@ -70,20 +68,20 @@ export default function TalentPage() {
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 reveal-kids">
             <div className="rounded-2xl border border-black/8 bg-white p-4 shadow-sm">
               <div className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Senior / Lead</div>
-              <p className="mt-1 text-xs text-muted line-through">$50 – $70</p>
-              <div className="text-2xl font-extrabold text-navy">$26 – $39 <span className="text-xs font-medium text-muted">/ hr{promoSuffix}</span></div>
+              <p className="mt-1 text-xs text-muted line-through">$28 – $39</p>
+              <div className="text-2xl font-extrabold text-navy">$12 – $17 <span className="text-xs font-medium text-muted">/ hr</span></div>
               <p className="mt-1 text-xs text-muted">Architects, Tech Leads, Mobile Leads</p>
             </div>
             <div className="rounded-2xl border border-black/8 bg-white p-4 shadow-sm">
               <div className="text-xs font-bold text-accent-cyan uppercase tracking-wider">Mid-Level</div>
-              <p className="mt-1 text-xs text-muted line-through">$35 – $48</p>
-              <div className="text-2xl font-extrabold text-navy">$18 – $26 <span className="text-xs font-medium text-muted">/ hr{promoSuffix}</span></div>
+              <p className="mt-1 text-xs text-muted line-through">$20 – $27</p>
+              <div className="text-2xl font-extrabold text-navy">$9 – $12 <span className="text-xs font-medium text-muted">/ hr</span></div>
               <p className="mt-1 text-xs text-muted">Full-Stack, DevOps, Cloud, UI/UX</p>
             </div>
             <div className="rounded-2xl border border-black/8 bg-white p-4 shadow-sm">
               <div className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Junior / Associate</div>
-              <p className="mt-1 text-xs text-muted line-through">$20 – $28</p>
-              <div className="text-2xl font-extrabold text-navy">$11 – $15 <span className="text-xs font-medium text-muted">/ hr{promoSuffix}</span></div>
+              <p className="mt-1 text-xs text-muted line-through">$11 – $16</p>
+              <div className="text-2xl font-extrabold text-navy">$5 – $7 <span className="text-xs font-medium text-muted">/ hr</span></div>
               <p className="mt-1 text-xs text-muted">Frontend, QA Automation, Styling</p>
             </div>
           </div>

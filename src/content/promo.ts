@@ -15,14 +15,14 @@ export const promo = {
   /** ISO 8601 with offset. Studio time is PKT (UTC+5). */
   endsAt: "2026-12-31T23:59:59+05:00",
 
-  discountLabel: "45% off",
-  navLabel: "Q4 · 45% off",
+  discountLabel: "57% off",
+  navLabel: "Q4 · 57% off",
   eyebrow: "Q4 close-the-deal offer",
-  title: "45% off studio rates through 31 Dec 2026",
+  title: "57% off studio rates through 31 Dec 2026",
   body: "Same engineers and the same review gates. Book this quarter and lock the reduced starting rate on any plan.",
   endsLabel: "Ends 31 Dec 2026",
   cta: "Lock this rate",
-  dockLine: "Q4 deal · 45% off through 31 Dec",
+  dockLine: "Q4 deal · 57% off through 31 Dec",
   extras: [
     "Free 30-minute discovery call",
     "Extra 30 days of fixes on Launch and Growth",

@@ -11,8 +11,8 @@ export const homeFaqs: FaqItem[] = [
   {
     question: "What does it cost?",
     answer: isPromoActive()
-      ? `While the ${promo.eyebrow} runs (${promo.endsLabel.replace(/^Ends/, "ends")}), prices start at $2,150 on the AI-driven track and $3,250 hand-crafted — ${promo.discountLabel} the standard $3,900 / $5,900. Production platforms typically start at $6,290 and $8,990, and dedicated engineers at $2,290 per month. The final number always follows a discovery call, not a tier.`
-      : "Projects start at $3,900 on the AI-driven track and $5,900 hand-crafted. Production platforms typically start at $11,500 and $16,500, and dedicated engineers at $4,160 per month. The final number always follows a discovery call, not a tier.",
+      ? `While the ${promo.eyebrow} runs (${promo.endsLabel.replace(/^Ends/, "ends")}), prices start at $940 on the AI-driven track and $1,420 hand-crafted — ${promo.discountLabel} the standard $2,180 / $3,300. Production platforms typically start at $2,770 and $3,970, and dedicated engineers at $1,010 per month. The final number always follows a discovery call, not a tier.`
+      : "Projects start at $2,180 on the AI-driven track and $3,300 hand-crafted. Production platforms typically start at $6,440 and $9,240, and dedicated engineers at $2,330 per month. The final number always follows a discovery call, not a tier.",
   },
   {
     question: "What does MZA Logics actually build?",
@@ -83,7 +83,7 @@ export const pricingFaqs: FaqItem[] = [
   {
     question: "How does payment work?",
     answer:
-      "Fixed-scope projects are billed 40% to start, 30% at the mid-point demo, and 30% on delivery. Retainers and dedicated engagements are billed monthly in advance with 30 days notice to end. All figures are USD and exclude taxes and third-party cloud or licence costs.",
+      "Fixed-scope projects are billed 20% to start, 40% at the mid-point demo, and 40% on delivery. If the first milestone does not match the written scope, we refund the 20% start payment. Retainers and dedicated engagements are billed monthly in advance with 30 days notice to end. All figures are USD and exclude taxes and third-party cloud or licence costs.",
   },
   {
     question: "Who owns the code?",

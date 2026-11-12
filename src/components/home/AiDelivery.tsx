@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Sparkles, ShieldCheck, Zap, CheckCircle2, ArrowRight, Lock } from "lucide-react";
 import { Container, Section } from "@/components/ui/Container";
 import { aiStats, aiPipeline } from "@/content/ai";
-import { promoNote } from "@/content/promo";
 
 
 export function AiDelivery() {
@@ -117,7 +116,7 @@ export function AiDelivery() {
                     View AI Pod Pricing
                     <ArrowRight size={15} />
                   </Link>
-                  <span className="text-xs text-white/60">{promoNote("Q4 deal · from $2,150")}</span>
+                  <span className="text-xs text-white/60">From $940</span>
                 </div>
               </div>
 
@@ -174,7 +173,7 @@ export function AiDelivery() {
                     View Enterprise Pricing
                     <ArrowRight size={15} />
                   </Link>
-                  <span className="text-xs text-white/60">{promoNote("Q4 deal · from $3,250")}</span>
+                  <span className="text-xs text-white/60">From $1,420</span>
                 </div>
               </div>
 

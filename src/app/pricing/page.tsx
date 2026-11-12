@@ -8,6 +8,7 @@ import { PricingTables } from "@/components/PricingTables";
 import { TalentRateDeck } from "@/components/pricing/TalentRateDeck";
 import { TrackComparisonTable } from "@/components/AiPractice";
 import { DealStrip } from "@/components/conversion/DealStrip";
+import { StarterDeal } from "@/components/pricing/StarterDeal";
 import { addOns, everyEngagementIncludes, pricingNotes } from "@/content/pricing";
 import { effectivePrice, isPromoActive, promo } from "@/content/promo";
 import { pricingFaqs } from "@/content/faqs";
@@ -55,8 +56,8 @@ function WrittenScopeVisual() {
 export const metadata: Metadata = {
   title: "Pricing: Plans, Pods & Sprint Rates",
   description: isPromoActive()
-    ? `${promo.discountLabel} studio rates while the Q4 offer runs. AI-track builds from $2,150, hand-crafted from $3,250, engineers from $2,290/mo. ${promo.endsLabel}.`
-    : "Transparent studio rates. AI-track builds from $3,900, hand-crafted from $5,900, dedicated engineers from $4,160/mo. Fixed quote after a free call.",
+    ? `${promo.discountLabel} studio rates while the Q4 offer runs. AI-track builds from $940, hand-crafted from $1,420, engineers from $1,010/mo. ${promo.endsLabel}.`
+    : "Transparent studio rates. AI-track builds from $2,180, hand-crafted from $3,300, dedicated engineers from $2,330/mo. Fixed quote after a free call.",
   alternates: {
     canonical: "/pricing",
   },
@@ -94,9 +95,6 @@ export default function PricingPage() {
                 handles the repetitive work — which changes the timeline and the hours, not the standard.
               </p>
               <p className="mt-4 max-w-2xl text-base text-muted">
-                {isPromoActive()
-                  ? `${promo.eyebrow}: ${promo.discountLabel} our standard starting rates. `
-                  : ""}
                 You get a fixed quote against a written scope after a free discovery call.
               </p>
             </div>
@@ -105,6 +103,8 @@ export default function PricingPage() {
         </Container>
       </Section>
 
+      {/* Both offers sit above the plans: the small first step, then the Q4 rate. */}
+      <StarterDeal />
       <DealStrip />
       <PricingTables />
 

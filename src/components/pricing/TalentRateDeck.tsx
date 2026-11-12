@@ -14,7 +14,7 @@ import {
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Avatar } from "@/components/ui/Avatar";
 import { team } from "@/content/team";
-import { promo, isPromoActive, promoNote } from "@/content/promo";
+import { promo, isPromoActive } from "@/content/promo";
 import { cn } from "@/lib/cn";
 import { site } from "@/lib/site";
 
@@ -33,11 +33,11 @@ export function TalentRateDeck() {
       badge: "Flagship Talent",
       roleHighlight: "Architects & Technical Leads",
       seniorityParam: "Senior / Lead",
-      hourlyPrice: "$26 – $39",
-      hourlyCompareAt: "$50 – $70",
+      hourlyPrice: "$12 – $17",
+      hourlyCompareAt: "$28 – $39",
       hourlyPeriod: "/ hour",
-      monthlyPrice: "$2,200 – $3,080",
-      monthlyCompareAt: "$4,800 – $6,200",
+      monthlyPrice: "$1,160 – $1,490",
+      monthlyCompareAt: "$2,690 – $3,470",
       monthlyPeriod: "/ month (Full-Time)",
       accentBorder: "border-accent-2/40 hover:border-accent-2",
       badgeClass: "bg-accent-2/15 text-accent-2 border-accent-2/30",
@@ -60,11 +60,11 @@ export function TalentRateDeck() {
       badge: "High Velocity",
       roleHighlight: "Full-Stack & DevOps Engineers",
       seniorityParam: "Mid-Level",
-      hourlyPrice: "$18 – $26",
-      hourlyCompareAt: "$35 – $48",
+      hourlyPrice: "$9 – $12",
+      hourlyCompareAt: "$20 – $27",
       hourlyPeriod: "/ hour",
-      monthlyPrice: "$1,540 – $2,310",
-      monthlyCompareAt: "$3,400 – $4,200",
+      monthlyPrice: "$820 – $1,010",
+      monthlyCompareAt: "$1,900 – $2,350",
       monthlyPeriod: "/ month (Full-Time)",
       accentBorder: "border-accent-cyan/40 hover:border-accent-cyan",
       badgeClass: "bg-accent-cyan/15 text-accent-cyan border-accent-cyan/30",
@@ -87,11 +87,11 @@ export function TalentRateDeck() {
       badge: "Cost-Efficient Builder",
       roleHighlight: "Frontend & QA Specialists",
       seniorityParam: "Junior / Associate",
-      hourlyPrice: "$11 – $15",
-      hourlyCompareAt: "$20 – $28",
+      hourlyPrice: "$5 – $7",
+      hourlyCompareAt: "$11 – $16",
       hourlyPeriod: "/ hour",
-      monthlyPrice: "$990 – $1,540",
-      monthlyCompareAt: "$2,200 – $2,800",
+      monthlyPrice: "$530 – $680",
+      monthlyCompareAt: "$1,230 – $1,570",
       monthlyPeriod: "/ month (Full-Time)",
       accentBorder: "border-emerald-400/40 hover:border-emerald-400",
       badgeClass: "bg-emerald-400/15 text-emerald-400 border-emerald-400/30",
@@ -232,8 +232,8 @@ export function TalentRateDeck() {
                 </div>
                 <p className="mt-1 text-[11px] text-white/40">
                   {billingPeriod === "hourly"
-                    ? promoNote("Q4 deal · billed weekly against logged sprint tickets")
-                    : promoNote("Q4 deal · 160 hours / month exclusive allocation")}
+                    ? "Billed weekly against logged sprint tickets"
+                    : "160 hours / month exclusive allocation"}
                 </p>
               </div>
 

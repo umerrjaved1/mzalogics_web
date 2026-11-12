@@ -73,7 +73,7 @@ export function TeamSection() {
               }`}
             >
               <ShieldCheck size={13} />
-              Senior &amp; Leads ($26–$39/hr)
+              Senior &amp; Leads ($12–$17/hr)
             </button>
             <button
               type="button"
@@ -86,7 +86,7 @@ export function TeamSection() {
               }`}
             >
               <Zap size={13} />
-              Mid-Level ($18–$26/hr)
+              Mid-Level ($9–$12/hr)
             </button>
             <button
               type="button"
@@ -99,7 +99,7 @@ export function TeamSection() {
               }`}
             >
               <Sparkles size={13} />
-              Junior ($11–$15/hr)
+              Junior ($5–$7/hr)
             </button>
           </div>
 
