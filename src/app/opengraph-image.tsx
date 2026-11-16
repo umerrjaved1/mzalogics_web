@@ -25,10 +25,10 @@ export default function OpengraphImage() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={markDataUri({ size: 76, radius: 22 })} width={76} height={76} alt="" />
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontSize: 34, fontWeight: 800, letterSpacing: -1 }}>MZA</span>
-            <span style={{ fontSize: 16, letterSpacing: 7, opacity: 0.6 }}>LOGICS</span>
+          <img src={markDataUri({ size: 76, tile: "transparent" })} width={76} height={76} alt="" />
+          <div style={{ display: "flex", alignItems: "baseline", gap: 12, fontSize: 40, letterSpacing: -1.2 }}>
+            <span style={{ fontWeight: 800 }}>MZA</span>
+            <span style={{ fontWeight: 500 }}>Logics</span>
           </div>
         </div>
 

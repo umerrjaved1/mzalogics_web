@@ -1,34 +1,40 @@
+"use client";
+
+import { useId } from "react";
+import { brand, MARK_PATHS } from "@/lib/brand";
+
 /**
- * MZA Logics brand mark.
+ * MZA Logics brand mark: two folded ribbons forming an "M", mint teal at the
+ * top fading to signal blue at the bottom. Redrawn from the office sign so
+ * the website, the office and social profiles carry the same logo.
  *
- * The mark is an angular "M" drawn as a single folded signal path inside a
- * rounded tile. The left stroke is neutral, the right stroke rises in accent
- * teal — an M that reads as an upward path. The joint between them is the
- * "logic node" the wordmark is named for.
+ * The gradient id comes from useId: a fixed id shared by the header and the
+ * footer breaks in some browsers when the first copy sits in a hidden subtree.
  */
-export function Mark({
-  className = "h-8 w-8",
-  invert = false,
-}: {
-  className?: string;
-  invert?: boolean;
-}) {
-  const tile = invert ? "#FFFFFF" : "#0E0926";
-  const stroke = invert ? "#0E0926" : "#FFFFFF";
-  const accent = invert ? "#0FB39B" : "#5EEAD4";
+export function Mark({ className = "h-8 w-[38px]" }: { className?: string }) {
+  const id = `mza-mark-${useId().replace(/:/g, "")}`;
 
   return (
-    <svg viewBox="0 0 40 40" className={className} aria-hidden>
-      <rect x="0" y="0" width="40" height="40" rx="12" fill={tile} />
-      <g fill="none" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10 29V14.5l10 10" stroke={stroke} />
-        <path d="M20 24.5 30 14.5V29" stroke={accent} />
+    <svg viewBox="0 0 100 84" className={className} aria-hidden>
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor={brand.markTop} />
+          <stop offset="1" stopColor={brand.markBottom} />
+        </linearGradient>
+      </defs>
+      <g fill="none" stroke={`url(#${id})`} strokeWidth="14" strokeLinejoin="round">
+        {MARK_PATHS.map((d) => (
+          <path key={d} d={d} />
+        ))}
       </g>
-      <circle cx="20" cy="24.5" r="2.1" fill={accent} />
     </svg>
   );
 }
 
+/**
+ * Horizontal lockup (variation A): mark, then "MZA Logics" on one line.
+ * `invert` switches the wordmark to white for dark grounds (variation B).
+ */
 export function Logo({
   compact = false,
   invert = false,
@@ -38,30 +44,29 @@ export function Logo({
   invert?: boolean;
   className?: string;
 }) {
+  // Below 360px (iPhone SE and similar) the full-size lockup pushes the
+  // header's menu button off screen, so the logo steps down a size there.
   return (
     <span
-      className={`inline-flex items-center gap-2.5 ${invert ? "text-white" : "text-navy"} ${className}`}
+      className={`inline-flex items-center gap-1.5 min-[360px]:gap-2.5 ${invert ? "text-white" : "text-navy"} ${className}`}
     >
-      <Mark className="h-9 w-9" invert={invert} />
+      <Mark className="h-[22px] w-[26px] min-[360px]:h-8 min-[360px]:w-[38px]" />
       {!compact && (
-        <span className="flex flex-col leading-none">
-          <span className="text-[19px] font-extrabold tracking-[-0.03em]">MZA</span>
-          <span className="mt-[3px] text-[10px] font-semibold uppercase tracking-[0.3em] opacity-60">
-            Logics
-          </span>
+        <span className="whitespace-nowrap text-[15px] leading-none tracking-[-0.03em] min-[360px]:text-[20px]">
+          <span className="font-extrabold">MZA</span> <span className="font-medium">Logics</span>
         </span>
       )}
     </span>
   );
 }
 
-/** Wordmark on one line — for footers, decks, and wide lockups. */
+/** Same lockup, slightly smaller — for decks and tight rows. */
 export function LogoInline({ invert = false }: { invert?: boolean }) {
   return (
-    <span className={`inline-flex items-center gap-2.5 ${invert ? "text-white" : "text-navy"}`}>
-      <Mark className="h-8 w-8" invert={invert} />
-      <span className="text-[18px] font-extrabold tracking-[-0.02em]">
-        MZA <span className="font-semibold opacity-55">Logics</span>
+    <span className={`inline-flex items-center gap-2 ${invert ? "text-white" : "text-navy"}`}>
+      <Mark className="h-7 w-[33px]" />
+      <span className="whitespace-nowrap text-[18px] leading-none tracking-[-0.03em]">
+        <span className="font-extrabold">MZA</span> <span className="font-medium">Logics</span>
       </span>
     </span>
   );
