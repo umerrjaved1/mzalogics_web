@@ -15,10 +15,15 @@ export function FounderNote({ founder }: { founder: TeamMember }) {
   const portrait = resolveLocal(`/media/team/${founder.slug}-portrait.jpg`);
   const firstName = founder.name.split(" ")[0];
 
+  // Counted from the dates in his bio, so the numbers do not go stale.
+  const aiYears = yearsSince(new Date("2024-08-01"));
+
+  // Same shape for all three: a number a buyer can compare, then what it is.
+  // Labels stay short enough not to wrap in a three-column row.
   const facts = [
-    { value: founder.experience ?? "8+ years", label: "Android engineering" },
-    { value: "2024", label: "Building AI products on Claude & GPT" },
-    { value: "2021", label: "Founded MZA Logics in Lahore" },
+    { value: founder.experience ?? "8+ years", label: "Building Android apps" },
+    { value: `${aiYears}+ years`, label: "AI features on Claude & GPT" },
+    { value: "Since 2021", label: "Running MZA Logics, Lahore" },
   ];
 
   return (
@@ -86,4 +91,10 @@ export function FounderNote({ founder }: { founder: TeamMember }) {
       </Container>
     </Section>
   );
+}
+
+/** Whole years from `start` to now, never less than 1. */
+function yearsSince(start: Date) {
+  const years = (Date.now() - start.getTime()) / (365.25 * 24 * 60 * 60 * 1000);
+  return Math.max(1, Math.floor(years));
 }
