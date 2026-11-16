@@ -4,6 +4,7 @@ import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { getInsights } from "@/lib/insights";
 
 import { site } from "@/lib/site";
+import { defaultOgImages } from "@/lib/og";
 
 export const metadata: Metadata = {
   title: "Insights: Engineering & AI in Production",
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
     description:
       "Field notes on enterprise delivery, production AI, and software architecture from MZA Logics.",
     url: `${site.url}/insights`,
+    images: defaultOgImages,
   },
 };
 

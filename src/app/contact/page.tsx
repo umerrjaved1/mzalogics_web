@@ -4,6 +4,7 @@ import { BookingPanel } from "@/components/conversion/BookingPanel";
 import { TrustPoints } from "@/components/conversion/TrustPoints";
 import { Container, Eyebrow, Section } from "@/components/ui/Container";
 import { site } from "@/lib/site";
+import { defaultOgImages } from "@/lib/og";
 
 export const metadata: Metadata = {
   title: "Book a Discovery Call",
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
     description:
       "Schedule a discovery call with our technical leadership. We reply within one business day.",
     url: `${site.url}/contact`,
+    images: defaultOgImages,
   },
 };
 

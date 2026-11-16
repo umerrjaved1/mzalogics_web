@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { getInsight, getInsightSlugs } from "@/lib/insights";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
+import { defaultOgImages } from "@/lib/og";
 
 export function generateStaticParams() {
   return getInsightSlugs().map((file) => ({ slug: file.replace(/\.mdx$/, "") }));
@@ -34,6 +35,7 @@ export async function generateMetadata({
       publishedTime: post.meta.date,
       authors: [post.meta.author],
       url: `${site.url}/insights/${slug}`,
+      images: defaultOgImages,
     },
   };
 }

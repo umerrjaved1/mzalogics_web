@@ -3,6 +3,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { CareersClient } from "./careers-client";
 import { breadcrumbJsonLd, jobJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
+import { defaultOgImages } from "@/lib/og";
 
 export const metadata: Metadata = {
   title: "Careers: Engineering Roles in Lahore",
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     description:
       "Open engineering, design, QA, and delivery roles. Senior review, clear gates, no bait-and-switch staffing.",
     url: `${site.url}/careers`,
+    images: defaultOgImages,
   },
 };
 

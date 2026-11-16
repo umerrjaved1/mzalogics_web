@@ -15,6 +15,7 @@ import { pricingFaqs } from "@/content/faqs";
 import { breadcrumbJsonLd, faqJsonLd, pricingJsonLd } from "@/lib/jsonld";
 
 import { site } from "@/lib/site";
+import { defaultOgImages } from "@/lib/og";
 
 /** What every engagement starts with: a written scope and a fixed price. */
 function WrittenScopeVisual() {
@@ -67,6 +68,7 @@ export const metadata: Metadata = {
       ? `${promo.eyebrow}: ${promo.discountLabel} starting rates. Same team, same review gates.`
       : "Two delivery tracks, one rate card. Same team, same review gates.",
     url: `${site.url}/pricing`,
+    images: defaultOgImages,
   },
 };
 

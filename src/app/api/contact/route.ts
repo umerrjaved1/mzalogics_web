@@ -175,11 +175,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, via: delivery });
   }
 
+  // The reason (a missing key, a Resend error) goes to the server log above,
+  // never to the visitor: it names internal settings and helps no one.
+  if (emailError) console.error(`[contact] not delivered: ${emailError}`);
   return NextResponse.json(
-    {
-      error: "We could not deliver your message just now. Please WhatsApp or email us directly.",
-      detail: emailError ?? undefined,
-    },
+    { error: "We could not deliver your message just now. Please WhatsApp or email us directly." },
     { status: 503 },
   );
 }

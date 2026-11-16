@@ -23,6 +23,7 @@ import { caseStudies } from "@/content/case-studies";
 import { Avatar } from "@/components/ui/Avatar";
 import { hasPublicFile, teamPhotos } from "@/lib/media";
 import { StudioBoard } from "@/components/about/StudioBoard";
+import { defaultOgImages } from "@/lib/og";
 
 export const metadata: Metadata = {
   title: "About: A Software Development Studio in Lahore",
@@ -36,6 +37,7 @@ export const metadata: Metadata = {
     description:
       "A software development studio in Lahore, building digital products for businesses worldwide.",
     url: `${site.url}/about`,
+    images: defaultOgImages,
   },
 };
 

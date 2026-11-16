@@ -20,6 +20,7 @@ import { getTeamMember, hireHref, team } from "@/content/team";
 import { resolveLocal } from "@/lib/media";
 import { breadcrumbJsonLd, personJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
+import { defaultOgImages } from "@/lib/og";
 
 export function generateStaticParams() {
   return team.map((member) => ({ slug: member.slug }));
@@ -43,6 +44,7 @@ export async function generateMetadata({
       title: `${member.name} — ${member.role} | MZA Logics`,
       description: member.whyHire,
       url: `${site.url}/team/${slug}`,
+      images: defaultOgImages,
     },
   };
 }

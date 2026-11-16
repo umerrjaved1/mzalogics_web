@@ -20,6 +20,7 @@ import { resolveLocal } from "@/lib/media";
 import { ArrowUpRight, Check } from "lucide-react";
 import { PracticeShowcase } from "@/components/solutions/PracticeShowcase";
 import { CaseStudyCover } from "@/components/ui/CaseStudyCover";
+import { defaultOgImages } from "@/lib/og";
 
 /** Which published work best proves each practice. Numbers come from the
  *  case-studies content itself, so the claim never drifts from the data. */
@@ -109,6 +110,7 @@ export async function generateMetadata({
       title: `${service.title} | ${site.name}`,
       description: service.summary,
       url: `${site.url}/solutions/${slug}`,
+      images: defaultOgImages,
     },
   };
 }

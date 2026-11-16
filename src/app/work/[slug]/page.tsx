@@ -12,6 +12,7 @@ import { resolveLocal } from "@/lib/media";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
+import { defaultOgImages } from "@/lib/og";
 
 /** Search snippets cut off near 160 characters, and most summaries alone ran
  * 25-70, so the summary, what was built, and who built it are combined. */
@@ -45,6 +46,7 @@ export async function generateMetadata({
       title: `${study.title} | MZA Logics Case Study`,
       description,
       url: `${site.url}/work/${slug}`,
+      images: defaultOgImages,
     },
   };
 }

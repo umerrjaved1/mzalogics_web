@@ -14,6 +14,7 @@ import { serviceCovers } from "@/content/visuals";
 import { MediaImg } from "@/components/ui/MediaImg";
 import { ServiceScene } from "@/components/ui/DeviceMockup";
 import { resolveLocal } from "@/lib/media";
+import { defaultOgImages } from "@/lib/og";
 
 export const metadata: Metadata = {
   title: "Solutions: Mobile Apps, Web Platforms & AI",
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
     description:
       "Mobile apps, web platforms, AI features, MVPs, and cloud — each scoped in writing and built by senior engineers.",
     url: `${site.url}/solutions`,
+    images: defaultOgImages,
   },
 };
 

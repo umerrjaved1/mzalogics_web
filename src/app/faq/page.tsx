@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { allFaqs, faqGroups } from "@/content/faqs";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
+import { defaultOgImages } from "@/lib/og";
 
 export const metadata: Metadata = {
   title: "FAQ: Pricing, Delivery & IP Ownership",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
     description:
       "Answers on pricing, IP ownership, sprint timelines, and delivery tracks at MZA Logics.",
     url: `${site.url}/faq`,
+    images: defaultOgImages,
   },
 };
 

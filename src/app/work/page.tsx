@@ -5,6 +5,7 @@ import { WorkCatalog, type WorkCard } from "@/components/work/WorkCatalog";
 import { caseStudies, type CaseStudy } from "@/content/case-studies";
 import { site } from "@/lib/site";
 import { resolveLocal } from "@/lib/media";
+import { defaultOgImages } from "@/lib/og";
 
 const clientLead = [
   "laugh-factory",
@@ -61,6 +62,7 @@ export const metadata: Metadata = {
     description:
       "Published Android apps and live client sites.",
     url: `${site.url}/work`,
+    images: defaultOgImages,
   },
 };
 

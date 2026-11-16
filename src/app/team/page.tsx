@@ -11,6 +11,7 @@ import { team, teamPortfolio } from "@/content/team";
 import { breadcrumbJsonLd, personJsonLd } from "@/lib/jsonld";
 import { site } from "@/lib/site";
 import { teamPhotos } from "@/lib/media";
+import { defaultOgImages } from "@/lib/og";
 
 export const metadata: Metadata = {
   title: "Team: Android, AI & Design Specialists",
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
     title: "The MZA Logics Team",
     description: "Meet the people who scope, build and ship your product.",
     url: `${site.url}/team`,
+    images: defaultOgImages,
   },
 };
 

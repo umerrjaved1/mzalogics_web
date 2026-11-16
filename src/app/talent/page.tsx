@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     description:
       "Work directly with a small senior team in Lahore. Transparent rates and no lock-in.",
     url: `${site.url}/talent`,
+    images: defaultOgImages,
   },
 };
 
@@ -27,6 +28,7 @@ import { ArrowRight } from "lucide-react";
 import { TeamGrid } from "@/components/TeamGrid";
 import { team } from "@/content/team";
 import { teamPhotos } from "@/lib/media";
+import { defaultOgImages } from "@/lib/og";
 
 const steps = [
   {

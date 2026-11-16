@@ -6,6 +6,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { rescueFaqs } from "@/content/faqs";
 
 import { site } from "@/lib/site";
+import { defaultOgImages } from "@/lib/og";
 
 export const metadata: Metadata = {
   title: "Project Rescue & Code Audits",
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
     description:
       "Comprehensive code audits, vulnerability scans, and architecture refactoring for stalled or buggy software.",
     url: `${site.url}/rescue`,
+    images: defaultOgImages,
   },
 };
 
